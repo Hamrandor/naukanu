@@ -45,6 +45,14 @@ class naukanu extends CI_Controller {
             $data = array();
             $boatArray = $this->boat->getBoatArray();
             $data["boatArray"] = $this->boat->getNameSelect();
+            $selectedBoat = $this->input->post('sBoatID');
+            echo "abc".$selectedBoat;        
+            echo "<br>";        
+            $data["selectedBoat"] = $selectedBoat;
+            if (isset($selectedBoat)){
+                echo 'boot gesetzt<br>';
+                
+            }
             $this->load->view('v_wb_body', $data);
             $this->load->view('v_wb_footer');
 	}
