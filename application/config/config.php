@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = '1qay2wsx3edc';
 
 /*
 |--------------------------------------------------------------------------
@@ -243,7 +243,7 @@ $config['encryption_key'] = '';
 | 'sess_match_useragent'	= Whether to match the User Agent when reading the session data
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
-*/
+
 $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
@@ -253,6 +253,25 @@ $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
 $config['sess_time_to_update']	= 300;
+*/
+$config['log_threshold'] = 1;
+$config['sess_cookie_name']     = 'xconf_session';
+$config['sess_expiration']      = 7200;
+$config['sess_expire_on_close'] = TRUE;
+$config['sess_encrypt_cookie']  = TRUE;
+$config['sess_use_database']    = TRUE;
+$config['sess_table_name']      = 'ci_sessions';
+$config['sess_match_ip']        = TRUE;
+$config['sess_match_useragent'] = TRUE;
+$config['sess_time_to_update']  = 300;
+$config['global_xss_filtering'] = TRUE;
+$config['csrf_protection'] = TRUE;
+$config['csrf_token_name'] = 'token';
+$config['csrf_cookie_name'] = 'cookie';
+$config['csrf_expire'] = 7200;
+$config['compress_output'] = TRUE;
+$config['rewrite_short_tags'] = TRUE;
+$config['url_suffix'] = '.html';
 
 /*
 |--------------------------------------------------------------------------

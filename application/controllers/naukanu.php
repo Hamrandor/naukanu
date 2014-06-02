@@ -17,16 +17,36 @@ class naukanu extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+        public function __construct(){
+            parent::__construct();
+            //Laden der form helper
+            $this->load->helper(array('form', 'html', 'url'));
+            //Laden der form_validation library sowie der session library
+            //Zur verwendung von sessions und form_validations
+            $this->load->library(array('form_validation', 'session'));
+            //Laden unserer models (/application/models/user.php)
+            //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
+            $this->load->model(array('user', 'boat'));
+        }
+        
+        
 	public function index(){
-		$this->load->view('v_naukanu');
+            if($this->session->userdata('login_state') === TRUE){
+                //hier könnte man nun das entsprechende view laden.
+            $this->load->view('v_naukanu');
+            }else{
+                //Redirect to http://xyz.de/login.html
+                redirect("login");
+            }
 	}
 	
 	public function workbook(){
-		$this->load->view('v_workbook');
-	}
-
-	public function view(){
-		$this->load->view('v_view');
+            $this->load->view('v_wb_head');
+            $data = array();
+            $boatArray = $this->boat->getBoatArray();
+            $data["boatArray"] = $this->boat->getNameSelect();
+            $this->load->view('v_wb_body', $data);
+            $this->load->view('v_wb_footer');
 	}
 
 	public function logo(){
