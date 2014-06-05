@@ -43,15 +43,11 @@ class naukanu extends CI_Controller {
 	public function workbook(){
             $this->load->view('v_wb_head');
             $data = array();
-            $boatArray = $this->boat->getBoatArray();
-            $data["boatArray"] = $this->boat->getNameSelect();
+            $data["boatArray"] = $this->boat->getBoatNameSelect();
             $selectedBoat = $this->input->post('sBoatID');
-            echo "abc".$selectedBoat;        
-            echo "<br>";        
             $data["selectedBoat"] = $selectedBoat;
-            if (isset($selectedBoat)){
-                echo 'boot gesetzt<br>';
-                
+            if (isset($selectedBoat)){           
+                $data['boatObject'] = $this->boat->getBoatForID($selectedBoat);
             }
             $this->load->view('v_wb_body', $data);
             $this->load->view('v_wb_footer');

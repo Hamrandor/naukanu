@@ -1,4 +1,14 @@
+    ErrorDocument 404 /index.php
+
+    # Set the default handler.
+    DirectoryIndex index.php
+
 <IfModule mod_rewrite.c>
+    # Various rewrite rules.
+    #RewriteEngine on
+    #RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
     RewriteEngine On
     RewriteBase /naukanu/
 
@@ -25,7 +35,7 @@
     
     </IfModule>
 
-    <IfModule !mod_rewrite.c>
+   <IfModule !mod_rewrite.c>
         # If we don't have mod_rewrite installed, all 404's
         # can be sent to index.php, and everything works as normal.
         # Submitted by: ElliotHaughin

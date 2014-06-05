@@ -12,19 +12,35 @@
  * @author Jens
  */
 class boat extends CI_Model{
+  
+    public $boattype;
+    public $name;
+    public $condition;
+    public $boatid;
     
-    //public $result;
     //put your code here
     
-    public function getBoatForID($boatID){
+  
+    public function fillDataForID($boatID){
         $this->db->select('*');
         $this->db->from("boat");
         $this->db->where("boatid", $boatID);
- 
         $query = $this->db->get();
-        
-//        return $this->objectAsArray($query);
-        return $query;
+        if ($query->num_rows() == 1)
+        {
+            foreach ($query->result_array() as $row){
+                $this->boatid = $row['boatID'];
+                $this->boattype = new boattype();
+                $this->boattype->fillDataForID($row['boatTypeID']);
+                $this->name = $row['name'];
+                $this->condition = new condition();
+                $this->condition->fillDataForID($row['conditionID']);
+                
+           //     echo "<br><br><br>Boot : ".$row['name']." xxx<br>";
+           //     echo "test = ".$row['boatID']."yyy<br>";
+            }
+           // return $row;
+        }
  
     }
     
@@ -61,9 +77,10 @@ class boat extends CI_Model{
            return $result;
        }
     }
+  
+    //#######################################################################
     
-    
-    public function getNameSelect(){
+    public function getBoatNameSelect(){
         $myresult = array();
         $this->db->select('*');
         $this->db->from('boat');        
@@ -74,5 +91,22 @@ class boat extends CI_Model{
         return $myresult;
     }
     
+    public function getBoatForID($id){
+        //b.boatid, t.typename, c.Description 
+//        $this->db->query('SELECT * from `boat` as b left join `boattype` as t on b.boatID = t.boatTypeID left JOIN `condition` as c on b.conditionID= c.conditionID');
+        $this->db->select('*');
+        $this->db->from('boat');
+        $this->db->join('boattype', 'boat.boattypeid = boattype.boattypeid', 'left');
+        $this->db->join('condition', 'boat.conditionid= condition.conditionid','left');
+        $this->db->where('boatid', $id);        
+        $query = $this->db->get();
+        if ($query->num_rows() == 1)
+        {
+            foreach ($query->result_array() as $row){
+                print_r($row);
+                return $row;
+            }
+        }
+    }
 }
-
+    
