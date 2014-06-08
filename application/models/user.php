@@ -88,5 +88,3 @@ class User extends CI_Model {
         return sha1($password.md5($salt));
     }
 }
- 
-?>

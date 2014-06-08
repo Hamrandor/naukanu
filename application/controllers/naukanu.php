@@ -26,7 +26,7 @@ class naukanu extends CI_Controller {
             $this->load->library(array('form_validation', 'session'));
             //Laden unserer models (/application/models/user.php)
             //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
-            $this->load->model(array('user', 'boat'));
+            $this->load->model(array('user', 'boat', 'mast'));
         }
         
         
@@ -46,8 +46,12 @@ class naukanu extends CI_Controller {
             $data["boatArray"] = $this->boat->getBoatNameSelect();
             $selectedBoat = $this->input->post('sBoatID');
             $data["selectedBoat"] = $selectedBoat;
-            if (isset($selectedBoat)){           
-                $data['boatObject'] = $this->boat->getBoatForID($selectedBoat);
+            if (isset($selectedBoat)){
+                $boatObject = $this->boat->getBoatForID($selectedBoat);
+                $data['boatObject'] = $boatObject;
+                //$mastArray = array();
+                $mastArray = $this->mast->getMastArrayForBoatID($boatObject['boatID']);
+                $data['mastarray'] = $mastArray;
             }
             $this->load->view('v_wb_body', $data);
             $this->load->view('v_wb_footer');

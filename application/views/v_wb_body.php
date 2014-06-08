@@ -13,13 +13,28 @@ Hirsenbirsen
         echo form_close();
         
         if (isset($boatObject)) {
+            echo form_open("naukanu/workbook");
             echo "Name des Bootes : ".$boatObject['name'].'<br>';
             echo "Zustand         : ".$boatObject['Description'].'<br>';
             echo "Bootstyp        : ".$boatObject['typename'].'<br>';
             echo '<br>';
-            echo '<br>';
-            echo '<br>';
-            echo '<br>';
-            print_r($boatObject);
+            echo form_button($data);
+            echo form_close();
+            //print_r($boatObject);
         }
+        if (isset($mastarray)) {
+            $i = 1;
+            foreach ($mastarray as $mast){
+                echo $i.'. Mast: <br>';
+                echo 'Mastname       : '.$mast['name'].'<br>';
+                echo 'Zustand        : '.$mast['Description'].'<br>';
+                echo 'Masttyp        : '.$mast['typename'].'<br>';
+                echo 'H&ouml;he          : '.$mast['heigth'].'<br>';
+                
+            }
+            
+            //print_r($mastarray);
+        }
+        
+        
 ?>

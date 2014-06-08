@@ -26,17 +26,22 @@ class login extends CI_Controller{
  
     public function index(){
         //Prüfen der session login_state auf ihren Wert
+        echo 'hier einstieg -- '.$this->session->userdata('login_state').'<br>';
+        //$this->session->userdata('login_state') = FALSE;
         if($this->session->userdata('login_state') == FALSE){
             //Vorraussetzen welche input felder ausgefüllt sein müssen. wenn diese nicht ausgefüllt sind wird
             //validation_errors() im view die nicht ausgefüllten felder zurückliefern beim absenden des formulars
             //sobald die methode $this->form_validation->run() ausgeführt wird.
+            echo 'eins<br>';
             $this->form_validation->set_rules('username', 'Domain', 'required');
             $this->form_validation->set_rules('password', 'Passwort', 'required');
  
             $data = array();
- 
+            $tuut =$this->form_validation->run();
+            echo 'zwei'.print_r($tuut).'<br>';
             //Prüfen ob alle Felder ausgefüllt wurden, welche als required definiert wurden.
-            if ($this->form_validation->run() == TRUE){
+            if ($this->form_validation->run()===TRUE){
+                echo 'drei'.print_r($tuut).'<br>';
  
                 //Abfangen der Post-Parameter und zeitgleiches filtern auf xss und etc sofern die entsprechenden
                 //sachen im der config auf true gestellt worden sind.
@@ -44,7 +49,10 @@ class login extends CI_Controller{
                 $password = $this->input->post('password');
  
                 //Logindaten überprüfen
+                echo 'username = '.$username.'<br>';
+                echo 'password = '.$password.'<br>';
                 $user = $this->user->checkUserCredentials($username, $password);
+                echo 'user2 = '.$user.'<br>';
  
                 //Wenn der username zurück geliefert wurde die session login_state auf true setzen,
                 //sowie den benutzernamen zur session "username" setzen.
@@ -60,6 +68,7 @@ class login extends CI_Controller{
                     
  
                 }else{
+                    echo 'login fehlgeschlagen <br>';
                     //Setzen der variable $error im view
                     $data["error"] = "Login fehlgeschlagen.";
                 }
