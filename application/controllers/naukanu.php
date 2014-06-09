@@ -39,19 +39,39 @@ class naukanu extends CI_Controller {
                 redirect("login");
             }
 	}
-	
-	public function workbook(){
-            $this->load->view('v_wb_head');
+        
+        
+
+        public function workbook(){
             $data = array();
+            $this->load->view('v_wb_head');
+            $data['editBoat'] = false;
             $data["boatArray"] = $this->boat->getBoatNameSelect();
             $selectedBoat = $this->input->post('sBoatID');
             $data["selectedBoat"] = $selectedBoat;
+            $data["selectedBoatType"] = null;
             if (isset($selectedBoat)){
                 $boatObject = $this->boat->getBoatForID($selectedBoat);
                 $data['boatObject'] = $boatObject;
                 //$mastArray = array();
                 $mastArray = $this->mast->getMastArrayForBoatID($boatObject['boatID']);
                 $data['mastarray'] = $mastArray;
+                //echo 'eins '.$this->input->post('editBoat').'<br>';
+                if($this->input->post('editBoat')){
+                //echo 'zwei <br>';
+                    //echo "boatEdit<br>";
+                    $data['editBoat'] = true;
+                    //echo 'boatObject'.print_r($boatObject).'<br>';
+                    $data['mastSelect'] = $this->mast->getAvailableMastArrayForBoatType($boatObject['boatTypeID']);
+                    $data['boatTypeSelect'] =  $this->boat->getBoatTypeSelect();
+                }
+                if($this->input->post('saveBoat')){
+                    $selectedBoatType = $this->input->post('sBoatTypeID');
+                    //$data["selectedBoatType"] = $selectedBoatType;
+                    $boatObject['boatTypeID'] = $selectedBoatType;
+                    $boatObject['name'] = $this->input->post('boatName');
+                    $this->boat->saveBoat($boatObject);
+                }
             }
             $this->load->view('v_wb_body', $data);
             $this->load->view('v_wb_footer');

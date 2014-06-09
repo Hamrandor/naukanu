@@ -108,5 +108,28 @@ class boat extends CI_Model{
             }
         }
     }
+    
+    public function getBoatTypeSelect(){
+        $myresult = array();
+        $this->db->select('*');
+        $this->db->from('boattype');
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){
+            $myresult[$row['boatTypeID']] = $row['typename'];
+        }
+        return $myresult;
+    }
+    
+    public function saveBoat($boatObject){
+        $id = $boatObject["boatID"];
+        $data = array(
+          'name' => $boatObject['name'],
+          'boatTypeID' => $boatObject["boatTypeID"],
+          'conditionID' => $boatObject["conditionID"]
+        );
+        $this->db->where('boatID', $id);
+        $this->db->update('boat', $data);
+    }
+    
 }
     

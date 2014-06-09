@@ -66,4 +66,26 @@ class mast extends CI_Model{
         }
         return $myresult;
     }
+    
+    public function getAvailableMastArrayForBoatType($boatTypeID){
+        $result = array();
+//        $this->db->query('SELECT * from mast as m '
+//               . 'left join masttype as mt on m.masttypeid = mt.masttypeid '
+//               . 'left join jtboatmast as jt on mt.masttypeid = jt.masttypeid '
+//               . 'where jt.boattypeID = '.$boatTypeID);
+        $this->db->select('*');
+        $this->db->from('mast');
+        $this->db->join('masttype', 'mast.mastTypeID = masttype.mastTypeID', 'left');
+        $this->db->join('jtboatmast', 'masttype.mastTypeID = jtboatmast.mastTypeID', 'left');
+        $this->db->where('jtboatmast.boatTypeID', $boatTypeID);
+        
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result_array() as $row){
+                $result[]=$row;
+            }
+        }
+        return $result;
+    }
 }

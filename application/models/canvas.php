@@ -66,4 +66,6 @@ class canvas extends CI_Model{
         }
         return $myresult;
     }
+    
+   
 }
