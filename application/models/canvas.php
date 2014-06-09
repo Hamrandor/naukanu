@@ -7,20 +7,20 @@
  */
 
 /**
- * Description of mast
+ * Description of canvas
  *
  * @author Jens
  */
-class mast extends CI_Model{
+class canvas extends CI_Model{
     //put your code here
-    public function getMastForID($id){
+    public function getCanvasForID($id){
         //b.boatid, t.typename, c.Description 
 //        $this->db->query('SELECT * from `boat` as b left join `boattype` as t on b.boatID = t.boatTypeID left JOIN `condition` as c on b.conditionID= c.conditionID');
         $this->db->select('*');
-        $this->db->from('Mast');
-        $this->db->join('masttype', 'mast.masttypeid = masttype.masttypeid', 'left');
-        $this->db->join('condition', 'mast.conditionid= condition.conditionid','left');
-        $this->db->where('mastid', $id);        
+        $this->db->from('Canvas');
+        $this->db->join('canvastype', 'canvas.canvastypeid = canvastype.canvastypeid', 'left');
+        $this->db->join('condition', 'canvas.conditionid= condition.conditionid','left');
+        $this->db->where('canvasid', $id);        
         $query = $this->db->get();
         if ($query->num_rows() == 1)
         {
@@ -32,10 +32,10 @@ class mast extends CI_Model{
     }
     
     
-    public function getMastArrayForBoatID($boatID){
+    public function getCanvasArrayForBoatID($boatID){
         $result = array();
         $this->db->select('*');
-        $this->db->from('Mast');
+        $this->db->from('canvas');
         $this->db->join('masttype', 'mast.masttypeid = masttype.masttypeid', 'left');
         $this->db->join('condition', 'mast.conditionid= condition.conditionid','left');
         $this->db->where('boatID', $boatID);        
@@ -51,18 +51,18 @@ class mast extends CI_Model{
     
     
     //holt Daten für Dropdown Menü 
-    //alle wenn kein boot angegeben
-    public function getMastTypeNameSelect($boatTypeID){
+    //alle wenn kein Mast angegeben
+    public function getCanvasTypeNameSelect($mastTypeID){
         $myresult = array();
         $this->db->select('*');
-        $this->db->from('mastType');
-        if (isset($boatTypeID)) {
-            $this->db->join('jtboatmast', 'mast.mastTypeID = jtboatmast.mastTypeID', 'right');
-            $this->db->where('boatTypeID', $boatTypeID);
+        $this->db->from('canvasType');
+        if (isset($mastTypeID)) {
+            $this->db->join('jtmastcanvas', 'canvas.canvasTypeID = jtmastcanvas.mastTypeID', 'right');
+            $this->db->where('mastTypeID', $mastTypeID);
         }
         $query = $this->db->get();
         foreach($query->result_array() as $row){
-            $myresult[$row['mastTypeID']] = $row['typename'];
+            $myresult[$row['canvasTypeID']] = $row['typename'];
         }
         return $myresult;
     }
