@@ -86,6 +86,19 @@ class mast extends CI_Model{
                 $result[]=$row;
             }
         }
+        //echo '<br><br><br>'.print_r($result).'<br><br><br>';
         return $result;
+    }
+    
+    
+    public function saveMast($aMast){
+        $data = Array(
+            'name' => $aMast['name'],
+            'mastTypeID' => $aMast['mastTypeID'],
+            'conditionID' => $aMast['conditionID'],
+            'boatID' => $aMast['boatID']
+        );
+        $this->db->where('mastID', $aMast['mastID']);
+        $this->db->update('mast', $data);        
     }
 }

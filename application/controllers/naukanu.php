@@ -26,7 +26,7 @@ class naukanu extends CI_Controller {
             $this->load->library(array('form_validation', 'session'));
             //Laden unserer models (/application/models/user.php)
             //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
-            $this->load->model(array('user', 'boat', 'mast'));
+            $this->load->model(array('user', 'boat', 'mast', 'canvas', 'tools'));
         }
         
         
@@ -50,6 +50,7 @@ class naukanu extends CI_Controller {
             $selectedBoat = $this->input->post('sBoatID');
             $data["selectedBoat"] = $selectedBoat;
             $data["selectedBoatType"] = null;
+            $data["assignMast"] = false;
             if (isset($selectedBoat)){
                 $boatObject = $this->boat->getBoatForID($selectedBoat);
                 $data['boatObject'] = $boatObject;
@@ -62,7 +63,6 @@ class naukanu extends CI_Controller {
                     //echo "boatEdit<br>";
                     $data['editBoat'] = true;
                     //echo 'boatObject'.print_r($boatObject).'<br>';
-                    $data['mastSelect'] = $this->mast->getAvailableMastArrayForBoatType($boatObject['boatTypeID']);
                     $data['boatTypeSelect'] =  $this->boat->getBoatTypeSelect();
                 }
                 if($this->input->post('saveBoat')){
@@ -72,6 +72,24 @@ class naukanu extends CI_Controller {
                     $boatObject['name'] = $this->input->post('boatName');
                     $this->boat->saveBoat($boatObject);
                 }
+                if($this->input->post('assignMast')){
+                    $data["assignMast"] = true;
+                    $availableMastDropDown = $this->mast->getAvailableMastArrayForBoatType($boatObject['boatTypeID']);
+//                    echo '<br><br><br>MastArray:'.$availableMastDropDown.'<br><br><br>';
+                    $data['availableMastArray'] = $this->tools->extractDropDownArray($availableMastDropDown, 'mastID', 'name');
+                    $data['mastToAssign'] = null;
+                }
+                $mastToBoat = null;
+                $mastToBoat = $this->input->post('saveMastToBoat');
+                echo 'masttoboat = '.$mastToBoat;
+                if($mastToBoat != null){
+                    echo '<br>beim speichern<br>'.$mastToBoat;
+                    $mastToAssign = $this->mast->getMastForID($mastToBoat);
+                    $mastToAssign['boatID'] = $boatObject['boatID'];
+                    $this->mast->saveMast($mastToAssign);
+                }
+                
+                
             }
             $this->load->view('v_wb_body', $data);
             $this->load->view('v_wb_footer');

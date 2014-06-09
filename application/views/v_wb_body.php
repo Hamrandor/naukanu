@@ -1,16 +1,13 @@
-Hirsenbirsen
 <?php
         $this->load->helper("form");
         // put your code here
-        echo "bla4 <br>";
-        print_r($boatArray);
-        echo "bla5 <br>";
         echo form_open("naukanu/workbook");
         echo "<br> selboot=";
         print_r($selectedBoat);        
         echo "<br>";
         echo form_dropdown('sBoatID', $boatArray, $selectedBoat, 'onChange="this.form.submit()"');
-        
+        echo "<br>";
+        echo "<br>";
         if (isset($boatObject)) {
             if ($editBoat) {
                 echo '<br>';
@@ -23,11 +20,6 @@ Hirsenbirsen
                 echo form_submit('saveBoat', 'Boot speichern');
                 echo '<br>';
                 echo '<br>';
-                echo 'Einen Mast diesem Boot zuordnen';
-
-                
-                
-                
             } else {
             //echo form_open("naukanu/editBoat");
                 echo "Name des Bootes : ".$boatObject['name'].'<br>';
@@ -35,10 +27,23 @@ Hirsenbirsen
                 echo "Bootstyp        : ".$boatObject['typename'].'<br>';
                 echo '<br>';
                 echo form_submit('editBoat', 'Boot bearbeiten');
+                If (!$assignMast){
+                    echo form_submit('assignMast', 'Einen Mast diesem Boot zuordnen');
+                } else {
+                    echo form_dropdown('saveMastToBoat', $availableMastArray, $mastToAssign, 'onChange="this.form.submit()"');
+                    
+                }
+                
+                echo '<br>';
+                
+                
+                
             //echo form_close();
             //print_r($boatObject);
             }
         }
+        
+        
         if (isset($mastarray)) {
             $i = 1;
             echo '<br>';
