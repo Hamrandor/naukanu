@@ -27,10 +27,12 @@
                 echo "Bootstyp        : ".$boatObject['typename'].'<br>';
                 echo '<br>';
                 echo form_submit('editBoat', 'Boot bearbeiten');
+                echo '<br>';
                 If (!$assignMast){
                     echo form_submit('assignMast', 'Einen Mast diesem Boot zuordnen');
                 } else {
-                    echo form_dropdown('saveMastToBoat', $availableMastArray, $mastToAssign, 'onChange="this.form.submit()"');
+                    echo form_dropdown('saveMastToBoat', $availableMastArray, $mastToAssign);
+                    echo form_submit('saveMastButton', 'ausgewählten Mast diesem Boot zuordnen');
                     
                 }
                 
