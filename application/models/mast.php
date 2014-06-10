@@ -32,13 +32,15 @@ class mast extends CI_Model{
     }
     
     
-    public function getMastArrayForBoatID($boatID){
+    public function getMastArray($boatID){
         $result = array();
         $this->db->select('*');
         $this->db->from('Mast');
         $this->db->join('masttype', 'mast.masttypeid = masttype.masttypeid', 'left');
         $this->db->join('condition', 'mast.conditionid= condition.conditionid','left');
-        $this->db->where('boatID', $boatID);        
+        if (isset($boatID) && $boatID != null) {
+            $this->db->where('boatID', $boatID);
+        }
         $query = $this->db->get();
         if ($query->num_rows() > 0)
         {
@@ -56,7 +58,7 @@ class mast extends CI_Model{
         $myresult = array();
         $this->db->select('*');
         $this->db->from('mastType');
-        if (isset($boatTypeID)) {
+        if (isset($boatTypeID) && $boatTypeID != NULL) {
             $this->db->join('jtboatmast', 'mast.mastTypeID = jtboatmast.mastTypeID', 'right');
             $this->db->where('boatTypeID', $boatTypeID);
         }
