@@ -69,9 +69,9 @@ class naukanu extends CI_Controller {
                 }
                 if($this->input->post('saveBoat')){
                     echo '<br>save Boot <br>';
-                    $selectedBoatType = $this->input->post('sBoatTypeID');
+//                    $selectedBoatType = $this->input->post('sBoatTypeID');
                     //$data["selectedBoatType"] = $selectedBoatType;
-                    $boatObject['boatTypeID'] = $selectedBoatType;
+                    $boatObject['boatTypeID'] = $this->input->post('sBoatTypeID');
                     $boatObject['name'] = $this->input->post('boatName');
                     $this->boat->saveBoat($boatObject);
                 }
