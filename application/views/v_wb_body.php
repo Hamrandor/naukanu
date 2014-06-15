@@ -14,7 +14,7 @@
             if ($editBoat) {
                 echo '<br>';
                 echo "Name des Bootes : ".form_input('boatName', $boatObject['name']).'<br>';
-                echo "Anzahl Sitze    : ".form_input('seatCount', $boatObject['seatCount']).'<br>';
+//                echo "Anzahl Sitze    : ".form_input('seatCount', $boatObject['seatCount']).'<br>';
                 echo "Zustand         : ".$boatObject['Description'].'<br>';
                 echo "Bootstyp        : ".form_dropdown('sBoatTypeID', $boatTypeSelect, $selectedBoatType).'<br>';
                 echo '<br>';
