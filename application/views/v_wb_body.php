@@ -1,11 +1,13 @@
 <?php
         $this->load->helper("form");
         // put your code here
-        echo form_open("naukanu/workbook");
-        echo "<br> selboot=";
-        print_r($selectedBoat);        
+        echo form_open("naukanu/configureBoat");
+//        echo "<br> selboot=";
+//        print_r($selectedBoat);        
+        echo "Bitte wählen Sie ein Boot aus:<br><br>";
+        echo form_dropdown('sBoatID', $boatArray, $selectedBoat);
         echo "<br>";
-        echo form_dropdown('sBoatID', $boatArray, $selectedBoat, 'onChange="this.form.submit()"');
+        echo form_submit('chooseBoat', 'Boot auswählen');        
         echo "<br>";
         echo "<br>";
         if (isset($boatObject)) {

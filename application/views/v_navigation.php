@@ -5,11 +5,11 @@
 	<head>
 	</head>
 	<body>
-		<h1>Navigation</h1>
+                <h1>Navigation</h1>
 		<ul>
 			<li>Personalverwaltung
 				<ul>
-					<li> <a href="test.advanced sailing school.logo.html" target="working_frame">use case 1</a></li>
+					<li> <a href="test" target="working_frame">testlink</a></li>
 					<li>use case 2</li>
 					<li>use case 3</li>
 				</ul>
@@ -23,6 +23,11 @@
 			</li>
 			<li>Kursverwaltung</li>
 			<li>Materialverwaltung</li>
+				<ul>
+					<li><a href="configureBoat" target="working_frame">Boote verwalten</a></li>
+					<li>use case 2</li>
+					<li>use case 3</li>
+				</ul>
 		</ul>
 		<menu>
 			<li>hallo</li>
