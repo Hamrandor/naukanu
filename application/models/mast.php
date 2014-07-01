@@ -16,10 +16,11 @@ class mast extends CI_Model{
     public function getMastForID($id){
         //b.boatid, t.typename, c.Description 
 //        $this->db->query('SELECT * from `boat` as b left join `boattype` as t on b.boatID = t.boatTypeID left JOIN `condition` as c on b.conditionID= c.conditionID');
-        $this->db->select('*');
+        $this->db->select('*, boat.name as boatname, mast.name');
         $this->db->from('Mast');
         $this->db->join('masttype', 'mast.masttypeid = masttype.masttypeid', 'left');
         $this->db->join('condition', 'mast.conditionid= condition.conditionid','left');
+        $this->db->join('boat', 'mast.boatid= boat.boatid','left');
         $this->db->where('mastid', $id);        
         $query = $this->db->get();
         if ($query->num_rows() == 1)
@@ -30,6 +31,25 @@ class mast extends CI_Model{
             }
         }
     }
+    
+        public function getMastNameSelect($boatID){
+        $myresult = array();
+        $this->db->select('*');
+        $this->db->from('mast');
+        if (isset($boatID)) {
+            if ($boatID == 0) {
+                $this->db->where('boatID is null', NULL);
+            } else {
+                $this->db->where('boatID', $boatID);
+            }
+        } 
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){
+            $myresult[$row['mastID']] = $row['name'];
+        }
+        return $myresult;
+    }
+
     
     
     public function getMastArray($boatID){
@@ -54,7 +74,7 @@ class mast extends CI_Model{
     
     //holt Daten für Dropdown Menü 
     //alle wenn kein boot angegeben
-    public function getMastTypeNameSelect($boatTypeID){
+    public function getMastTypeSelect($boatTypeID){
         $myresult = array();
         $this->db->select('*');
         $this->db->from('mastType');
@@ -100,7 +120,26 @@ class mast extends CI_Model{
             'conditionID' => $aMast['conditionID'],
             'boatID' => $aMast['boatID']
         );
-        $this->db->where('mastID', $aMast['mastID']);
-        $this->db->update('mast', $data);        
+        if (isset($aMast['mastID'])) {
+            $id = $aMast['mastID'];
+            $this->db->where('mastID', $id);
+            $this->db->update('mast', $data);
+        } else {
+            $this->db->insert('mast', $data);
+        }
     }
+    
+
+    
+        
+    public function emptyMast() {
+        $data = array(
+          'name' => '',
+          'mastTypeID' => '',
+          'conditionID' => '',
+          'boatID' => ''
+        );
+        return $data;        
+    }
+
 }

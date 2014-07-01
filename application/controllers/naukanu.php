@@ -40,10 +40,12 @@ class naukanu extends CI_Controller {
             }
 	}
         
-        public function test(){
-           $this->load->view('v_wb_head');
-           $this->load->view('v_test');
-           $this->load->view('v_wb_footer');
+        public function configBoat(){
+            redirect("boatConfig");
+        }
+        
+        public function configMast(){
+            redirect("mastConfig");
         }
         
         

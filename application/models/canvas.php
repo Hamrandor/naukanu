@@ -67,5 +67,24 @@ class canvas extends CI_Model{
         return $myresult;
     }
     
+        public function getCanvasArray($mastID){
+        $result = array();
+        $this->db->select('*');
+        $this->db->from('canvas');
+        $this->db->join('canvastype', 'canvas.canvastypeid = canvastype.canvastypeid', 'left');
+        $this->db->join('condition', 'canvas.conditionid= condition.conditionid','left');
+        if (isset($mastID) && $mastID != null) {
+            $this->db->where('mastID', $mastID);
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result_array() as $row){
+                $result[]=$row;
+            }
+        }
+        return $result;
+    }
+
    
 }
