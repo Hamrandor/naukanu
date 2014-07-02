@@ -48,6 +48,10 @@ class naukanu extends CI_Controller {
             redirect("mastConfig");
         }
         
+        public function configCanvas(){
+            redirect("canvasConfig");
+        }
+        
         
 
         public function workbook(){

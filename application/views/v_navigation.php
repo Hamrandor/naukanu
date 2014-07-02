@@ -11,8 +11,7 @@
 				<ul>
 					<li> <a href="configBoat" target="working_frame">Boot konfigurieren</a></li>
 					<li> <a href="configMast" target="working_frame">Mast konfigurieren</a></li>
-					<li>use case 2</li>
-					<li>use case 3</li>
+					<li> <a href="configCanvas" target="working_frame">Segel konfigurieren</a></li>
 				</ul>
 			</li>
 			<li>Kundenverwaltung

@@ -32,7 +32,7 @@ class mast extends CI_Model{
         }
     }
     
-        public function getMastNameSelect($boatID){
+    public function getMastNameSelect($boatID){
         $myresult = array();
         $this->db->select('*');
         $this->db->from('mast');
