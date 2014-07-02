@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 11. Jun 2014 um 22:04
+-- Erstellungszeit: 12. Jun 2014 um 20:29
 -- Server Version: 5.6.16
 -- PHP-Version: 5.5.9
 
@@ -698,7 +698,7 @@ INSERT INTO `mast` (`mastID`, `name`, `mastTypeID`, `conditionID`, `boatID`) VAL
 (3, 'Surfmast 3', 4, 1, 2),
 (4, 'Optimast 2', 1, 1, 1),
 (5, 'Testmast1 ', 3, 2, 5),
-(6, 'Testmast2', 2, 2, 4);
+(6, 'Testmast2', 3, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -810,19 +810,21 @@ CREATE TABLE IF NOT EXISTS `ticketstatus` (
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `userID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `personID` int(11) DEFAULT NULL,
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Daten für Tabelle `user`
 --
 
 INSERT INTO `user` (`userID`, `login`, `password`, `personID`) VALUES
-(1, 'jens', 'jens', NULL);
+(1, 'jens', 'jens', NULL),
+(2, 'sarah', 'sarah', NULL),
+(3, 'robert', 'robert', NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

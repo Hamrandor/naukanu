@@ -1,14 +1,11 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 <html>
 	<head>
 		<title>Logo</title>
 	</head>
 	<body>
-		<table width="100%" height="100%">
-			<tr>
-				<td align="center" valign="middle">
-					<img src="segelboot.gif" alt="Boot" border="0" width="90px" height="90px">
-				</td>
-			</tr>
-		</table>	
+            <div style=" position: absolute; overflow:visible; height:100%; width:100%;">
+            <img src="Source Files/application/views/segelboot.gif" alt="Boot">
+            </div>
 	</body>
 </html>

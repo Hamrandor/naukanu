@@ -1,5 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-       "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
 	<head>
@@ -9,8 +8,8 @@
 		<ul>
 			<li>Personalverwaltung
 				<ul>
-					<li> <a href="test" target="working_frame">testlink</a></li>
-					<li>use case 2</li>
+					<li> <a href="test" target="maincontent">testlink</a></li>
+					<li>use case Personaldaten</li>
 					<li>use case 3</li>
 				</ul>
 			</li>
