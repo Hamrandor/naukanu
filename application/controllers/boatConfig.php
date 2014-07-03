@@ -30,7 +30,6 @@ class boatConfig extends CI_Controller{
         if($this->session->userdata('login_state') === TRUE){
             //hier könnte man nun das entsprechende view laden.
             $this->load->view('v_wb_head');
-            $this->load->view('v_navigation');
             $data = array();
             $data['editBoat'] = false;
             $data["boatArray"] = $this->boat->getBoatNameSelect();
@@ -55,6 +54,13 @@ class boatConfig extends CI_Controller{
                 $this->boat->saveBoat($newBoat);
             }
             
+            if ($this->input->post('checkBoat')){
+                if ($this->boat->boatReadyforUse($selectedBoat)) {
+                    $this->tools->alertMessage("Boot einsatzbereit!");
+                } else {
+                    $this->tools->alertMessage("Boot fehlerhaft konfiguriert.");
+                }
+            }
             
 //           $data["assignMast"] = false;
             if ($this->input->post('chooseBoat') || $this->input->post('saveBoat') || $this->input->post('editBoat')){
