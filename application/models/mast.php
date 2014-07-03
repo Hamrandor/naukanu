@@ -141,5 +141,53 @@ class mast extends CI_Model{
         );
         return $data;        
     }
+    function checkMast($aMast){
+        $this->db->select('boatTypeID');
+        $this->db->from('boat');
+        $this->db->where('boatid', $aCanvas['boatID']);
+        $boatQuery = $this->db->get();
+        if ($boatQuery->num_rows() > 0)
+        {
+            foreach ($boatQuery->result_array() as $row){
+                $boatResult =$row['boatTypeID'];
+            }
+        }       
+        $this->db->select('*');
+        $this->db->from('jtboatmast');
+        $this->db->where('masttypeID', $aMast['mastTypeID']);
+        $this->db->where('boattypeID', $boatResult);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            $result = TRUE;
+        } else {
+            $result = FALSE;
+        }
+        
+        return $result;        
+    }   
+    
+    public function mastReadyforUse($mastid) {
+        $result = true;
+        $this->db->select('*');
+        $this->db->from('mast');
+        $this->db->join('canvas', 'mast.mastid= canvas.mastid','left');
+        $this->db->join('condition', 'mast.conditionID= condition.conditionID','left');
+        $this->db->where('condition.grade < ', '3');
+        $this->db->where('mast.mastID', $mastid );
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            foreach($query->result_array() as $row){
+                if ($result) {
+                    $result = $this->canvas->canvasReadyforUse($row['canvasID']);//mastReadyForUse
+                }
+            }
+            
+        } else {
+            $result = FALSE;
+        }
+        return $result;
+    }
 
 }

@@ -52,7 +52,11 @@ class mastConfig extends CI_Controller {
                 $newMast["mastTypeID"] = $this->input->post('sMastTypeID');
                 $newMast["conditionID"] = $this->input->post('sConditionID');
                 $newMast["boatID"] = $this->input->post('sBoatID');
-                $this->mast->saveMast($newMast);
+                if ($this->mast->checkMast($newMast)) {
+                    $this->mast->saveMast($newMast);
+                } else {
+                    $this->tools->alertMessage("Zuordnung Masttyp zu Bootstyp ist nicht konfiguriert.");
+                }
             }
             
             
@@ -84,10 +88,13 @@ class mastConfig extends CI_Controller {
             //Redirect to http://xyz.de/login.html
             redirect("login");
         }
-        
-        function newBoat($data){
-            return $data;
-        }
-        
     }
+        
+    function newBoat($data){
+        return $data;
+    }
+    
+    
+        
+    
 }

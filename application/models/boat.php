@@ -12,12 +12,14 @@
  * @author Jens
  */
 class boat extends CI_Model{
-  
-    public $boattype;
-    public $name;
-    public $condition;
-    public $boatid;
+ 
     
+    public function __construct(){
+        //Laden unserer models (/application/models/user.php)
+        //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
+//        $this->load->model(array('mast'));
+    }
+
     //put your code here
     
   
@@ -141,6 +143,30 @@ class boat extends CI_Model{
         );
         return $data;        
     }
+    
+    public function boatReadyforUse($boatid) {
+        $mastArray = array();
+        $result = true;
+        $this->db->select('*');
+        $this->db->from('boat');
+        $this->db->join('mast', 'boat.boatid= mast.boatid','left');
+        $this->db->join('condition', 'boat.conditionID= condition.conditionID','left');
+        $this->db->where('condition.grade < ', '3');
+        $this->db->where('boat.boatID', $boatid );
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            foreach($query->result_array() as $row){
+                if ($result) {
+                    $result = $this->mast->mastReadyForUse($row['mastID']);
+                }
+            }
+        } else {
+            $result = FALSE;
+        }
+        return $result;
+    }
+           
     
 }
     

@@ -107,34 +107,10 @@
                 echo '<tr>';
                 echo '<td>';
                 echo form_submit('editBoat', 'Boot bearbeiten');
+                echo form_submit('checkBoat', 'Boot prüfen');
                 echo '</td>';
                 echo '</tr>';
                 echo '</table>';                
-//                if ((!isset($editAMast) || !$editAMast) && (!isset($editMast) || !$editMast)){
-//                    echo form_submit('editAMast', 'Einen Mast bearbeiten').'<br>';
-//               } else {
-//                   if (!isset($editMast) || !$editMast){
-//                       echo 'Wählen Sie einen Mast aus:  ';
-//                       echo form_dropdown('sMast', $totalMastArray, $selectedMast);
-//                       echo '<br>'. form_submit('editMast', 'Ausgewählten Mast bearbeiten');
-//                   } else {
-//                       echo 'Mast bearbeiten: <br>';
-//                       echo form_hidden($selectedMast);
-//                       echo 'Mastname : '.form_input('MastName', $selectedMast['name']).'<br>';
-//                       echo 'Masttyp  : '.form_dropdown('sMastTypeID', $totalMastTypeArray, $selectedMast['mastTypeID']).'<br>';
-//                       echo 'Boot     : '.form_dropdown('sBoatID', $boatArray, $selectedMast['boatID']).'<br>';
-//                       echo "Zustand  : ".$selectedMast['Description'].'<br>';
-//                       echo '<br>'. form_submit('saveMast', 'Mast speichern');                       
-//                   }
-//               }
-                
-//                If (!$assignMast){
-//                    echo form_submit('assignMast', 'Einen Mast diesem Boot zuordnen');
-//                } else {
-//                    echo form_dropdown('saveMastToBoat', $availableMastArray, $mastToAssign);
-//                    echo form_submit('saveMastButton', 'ausgewählten Mast diesem Boot zuordnen');
-//                    
-//                }
             }
         }
                 

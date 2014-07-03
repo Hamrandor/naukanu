@@ -22,5 +22,15 @@ class tools extends CI_Model{
         echo "extractDropdownArray = ".print_r($result);
         return $result;
     }
+    
+    function alertMessage ($message){
+        echo "<script type='text/javascript' language='javascript'> \n"; 
+        echo "<!-- \n"; 
+        echo " alert('".$message."'); \n"; 
+        echo "//--> \n"; 
+        echo "</script> \n";         
+        
+    }    
+
             
 }

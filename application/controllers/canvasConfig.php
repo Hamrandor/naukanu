@@ -20,7 +20,7 @@ class canvasConfig extends CI_Controller {
     //Laden der form_validation library sowie der session library
     //Zur verwendung von sessions und form_validations
     $this->load->library(array('form_validation', 'session'));
-    //Laden unserer models (/application/models/user.php)
+    //Laden unserer m odels (/application/models/user.php)
     //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
     $this->load->model(array('user', 'mast', 'canvas', 'tools', 'condition'));
     }
@@ -55,7 +55,7 @@ class canvasConfig extends CI_Controller {
                 if ($this->canvas->checkCanvas($newCanvas)) {
                     $this->canvas->saveCanvas($newCanvas);
                 } else {
-                    $this->alertMessage("Zuordnung Masttyp zu Segeltyp ist nicht konfiguriert.");
+                    $this->tools->alertMessage("Zuordnung Masttyp zu Segeltyp ist nicht konfiguriert.");
                 }
             }
             
@@ -63,7 +63,7 @@ class canvasConfig extends CI_Controller {
             if ($this->input->post('chooseCanvas') || $this->input->post('saveCanvas') || $this->input->post('editCanvas')){
                 $canvasObject = $this->canvas->getCanvasForID($selectedCanvas);
                 $data['canvasObject'] = $canvasObject;
-                $canvasArray = array();
+                //$canvasArray = array();
                 $canvasArray = $this->canvas->getCanvasArray($canvasObject['canvasID']);
                 $data['canvasArrayofCanvas'] = $canvasArray;
                 if($this->input->post('editCanvas')){
@@ -90,15 +90,6 @@ class canvasConfig extends CI_Controller {
         }
     }    
 
-    function alertMessage ($message){
-        echo "<script type='text/javascript' language='javascript'> \n"; 
-        echo "<!-- \n"; 
-        echo " alert('".$message."'); \n"; 
-        echo "//--> \n"; 
-        echo "</script> \n";         
-        
-    }    
-        
     
     
 }

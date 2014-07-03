@@ -12,6 +12,8 @@
  * @author Jens
  */
 class canvas extends CI_Model{
+    
+    
     //put your code here
     public function getCanvasForID($id){
         //b.boatid, t.typename, c.Description 
@@ -173,5 +175,21 @@ class canvas extends CI_Model{
         }
         
         return $result;        
+    }   
+    
+    public function canvasReadyforUse($canvasid) {
+        $this->db->select('*');
+        $this->db->from('canvas');
+        $this->db->join('condition', 'canvas.conditionID= condition.conditionID','left');
+        $this->db->where('condition.grade < ', '3');
+        $this->db->where('canvasID', $canvasid );
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            $result = TRUE;            
+        } else {
+            $result = FALSE;
+        }
+        return $result;
     }   
 }
