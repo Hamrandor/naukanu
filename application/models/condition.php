@@ -11,12 +11,7 @@
  *
  * @author Jens
  */
-class condition {
-    public $conditionID;
-    public $grade;
-    public $description;
-    
-    
+class condition extends CI_Model{
     public function fillDataForID($conditionID){
         $this->db->select('*');
         $this->db->from("condition");
@@ -31,4 +26,18 @@ class condition {
             }
         }
     }
+    
+        //holt Daten für Dropdown Menü 
+    //alle wenn kein boot angegeben
+    public function getConditionSelect(){
+        $myresult = array();
+        $this->db->select('*');
+        $this->db->from('condition');
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){
+            $myresult[$row['conditionID']] = $row['Description'];
+        }
+        return $myresult;
+    }
+
 }

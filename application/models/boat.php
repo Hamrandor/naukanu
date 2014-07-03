@@ -36,8 +36,7 @@ class boat extends CI_Model{
                 $this->condition = new condition();
                 $this->condition->fillDataForID($row['conditionID']);
                 
-           //     echo "<br><br><br>Boot : ".$row['name']." xxx<br>";
-           //     echo "test = ".$row['boatID']."yyy<br>";
+//     echo "test = ".$row['boatID']."yyy<br>";
             }
            // return $row;
         }
@@ -47,7 +46,6 @@ class boat extends CI_Model{
     public function getBoatArray(){
         $this->db->select('*');
         $this->db->from('boat');
-        
         $query = $this->db->get();
         return $query;
     }
@@ -55,13 +53,13 @@ class boat extends CI_Model{
     
     public function getValueArray($val, $result){
         $resArray = array();
-        echo "val= ".$val."<br>";
-        echo "übergebener result= ".print_r($result)."<br>";
+//        echo "val= ".$val."<br>";
+//        echo "übergebener result= ".print_r($result)."<br>";
 
         foreach ($result->result_array() as $row){
             $resArray[] = $row[$val];
         }
-        echo "resArray = ".print_r($resArray)."<br>";
+//        echo "resArray = ".print_r($resArray)."<br>";
         return $resArray;
     }
     
@@ -103,7 +101,6 @@ class boat extends CI_Model{
         if ($query->num_rows() == 1)
         {
             foreach ($query->result_array() as $row){
-                print_r($row);
                 return $row;
             }
         }
@@ -121,14 +118,28 @@ class boat extends CI_Model{
     }
     
     public function saveBoat($boatObject){
-        $id = $boatObject["boatID"];
         $data = array(
           'name' => $boatObject['name'],
           'boatTypeID' => $boatObject["boatTypeID"],
           'conditionID' => $boatObject["conditionID"]
         );
-        $this->db->where('boatID', $id);
-        $this->db->update('boat', $data);
+        if (isset($boatObject["boatID"])) {
+            $id = $boatObject["boatID"];
+            $this->db->where('boatID', $id);
+            $this->db->update('boat', $data);
+        } else {
+            $this->db->insert('boat', $data);
+        }
+            
+    }
+    
+    public function emptyBoat() {
+        $data = array(
+          'name' => '',
+          'boatTypeID' => '',
+          'conditionID' => ''
+        );
+        return $data;        
     }
     
 }

@@ -114,7 +114,13 @@
                     <ul id="submenuCourse">
                         <li>Kurs anlegen</li>
                     </ul>
-                    <li> <a href="naukanu/workbook" target="maincontent">Materialverwaltung</a> </li>
+                    <li> <a>Materialverwaltung</a> </li>
+                    <ul id="submenuMaterial">
+                        <li><a href="?page=Bootsverwaltung">Boote verwalten</a></li>
+                        <li><a href="?page=Mastverwaltung">Masten verwalten</a></li>
+                        <li><a href="?page=Segelverwaltung">Segel verwalten</a></li>
+                    </ul>
+                    
                     <li> <a href="?page=Kundenverwaltung">Kundenverwaltung</a> </li>
                     <ul id="submenuCustomer">
                         <li>Kundendaten bearbeiten</li>
@@ -133,10 +139,12 @@
                 <?php
                 
                      {
-                     if ($_GET["page"])
+                     if (isset($_GET["page"]))
                      {switch($_GET["page"])
                      {case "Mitarbeiterverwaltung": include("\application/views/v_personnelAdministration_main.php"); break;
-                     case "Materialverwaltung": include("\naukanu/workbook.php"); break;
+                     case "Bootsverwaltung": redirect("boatConfig"); break;
+                     case "Mastverwaltung": redirect("mastConfig"); break;
+                     case "Segelverwaltung": redirect("canvasConfig"); break;
                      case "initialPersonnelData": include("\application/views/v_formular_initial_personnelData.php");break;
                      }
                      }

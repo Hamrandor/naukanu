@@ -1,10 +1,12 @@
+
+
 <?php
         $this->load->helper("form");
         // put your code here
         echo form_open("naukanu/configureBoat");
 //        echo "<br> selboot=";
 //        print_r($selectedBoat);        
-        echo "Bitte wählen Sie ein Boot aus:<br><br>";
+        echo "Bitte w&auml;hlen Sie ein Boot aus:<br><br>";
         echo form_dropdown('sBoatID', $boatArray, $selectedBoat);
         echo "<br>";
         echo form_submit('chooseBoat', 'Boot auswählen');        
@@ -34,9 +36,9 @@
                     echo form_submit('editAMast', 'Einen Mast bearbeiten').'<br>';
                } else {
                    if (!isset($editMast) || !$editMast){
-                       echo 'Wählen Sie einen Mast aus:  ';
+                       echo 'W&auml;hlen Sie einen Mast aus:  ';
                        echo form_dropdown('sMast', $totalMastArray, $selectedMast);
-                       echo '<br>'. form_submit('editMast', 'Ausgewählten Mast bearbeiten');
+                       echo '<br>'. form_submit('editMast', 'Ausgew&auml;hlten Mast bearbeiten');
                    } else {
                        echo 'Mast bearbeiten: <br>';
                        echo form_hidden($selectedMast);
@@ -52,7 +54,7 @@
 //                    echo form_submit('assignMast', 'Einen Mast diesem Boot zuordnen');
 //                } else {
 //                    echo form_dropdown('saveMastToBoat', $availableMastArray, $mastToAssign);
-//                    echo form_submit('saveMastButton', 'ausgewählten Mast diesem Boot zuordnen');
+//                    echo form_submit('saveMastButton', 'ausgew&auml;hlten Mast diesem Boot zuordnen');
 //                    
 //                }
                 

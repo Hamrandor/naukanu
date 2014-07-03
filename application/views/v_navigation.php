@@ -1,37 +1,49 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html>
-	<head>
-	</head>
-	<body>
-                <h1>Navigation</h1>
-		<ul>
-			<li>Personalverwaltung
-				<ul>
-					<li> <a href="test" target="maincontent">testlink</a></li>
-					<li>use case Personaldaten</li>
-					<li>use case 3</li>
-				</ul>
-			</li>
-			<li>Kundenverwaltung
-				<ul>
-					<li>use case 1</li>
-					<li>use case 2</li>
-					<li>use case 3</li>
-				</ul>
-			</li>
-			<li>Kursverwaltung</li>
-			<li>Materialverwaltung</li>
-				<ul>
-					<li><a href="configureBoat" target="working_frame">Boote verwalten</a></li>
-					<li>use case 2</li>
-					<li>use case 3</li>
-				</ul>
-		</ul>
-		<menu>
-			<li>hallo</li>
-			<li></li>
-			<li></li>
-		</menu>
-	</body>
-</html>
+        <body>
+            
+            <div id="framecontentTopLogo" name="logo">
+                <img src="\application/views/segelboot.gif">
+            </div>
+            <div id="framecontentTopHeadline" name="headline">
+                <h3>Advanced Sailing School</h3>
+            </div>
+            <div id="framcontentLeft" name="navigation">
+                <ul id="menu">
+                    <li> <a href="?page=Kursverwaltung">Kursverwaltung</a> </li>
+                    <ul id="submenuCourse">
+                        <li>Kurs anlegen</li>
+                    </ul>
+                    <li> <a>Materialverwaltung</a> </li>
+                    <ul id="submenuMaterial">
+                        <li><a href="?page=Bootsverwaltung">Boote verwalten</a></li>
+                        <li><a href="?page=Mastverwaltung">Masten verwalten</a></li>
+                        <li><a href="?page=Segelverwaltung">Segel verwalten</a></li>
+                    </ul>
+                    
+                    <li> <a href="?page=Kundenverwaltung">Kundenverwaltung</a> </li>
+                    <ul id="submenuCustomer">
+                        <li>Kundendaten bearbeiten</li>
+                        <li>Abrechnung f&uuml;r Kunden erstellen</li>
+                    </ul>
+                    <li> <a href="?page=Mitarbeiterverwaltung">Mitarbeiterverwaltung</a> </li>
+                    <ul id="submenuPersonnel">
+                        <li>Mitarbeiterdaten bearbeiten</li>
+                        <li>Verf&uuml;gungszeitr&auml;ume planen</li>
+                        <li>Bewertungsnotizen erstellen</li>
+                        <li>Abrechnung f&uuml;r Mitarbeiter erstellen</li>
+                    </ul>
+                </ul>
+            </div>
+            <div id="maincontent" name="maincontent">
+                <?php
+                {
+                     if (isset($_GET["page"])) {
+                        switch($_GET["page"]) {
+                             case "Mitarbeiterverwaltung": include("\application/views/v_personnelAdministration_main.php"); break;
+                             case "Bootsverwaltung": redirect("boatConfig"); break;
+                             case "Mastverwaltung": redirect("mastConfig"); break;
+                             case "Segelverwaltung": redirect("canvasConfig"); break;
+                             case "initialPersonnelData": include("\application/views/v_formular_initial_personnelData.php");break;
+                        }
+                     }
+                }
+                ?>

@@ -40,10 +40,16 @@ class naukanu extends CI_Controller {
             }
 	}
         
-        public function test(){
-           $this->load->view('v_wb_head');
-           $this->load->view('v_test');
-           $this->load->view('v_wb_footer');
+        public function configBoat(){
+            redirect("boatConfig");
+        }
+        
+        public function configMast(){
+            redirect("mastConfig");
+        }
+        
+        public function configCanvas(){
+            redirect("canvasConfig");
         }
         
         
@@ -51,6 +57,8 @@ class naukanu extends CI_Controller {
         public function workbook(){
             $data = array();
             $this->load->view('v_wb_head');
+            $this->load->view('v_navigation');
+            
             $data['editBoat'] = false;
             $data["boatArray"] = $this->boat->getBoatNameSelect();
             $selectedBoat = $this->input->post('sBoatID');
@@ -159,7 +167,7 @@ class naukanu extends CI_Controller {
             $data["selectedBoatType"] = null;
             $data["assignMast"] = false;
             if (isset($selectedBoat) && $selectedBoat != null){
-//                echo '<br>Boot ausgewählt<br>';
+//                echo '<br>Boot ausgew&auml;hlt<br>';
                 $boatObject = $this->boat->getBoatForID($selectedBoat);
                 $data['boatObject'] = $boatObject;
                 //$mastArray = array();
