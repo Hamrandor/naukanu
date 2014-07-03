@@ -29,6 +29,7 @@ class canvasConfig extends CI_Controller {
         if($this->session->userdata('login_state') === TRUE){
             //hier könnte man nun das entsprechende view laden.
             $this->load->view('v_wb_head');
+            $this->load->view('v_navigation');
             $data = array();
             $data['editCanvas'] = false;
             $data["canvasArray"] = $this->canvas->getCanvasNameSelect(NULL);
