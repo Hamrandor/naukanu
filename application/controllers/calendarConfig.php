@@ -11,10 +11,12 @@ class calendarConfig extends CI_Controller{
         $this->load->model('calendar');
     }
     
-    public function index(){
+    public function index($year = NULL, $month = NULL){
+        $this->showCalendar($year, $month);
+    }
+    
+    public function showCalendar($year = NULL, $month = NULL){
         $data['title']= 'Kursuebersicht';
-        $year=null;
-        $month = null;
         $data['calendar'] = $this->calendar->generate_calendar($year,$month);
 
 
@@ -24,5 +26,6 @@ class calendarConfig extends CI_Controller{
 
         $this->load->view('v_calendar', $data);
         $this->load->view('v_wb_footer');
+        
     }
 }

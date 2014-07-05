@@ -1,7 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <php>
 <html>
-    <meta http-equiv="X-UA-Compatible" content="IE=100" >
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=100" >-->
+    <meta charset="UTF-8">
+
         
     </meta>
     <head>

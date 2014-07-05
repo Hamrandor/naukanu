@@ -1,10 +1,11 @@
 <?php
 class Calendar extends CI_Model{
     function generate_calendar ($year, $month){
-       
+        echo 'Jahr='.$year."   Monat = ".$month."\n";
+
         $pref = array(
                    'show_next_prev'=>TRUE,
-                   'next_prev_url' => base_url().'naukanu/calendar',
+                   'next_prev_url' => base_url().'calendarConfig/showCalendar',
                    'start_day'    => 'monday',
                    'month_type'   => 'long',
                    'day_type'     => 'long'
