@@ -39,9 +39,9 @@ class calendarEntry extends CI_Model {
             $this->db->select('*');
             $this->db->from('calendarEntry as ce');
             $this->db->join('booking as b', 'b.courseID= ce.courseID','left');
-            $this->db->where('(ce.start > ', $aEnd);
+            $this->db->where('ce.start > ', $aEnd);
             $this->db->or_where('ce.end < ', $aStart);
-            $this->db->where(') b.boatID', $boatID );
+            $this->db->where('b.boatID', $boatID );
             $query = $this->db->get();
             if ($query->num_rows() > 0)
             {

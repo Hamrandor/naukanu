@@ -26,14 +26,17 @@ class naukanu extends CI_Controller {
             $this->load->library(array('form_validation', 'session'));
             //Laden unserer models (/application/models/user.php)
             //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
-            $this->load->model(array('user', 'boat', 'mast', 'canvas', 'tools'));
+            $this->load->model(array('user', 'boat', 'mast', 'canvas', 'tools', 'coursetype'));
         }
         
         
 	public function index(){
             if($this->session->userdata('login_state') === TRUE){
                 //hier könnte man nun das entsprechende view laden.
-            $this->load->view('v_naukanu');
+            $this->load->view('v_wb_head');
+            $this->load->view('v_navigation');
+//            $this->load->view('v_naukanu');
+            $this->load->view('v_wb_footer');
             }else{
                 //Redirect to http://xyz.de/login.html
                 redirect("login");
@@ -52,6 +55,13 @@ class naukanu extends CI_Controller {
             redirect("canvasConfig");
         }
         
+        public function configCourseType(){
+            redirect('courseTypeConfig');
+        }
+       
+	public function calendar($year = NULL, $month = NULL){
+            redirect('calendarConfig');		
+	}
         
 
         public function workbook(){

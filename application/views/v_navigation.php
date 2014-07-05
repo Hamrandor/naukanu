@@ -8,9 +8,12 @@
             </div>
             <div id="framcontentLeft" name="navigation">
                 <ul id="menu">
-                    <li> <a href="?page=Kursverwaltung">Kursverwaltung</a> </li>
+                    <li> <a>Kursverwaltung</a> </li>
                     <ul id="submenuCourse">
                         <li>Kurs anlegen</li>
+                        <li><a href="?page=Kurstypverwaltung">Kurstyp verwalten</a></li>
+                        <li><a href="?page=Kursverwaltung">Kurs verwalten</a></li>
+                        <li><a href="?page=Buchung">Kurse buchen</a></li>
                     </ul>
                     <li> <a>Materialverwaltung</a> </li>
                     <ul id="submenuMaterial">
@@ -42,6 +45,10 @@
                              case "Bootsverwaltung": redirect("boatConfig"); break;
                              case "Mastverwaltung": redirect("mastConfig"); break;
                              case "Segelverwaltung": redirect("canvasConfig"); break;
+                             case "Kurstypverwaltung": redirect("courseTypeConfig"); break;
+                             case "Kursverwaltung": redirect("canvasConfig"); break;
+                             case "Buchung": redirect("calendarConfig"); break;
+                             
                              case "initialPersonnelData": include("\application/views/v_formular_initial_personnelData.php");break;
                         }
                      }
