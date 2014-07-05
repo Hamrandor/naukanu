@@ -12,6 +12,13 @@
  * @author Jens
  */
 class mast extends CI_Model{
+    
+        public function __construct(){
+        //Laden unserer models (/application/models/user.php)
+        //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
+        $this->load->model(array('canvas'));
+    }
+
     //put your code here
     public function getMastForID($id){
         //b.boatid, t.typename, c.Description 

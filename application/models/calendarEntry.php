@@ -33,7 +33,7 @@ class calendarEntry extends CI_Model {
         
     }
     
-    public function checkStartEndForBoat($boatID, $aStart, $aEnd){
+    public function checkPeriodForBoat($boatID, $aStart, $aEnd){
         $result = false;
         if ($aEnd > $aStart){
             $this->db->select('*');
@@ -52,4 +52,5 @@ class calendarEntry extends CI_Model {
         }
         return $result;
     }
+    
 }

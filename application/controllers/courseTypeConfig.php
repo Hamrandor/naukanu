@@ -19,6 +19,7 @@ class courseTypeConfig extends CI_Controller{
     //Laden unserer models (/application/models/user.php)
     //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
     $this->load->model('coursetype');
+    $this->load->model('boat');
     }
     
     public function index(){
@@ -61,6 +62,8 @@ class courseTypeConfig extends CI_Controller{
 //                echo '<br>Boot ausgewählt<br>';
                 $courseTypeObject = $this->coursetype->getCourseTypeForID($selectedCourseType);
                 $data['courseTypeObject'] = $courseTypeObject;
+                print_r($courseTypeObject);
+                print_r($this->boat->getBoatArrayReadyForPeriodForBoatType('2012-01-01', '2012-01-01', $courseTypeObject['boatTypeID']));
                 
                 if($this->input->post('editCourseType')){
 //                    echo '<br>edit Boot <br>';

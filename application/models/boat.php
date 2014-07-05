@@ -17,7 +17,7 @@ class boat extends CI_Model{
     public function __construct(){
         //Laden unserer models (/application/models/user.php)
         //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
-//        $this->load->model(array('mast'));
+        $this->load->model(array('mast', 'calendarEntry'));
     }
 
     //put your code here
@@ -144,7 +144,7 @@ class boat extends CI_Model{
         return $data;        
     }
     
-    public function boatReadyforUse($boatid) {
+    public function boatReadyForUse($boatid) {
         $mastArray = array();
         $result = true;
         $this->db->select('*');
@@ -166,7 +166,54 @@ class boat extends CI_Model{
         }
         return $result;
     }
-           
+         
+    public function boatArrayForType($boatTypeID) {
+        $result = array();
+        $this->db->select('*');
+        $this->db->from('boat');
+        $this->db->where('boatTypeID', $boatTypeID);
+        $query = $this->db->get();
+        foreach($query->result_array() as $row){
+            $result[$row['boatID']] = $row['name'];
+        }
+        return $result;
+    }
+
+    public function deleteBoat($boatID){
+        $this->db->where('boatID', $boatID);
+        $this->db->delete('boat');
+    }
+    
+    public function filterArrayByReadyforUse($boatArray){
+        $result = array();
+        foreach($boatArray as $boatID => $name){
+            if ($this->boatReadyForUse($boatID)) {
+                $result[$boatID] = $name;                
+            }
+        }        
+        return $result;
+    }
+    
+    public function filterArrayForPeriod($from, $to, $boatArray) {
+        $result=array();
+        foreach($boatArray as $boatID => $name){
+            if ($this->calendarEntry->checkPeriodForBoat($boatID, $from, $to)) {
+                $result[$boatID] = $name;
+            }        
+        }
+        return $result;
+    }
+    
+
+    public function getBoatArrayReadyForPeriodForBoatType($from, $to, $boatTypeID){
+        $boatArray = $this->boatArrayForType($boatTypeID);
+        $readyArray = $this->filterArrayByReadyforUse($boatArray);
+        $result = $this->filterArrayForPeriod($from, $to, $readyArray);
+        return $result;
+    }
+    
+    
+    
     
 }
     
