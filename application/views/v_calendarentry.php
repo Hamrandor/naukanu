@@ -1,3 +1,4 @@
+<div id ="error"></div>
 <?php
 
 /* 
@@ -13,9 +14,8 @@ $style= array (
     echo form_fieldset('Day Event',$style);
     
     $text = array(
-        'name'=>'',
+        'name'=>'day_event',
         'id'=>'day_event',
-        'value'=>'',
         'style'=>'width:97%'
        
     );
@@ -24,27 +24,28 @@ $style= array (
     $text = array(
         'name'=>'addEvent',
         'id'=>'addEvent',
-        'content'=>'Add Event',
+        'value'=>'Add Event',
+        'style'=>'width:33%;padding:5px;',
+    );
+    echo form_submit($text);
+    
+    $text = array(
+        'name'=>'cancel',
+        'id'=>'cancel',
+        'content'=>'Cancel',
         'style'=>'width:33%;padding:5px;',
     );
     echo form_button($text);
     
     $text = array(
-        'name'=>'cancel',
-        'id'=>'cancel',
-        'content'=>'cancel',
-        'style'=>'width:33%;padding:5px;',
-    );
-    
-    $text = array(
         'name'=>'delete',
         'id'=>'delete',
-        'content'=>'Delete',
+        'content'=>'Delete event',
         'style'=>'width:33%;padding:5px;',
     );
+    echo form_button($text);
     
     echo form_fieldset_close();
-echo br();
+    echo br();
+    echo $calendar . br(3);
 ?>
-
-<?= $calendar ?>
