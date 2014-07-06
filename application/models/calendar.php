@@ -67,7 +67,7 @@ class Calendar extends CI_Model{
 
             ";
             $add_new_event = "
-                var selected_day = $('.selected .day').text();
+                var selected_day = $('.selected .day_listing').text();
                 var event = $('#day_event').val();
                 if ( (selected_day == '') || (event == '')){
                     if(selected_day == ''){
@@ -79,7 +79,17 @@ class Calendar extends CI_Model{
                         alert('enter an event')
                     }
                 }else {
-                    alert('OK');
+                    $.ajax({
+                    url:window.location,
+                    type:'POST',
+                    data:{
+                        day :   selected_day,
+                        event   :   event
+                    } ,
+                    success :   function (msg){
+                        location.reload();
+                        }
+                    });
                     }
             ";
             
