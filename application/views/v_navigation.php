@@ -20,6 +20,7 @@
                         <li><a href="?page=Bootsverwaltung">Boote verwalten</a></li>
                         <li><a href="?page=Mastverwaltung">Masten verwalten</a></li>
                         <li><a href="?page=Segelverwaltung">Segel verwalten</a></li>
+                        <li><a href="?page=Materialbewertung">Material bewerten</a></li>
                     </ul>
                     
                     <li> <a href="?page=Kundenverwaltung">Kundenverwaltung</a> </li>
@@ -46,6 +47,7 @@
                              case "Bootsverwaltung": redirect("boatConfig"); break;
                              case "Mastverwaltung": redirect("mastConfig"); break;
                              case "Segelverwaltung": redirect("canvasConfig"); break;
+                             case "Materialbewertung": redirect("rateMaterial"); break;
                              case "Kurstypverwaltung": redirect("courseTypeConfig"); break;
                              case "Kursverwaltung": redirect("canvasConfig"); break;
                              case "Buchung": redirect("calendarConfig"); break;
