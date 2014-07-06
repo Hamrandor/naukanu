@@ -59,7 +59,7 @@ class naukanu extends CI_Controller {
             redirect('courseTypeConfig');
         }
        
-	public function calendar($year = NULL, $month = NULL){
+	public function calendar(){
             redirect('calendarConfig');		
 	}
         

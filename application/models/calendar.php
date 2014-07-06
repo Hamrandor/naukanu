@@ -42,15 +42,54 @@ class Calendar extends CI_Model{
         return $events;
     }
     
-//    function add_events (){
-//        $events = array(
-//           'start'=>'2014-08-30',
-//           'description'=>'Kinderkurs');
-//            $query = $this->db->get_where('calendarentry',array('start'=>$events['start']));
-//            if ($query->num_rows() >)
-//        $this->db->insert('calendarentry', $events);
-//    }
-}
+ function add_events ($date, $event){
+            //$events = array(
+            //'start'=>'2014-08-30',
+            //'description'=>'Kinderkurs');
+            $query = $this->db->get_where('calendarentry',array('start'=>$date));
+            if ($query->num_rows() > 0) {
+              //  echo "Event does exist";
+            }else {
+            $this->db->insert('calendarentry', array('start'=>$date, 'description'=>$event));
+    }
+        }    
+        function java_functions (){
+//            $click_function = "
+//                alert('ok');
+//            ";
+            $hide = "
+                $('.field_set').hide();
+            ";
+            $function = "
+                $('.field_set').fadeIn(600);
+                $('.calendar td').removeClass('selected');
+                $(this).addClass('selected');
+
+            ";
+            $add_new_event = "
+                var selected_day = $('.selected .day').text();
+                var event = $('#day_event').val();
+                if ( (selected_day == '') || (event == '')){
+                    if(selected_day == ''){
+                        alert('select a valid day')
+                        $('.calendar td').removeClass('selected');
+                        exit;
+                    }
+                    if (event == ''){
+                        alert('enter an event')
+                    }
+                }else {
+                    alert('OK');
+                    }
+            ";
+            
+           
+//            $this->javascript->click('.calendar td',$function, $click_function);
+            $this->javascript->click('.calendar td', $function);
+            $this->javascript->click('#addEvent', $add_new_event);
+            $this->javascript->compile();
+        }
+}   
 
 
 

@@ -9,6 +9,7 @@ class calendarConfig extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->load->model('calendar');
+        $this->jquery->script(base_url() . 'js/jquery/jquery.js', TRUE);
     }
     
     public function index($year = NULL, $month = NULL){
@@ -16,6 +17,13 @@ class calendarConfig extends CI_Controller{
     }
     
     public function showCalendar($year = NULL, $month = NULL){
+        $this->calendar->java_functions();
+            if(!$year){
+                $year = date('Y');
+            }
+            if(!$month){
+                $month = date('m');
+            }    
         $data['title']= 'Kursuebersicht';
         $data['calendar'] = $this->calendar->generate_calendar($year,$month);
 
@@ -24,7 +32,9 @@ class calendarConfig extends CI_Controller{
         $this->load->view('v_wb_head');
         $this->load->view('v_navigation');
 
-        $this->load->view('v_calendar', $data);
+//        $this->load->view('v_calendar', $data);
+        $this->load->view('v_calendarheader', $data);
+        $this->load->view('v_calendarentry', $data);
         $this->load->view('v_wb_footer');
         
     }

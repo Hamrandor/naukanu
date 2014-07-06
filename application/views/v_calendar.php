@@ -8,8 +8,9 @@
         <meta charset="UTF-8">
         <style type="text/css">
            .calendar {
+            background: #FFFFFF;
             font-family: Arial, Verdana, Sans-serif;
-            width: 100%;
+            width: 95%;
             min-width: 960px;
             border-collapse: collapse;
         }
