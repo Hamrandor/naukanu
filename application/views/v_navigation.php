@@ -38,9 +38,10 @@
             </div>
             <div id="maincontent" name="maincontent">
                 <?php
-                {
-                     if (isset($_GET["page"])) {
-                        switch($_GET["page"]) {
+                {   $pagevar = $this->input->get('page');
+                    print_r($pagevar);
+                    if (isset($pagevar) && $pagevar != null) {
+                        switch($pagevar) {
                              case "Mitarbeiterverwaltung": include("\application/views/v_personnelAdministration_main.php"); break;
                              case "Bootsverwaltung": redirect("boatConfig"); break;
                              case "Mastverwaltung": redirect("mastConfig"); break;
@@ -48,7 +49,6 @@
                              case "Kurstypverwaltung": redirect("courseTypeConfig"); break;
                              case "Kursverwaltung": redirect("canvasConfig"); break;
                              case "Buchung": redirect("calendarConfig"); break;
-                             
                              case "initialPersonnelData": include("\application/views/v_formular_initial_personnelData.php");break;
                         }
                      }

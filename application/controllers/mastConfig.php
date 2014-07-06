@@ -32,7 +32,7 @@ class mastConfig extends CI_Controller {
             $this->load->view('v_navigation');
             $data = array();
             $data['editMast'] = false;
-            $data["mastArray"] = $this->mast->getMastNameSelect(NULL);
+            $nMastTypeID = $this->input->post('nMastTypeID');
             $selectedMast = $this->input->post('sMastID');
             //hier Test ob neues Boot
             if ($this->input->post('newMast')){
@@ -40,8 +40,9 @@ class mastConfig extends CI_Controller {
                 $data['newMastObject'] = $this->mast->emptyMast();
                 $data['selectedMast'] = null; //$this->mast->emptyMast();
                 $data['mastTypeSelect'] =  $this->mast->getMastTypeSelect(NULL);
-                $data['boatSelect'] =  $this->boat->getBoatNameSelect();
+                $data['boatSelect'] =  $this->boat->getBoatArrayForMastType(NULL);
                 $data['conditionSelect'] =  $this->condition->getConditionSelect();
+                $nMastTypeID = null;
                 } else {
                 // wenn nicht, dann Das augewählte Boot bearbeiten
                 $data["selectedMast"] = $selectedMast;
@@ -50,16 +51,12 @@ class mastConfig extends CI_Controller {
             if ($this->input->post('saveNewMast')){
                 $newMast = $this->mast->emptyMast();
                 $newMast["name"] = $this->input->post('mastName');
-                $newMast["mastTypeID"] = $this->input->post('sMastTypeID');
+                $newMast["mastTypeID"] = $nMastTypeID;
                 $newMast["conditionID"] = $this->input->post('sConditionID');
                 $newMast["boatID"] = $this->input->post('sBoatID');
-                if ($this->mast->checkMast($newMast)) {
-                    $this->mast->saveMast($newMast);
-                } else {
-                    $this->tools->alertMessage("Zuordnung Masttyp zu Bootstyp ist nicht konfiguriert.");
-                }
+                $nMastTypeID = null;
+                $this->mast->saveMast($newMast);
             }
-            
             
             if ($this->input->post('chooseMast') || $this->input->post('saveMast') || $this->input->post('editMast')){
                 $mastObject = $this->mast->getMastForID($selectedMast);
@@ -67,6 +64,8 @@ class mastConfig extends CI_Controller {
                 $canvasArray = array();
                 $canvasArray = $this->canvas->getCanvasArray($mastObject['mastID']);
                 $data['canvasArrayofMast'] = $canvasArray;
+                $nMastTypeID = null;
+
                 if($this->input->post('editMast')){
 //                    echo '<br>edit Boot <br>';
                     $data['editMast'] = true;
@@ -82,9 +81,26 @@ class mastConfig extends CI_Controller {
                     $this->mast->saveMast($mastObject);
                 }
             }
+            if ($this->input->post('deleteMast')){
+                $this->mast->deleteMast($selectedMast);
+                $this->tools->alertMessage("Mast wurde gelöscht.");
+            }
+            
+            if (isset($nMastTypeID) && $nMastTypeID != null){
+                $newMast = $this->mast->emptyMast();
+                $newMast["name"] = $this->input->post('mastName');
+                $newMast["mastTypeID"] = $nMastTypeID;
+                $newMast["conditionID"] = $this->input->post('sConditionID');
+                $newMast["boatID"] = $this->input->post('sBoatID');
+                $data['boatSelect'] = $this->tools->addNullValue($this->boat->getBoatArrayForMastType($newMast["mastTypeID"]));
+                $data['newMastObject'] = $newMast;
+                $data['mastTypeSelect'] =  $this->canvas->getCanvasTypeSelect(NULL);
+                $data['conditionSelect'] =  $this->condition->getConditionSelect();
+                $data['selectedMast'] = null; //$this->canvas->emptyCanvas();
+            }
+            $data["mastArray"] = $this->mast->getMastNameSelect(NULL);
             $this->load->view('v_config_mast', $data);
-
-           $this->load->view('v_wb_footer');
+            $this->load->view('v_wb_footer');
         }else{
             //Redirect to http://xyz.de/login.html
             redirect("login");

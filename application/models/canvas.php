@@ -54,6 +54,7 @@ class canvas extends CI_Model{
 
     public function emptyCanvas() {
         $data = array(
+          'canvasID' => null, 
           'name' => '',
           'canvasTypeID' => '',
           'conditionID' => '',
@@ -192,4 +193,10 @@ class canvas extends CI_Model{
         }
         return $result;
     }   
+    
+    public function deleteCanvas($canvasID){
+        $this->db->where('canvasID', $canvasID);
+        $this->db->delete('canvas');
+    }
+
 }

@@ -31,6 +31,12 @@ class tools extends CI_Model{
         echo "</script> \n";         
         
     }    
+    
+    public function addNullValue($anArray){
+        $nullArray = array(null => "keine Auswahl");
+        $result = array_merge($nullArray, $anArray);
+        return $result;
+    }
 
             
 }

@@ -76,6 +76,9 @@
                 echo '<td>';
                 echo form_submit('saveBoat', 'Boot speichern');
                 echo '</td>';
+                echo '<td>';
+                echo form_submit('deleteBoat', 'Boot löschen');
+                echo '</td>';               
                 echo '</tr>';
                 echo '</table>';                
             } else {
@@ -107,6 +110,8 @@
                 echo '<tr>';
                 echo '<td>';
                 echo form_submit('editBoat', 'Boot bearbeiten');
+                echo '</td>';
+                echo '<td>';
                 echo form_submit('checkBoat', 'Boot prüfen');
                 echo '</td>';
                 echo '</tr>';

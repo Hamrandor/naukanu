@@ -26,7 +26,8 @@
             echo 'Segeltyp:';
             echo '</td>';
             echo '<td>';
-            echo form_dropdown('sCanvasTypeID', $canvasTypeSelect, null);
+            $js = 'onChange="this.form.submit();"';
+            echo form_dropdown('nCanvasTypeID', $canvasTypeSelect, $newCanvasObject['canvasTypeID'], $js);
             echo '</td>';
             echo '</tr>';
             echo '<tr>';
@@ -34,7 +35,7 @@
             echo 'Zustand:';
             echo '</td>';
             echo '<td>';
-            echo form_dropdown('sConditionID', $conditionSelect, null);
+            echo form_dropdown('sConditionID', $conditionSelect, $newCanvasObject['conditionID']);
             echo '</td>';
             echo '</tr>';
             echo '<tr>';
@@ -42,7 +43,7 @@
             echo 'Mast:';
             echo '</td>';
             echo '<td>';
-            echo form_dropdown('sMastID', $mastSelect, null);
+            echo form_dropdown('sMastID', $mastSelect, $newCanvasObject['mastID']);
             echo '</td>';
             echo '</tr>';
             echo '<tr>';
@@ -91,6 +92,9 @@
                 echo '<tr>';
                 echo '<td>';
                 echo form_submit('saveCanvas', 'Segel speichern');
+                echo '</td>';
+                echo '<td>';
+                echo form_submit('deleteCanvas', 'Segel löschen');
                 echo '</td>';
                 echo '</tr>';
                 echo '</table>';                
