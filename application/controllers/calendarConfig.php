@@ -13,17 +13,25 @@ class calendarConfig extends CI_Controller{
     }
     
     public function index($year = NULL, $month = NULL){
-        $this->showCalendar($year, $month);
-    }
-    
-    public function showCalendar($year = NULL, $month = NULL){
-        $this->calendar->java_functions();
-            if(!$year){
+         if(!$year){
                 $year = date('Y');
             }
             if(!$month){
                 $month = date('m');
             }    
+        $this->showCalendar($year, $month);
+    }
+    
+    public function showCalendar($year = NULL, $month = NULL){
+        $this->calendar->java_functions();
+        if ($this->input->post('day')){
+            
+            $day = $this->input->post('day');
+            $event = trim($this->input->post('event'));
+            $date = "$year-$month-$day";
+            $this->calendar->add_events($date, $event);
+        }
+        
         $data['title']= 'Kursuebersicht';
         $data['calendar'] = $this->calendar->generate_calendar($year,$month);
 
