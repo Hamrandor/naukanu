@@ -169,8 +169,7 @@ class mast extends CI_Model{
             $result = TRUE;
         } else {
             $result = FALSE;
-        }
-        
+        }        
         return $result;        
     }   
     

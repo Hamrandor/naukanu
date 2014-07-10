@@ -20,7 +20,6 @@
                 }
                 echo form_dropdown('sObject', $sList, null);
                 echo form_hidden('sMaterialType',$sMaterialType );
-
                 echo "<br>";
                 echo form_submit('chooseObject', $sMaterialType.' auswählen');        
                 echo form_close();
