@@ -46,9 +46,7 @@
                     overflow: hidden;
                     margin: 0;
                     padding: 0;
-                    background-color: lightcyan;
-                    vertical-align: middle;
-                    alignment-adjust: middle;
+                    background-color: whitesmoke;
                     font-size: 30;
                 }
                 
@@ -60,7 +58,7 @@
                     left: 0;
                     height: 85%;
                     width: 15%;
-                    background-color: lightcyan;
+                    background-color: whitesmoke;
                 }
 
                 #maincontent{
@@ -71,7 +69,7 @@
                     height: 85%;
                     width: 90%;
                     max-width: 90%;
-                    background-color: whitesmoke;
+                    background-color: white;
                     overflow-y: scroll;
                 }
 

@@ -1,6 +1,6 @@
         <body>
             
-            <div id="framecontentTopLogo" name="logo" align="right">
+            <div id="framecontentTopLogo" name="logo" align="center">
                 <img src="/segelboot.gif">
             </div>
             <div id="framecontentTopHeadline" name="headline" align ="center">
