@@ -1,4 +1,3 @@
-<div id ="error"></div>
 <?php
 
 /* 
@@ -11,7 +10,8 @@ $style= array (
     'class'=>'field_set',
     'hidden'=>'hidden'
 );
-    echo form_fieldset('Day Event',$style);
+echo form_hidden($style);    
+echo form_fieldset('Day Event',$style);
     
     $text = array(
         'name'=>'day_event',
@@ -20,6 +20,8 @@ $style= array (
        
     );
     echo form_input ($text).br(2);
+    echo form_dropdown('sCourseID', $courseArray);
+    echo form_dropdown('sEmployeeID', $employeeArray);
     
     $text = array(
         'name'=>'addEvent',
@@ -46,6 +48,6 @@ $style= array (
     echo form_button($text);
     
     echo form_fieldset_close();
+//    echo form_hidden($style, $text); 
     echo br();
     echo $calendar . br(3);
-?>

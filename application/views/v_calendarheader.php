@@ -5,7 +5,7 @@
 <?php
     
     $link = array(
-               'href' => base_url().'css/calendar.css',
+               'href' => base_url().'css/calendarnew.css',
                'rel'  => 'stylesheet',
                'type' => 'text/css'
     );

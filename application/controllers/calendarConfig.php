@@ -8,7 +8,7 @@
 class calendarConfig extends CI_Controller{
     public function __construct() {
         parent::__construct();
-        $this->load->model('calendar');
+        $this->load->model(array('calendar', 'course'));
         $this->jquery->script(base_url() . 'js/jquery/jquery.js', TRUE);
     }
     
@@ -29,12 +29,22 @@ class calendarConfig extends CI_Controller{
             $day = $this->input->post('day');
             $event = trim($this->input->post('event'));
             $date = "$year-$month-$day";
-            $this->calendar->add_events($date, $event);
+            $employee = $this->input->post('sEmployeeID');
+            $course = $this->input->post('sCourseID');
+            $this->calendar->add_events($date, $event, $employee, $course);
+        }
+        
+        if ($this->input->post('day_to_delete')){
+            
+            $day = $this->input->post('day_to_delete');
+            $date = "$year-$month-$day";
+            $this->calendar->delete_event($date);
         }
         
         $data['title']= 'Kursuebersicht';
         $data['calendar'] = $this->calendar->generate_calendar($year,$month);
-
+        $data['courseArray'] = $this->course->getCourseNameSelect();
+        $data['employeeArray'] = $this->course->getEmployeeSelect();
 
         //echo $this->calendar-> generate($year, $month, $events);
         $this->load->view('v_wb_head');

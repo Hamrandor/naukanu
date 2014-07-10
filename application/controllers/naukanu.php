@@ -26,7 +26,7 @@ class naukanu extends CI_Controller {
             $this->load->library(array('form_validation', 'session'));
             //Laden unserer models (/application/models/user.php)
             //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
-            $this->load->model(array('user', 'boat', 'mast', 'canvas', 'tools', 'coursetype'));
+            $this->load->model(array('user', 'boat', 'mast', 'canvas', 'tools', 'coursetype', 'course'));
         }
         
         
@@ -58,7 +58,15 @@ class naukanu extends CI_Controller {
         public function configCourseType(){
             redirect('courseTypeConfig');
         }
+        
+        public function configCourse(){
+            redirect ('courseConfig');
+        }
        
+        public function configBooking(){
+            redirect ('bookingConfig');
+        }
+        
 	public function calendar(){
             redirect('calendarConfig');		
 	}

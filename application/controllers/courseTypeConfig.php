@@ -20,6 +20,7 @@ class courseTypeConfig extends CI_Controller{
     //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
     $this->load->model('coursetype');
     $this->load->model('boat');
+    $this->load->model('tools');
     }
     
     public function index(){
@@ -27,7 +28,6 @@ class courseTypeConfig extends CI_Controller{
             $this->load->view('v_navigation');
             $data = array();
             $data['editCourseType'] = false;
-            $data["courseTypeArray"] = $this->coursetype->getCourseTypeNameSelect();
             $selectedCourseType = $this->input->post('sCourseTypeID');
             //hier Test ob neues Boot
             if ($this->input->post('newCourseType')){
@@ -88,6 +88,12 @@ class courseTypeConfig extends CI_Controller{
                     $this->coursetype->saveCourseType($courseTypeObject);
                 }
             }
+            if ($this->input->post('deleteCourseType')){
+                $this->coursetype->deleteCourseType($selectedCourseType);
+                $this->tools->alertMessage("Kurstyp wurde gelöscht.");
+            }
+            
+            $data["courseTypeArray"] = $this->coursetype->getCourseTypeNameSelect();
             $this->load->view('v_config_coursetype', $data);
 
            $this->load->view('v_wb_footer');

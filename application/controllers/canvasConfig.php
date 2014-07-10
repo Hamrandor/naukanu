@@ -32,7 +32,7 @@ class canvasConfig extends CI_Controller {
             $this->load->view('v_navigation');
             $data = array();
             $data['editCanvas'] = false;
-            $data["canvasArray"] = $this->canvas->getCanvasNameSelect(NULL);
+          
             $selectedCanvas = $this->input->post('sCanvasID');
             //hier Test ob neues Boot
             if ($this->input->post('newCanvas')){
@@ -82,6 +82,7 @@ class canvasConfig extends CI_Controller {
                     $this->canvas->saveCanvas($canvasObject);
                 }
             }
+            $data["canvasArray"] = $this->canvas->getCanvasNameSelect(NULL);
             $this->load->view('v_config_canvas', $data);
 
            $this->load->view('v_wb_footer');

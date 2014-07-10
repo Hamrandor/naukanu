@@ -93,4 +93,9 @@ class coursetype extends CI_Model {
             );
             return $data;
         }
-	}
+        public function deleteCourseType($courseTypeID){
+            $this->db->where('courseTypeID', $courseTypeID);
+            $this->db->delete('courseType');
+            }
+        }
+	
