@@ -19,7 +19,7 @@ class canvas extends CI_Model{
         //b.boatid, t.typename, c.Description 
 //        $this->db->query('SELECT * from `boat` as b left join `boattype` as t on b.boatID = t.boatTypeID left JOIN `condition` as c on b.conditionID= c.conditionID');
         $this->db->select('*, mast.name as mastname, canvas.name');
-        $this->db->from('canvas');
+        $this->db->from('Canvas');
         $this->db->join('canvastype', 'canvas.canvastypeid = canvastype.canvastypeid', 'left');
         $this->db->join('condition', 'canvas.conditionid= condition.conditionid','left');
         $this->db->join('mast', 'mast.mastid= canvas.mastid','left');
@@ -83,7 +83,7 @@ class canvas extends CI_Model{
     public function getCanvasTypeSelect($mastTypeID){
         $myresult = array();
         $this->db->select('*');
-        $this->db->from('canvastype');
+        $this->db->from('canvasType');
         if (isset($boatTypeID) && $boatTypeID != NULL) {
             $this->db->join('jtcanvasmast', 'canvas.canvasTypeID = jtcanvasmast.canvasTypeID', 'right');
             $this->db->where('mastTypeID', $mastTypeID);
@@ -120,7 +120,7 @@ class canvas extends CI_Model{
     public function getCanvasTypeNameSelect($mastTypeID){
         $myresult = array();
         $this->db->select('*');
-        $this->db->from('canvastype');
+        $this->db->from('canvasType');
         if (isset($mastTypeID)) {
             $this->db->join('jtmastcanvas', 'canvas.canvasTypeID = jtmastcanvas.mastTypeID', 'right');
             $this->db->where('mastTypeID', $mastTypeID);
@@ -153,34 +153,26 @@ class canvas extends CI_Model{
     
     
     function checkCanvas($aCanvas){
-        $result = true;
-        if ($aCanvas['mastID'] != ''){
-            $this->db->select('mastTypeID');
-            $this->db->from('mast');
-            $this->db->where('mastid', $aCanvas['mastID']);
-            $mastQuery = $this->db->get();
-            if ($mastQuery->num_rows() > 0)
-            {
-                foreach ($mastQuery->result_array() as $row){
-                    $mastResult =$row['mastTypeID'];
-                }
-            } else {
-                $result = FALSE;
+        $this->db->select('mastTypeID');
+        $this->db->from('mast');
+        $this->db->where('mastid', $aCanvas['mastID']);
+        $mastQuery = $this->db->get();
+        if ($mastQuery->num_rows() > 0)
+        {
+            foreach ($mastQuery->result_array() as $row){
+                $mastResult =$row['mastTypeID'];
             }
-
-            if ($result) {
-                $this->db->select('*');
-                $this->db->from('jtmastcanvas');
-                $this->db->where('canvastypeID', $aCanvas['canvasTypeID']);
-                $this->db->where('masttypeID', $mastResult);
-                $query = $this->db->get();
-                if ($query->num_rows() > 0)
-                {
-                    $result = TRUE;
-                } else {
-                    $result = FALSE;
-                }
-            }
+        }       
+        $this->db->select('*');
+        $this->db->from('jtmastcanvas');
+        $this->db->where('canvastypeID', $aCanvas['canvasTypeID']);
+        $this->db->where('masttypeID', $mastResult);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            $result = TRUE;
+        } else {
+            $result = FALSE;
         }
         
         return $result;        

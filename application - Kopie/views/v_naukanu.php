@@ -7,7 +7,7 @@
     <head>
 
         <title>Advanced Sailing School</title>
-        <!link to created stylesheet TODO> 
+
         <style type="text/css">
 
                body{
@@ -136,7 +136,8 @@
                 </ul>
             </div>
             <div id="maincontent" name="maincontent">
-                <?php  
+                <?php
+                
                      {
                      if (isset($_GET["page"]))
                      {switch($_GET["page"])

@@ -39,7 +39,7 @@ class canvasConfig extends CI_Controller {
                 //$data = newMast($data);
                 $data['newCanvasObject'] = $this->canvas->emptyCanvas();
                 $data['selectedCanvas'] = null; //$this->canvas->emptyCanvas();
-                $data['canvasTypeSelect'] =  $this->tools->addNullValue($this->canvas->getCanvasTypeSelect(NULL));
+                $data['canvasTypeSelect'] =  $this->canvas->getCanvasTypeSelect(NULL);
                 $keys = array_keys($data['canvasTypeSelect'] );
                 $data['mastSelect'] =  $this->tools->addNullValue($this->mast->getMastArrayForCanvasType(array_pop($keys)));
                 $data['conditionSelect'] =  $this->condition->getConditionSelect();

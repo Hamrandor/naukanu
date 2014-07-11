@@ -24,7 +24,7 @@ class mast extends CI_Model{
         //b.boatid, t.typename, c.Description 
 //        $this->db->query('SELECT * from `boat` as b left join `boattype` as t on b.boatID = t.boatTypeID left JOIN `condition` as c on b.conditionID= c.conditionID');
         $this->db->select('*, boat.name as boatname, mast.name');
-        $this->db->from('mast');
+        $this->db->from('Mast');
         $this->db->join('masttype', 'mast.masttypeid = masttype.masttypeid', 'left');
         $this->db->join('condition', 'mast.conditionid= condition.conditionid','left');
         $this->db->join('boat', 'mast.boatid= boat.boatid','left');
@@ -62,7 +62,7 @@ class mast extends CI_Model{
     public function getMastArray($boatID){
         $result = array();
         $this->db->select('*');
-        $this->db->from('mast');
+        $this->db->from('Mast');
         $this->db->join('masttype', 'mast.masttypeid = masttype.masttypeid', 'left');
         $this->db->join('condition', 'mast.conditionid= condition.conditionid','left');
         if (isset($boatID) && $boatID != null) {
@@ -84,7 +84,7 @@ class mast extends CI_Model{
     public function getMastTypeSelect($boatTypeID){
         $myresult = array();
         $this->db->select('*');
-        $this->db->from('masttype');
+        $this->db->from('mastType');
         if (isset($boatTypeID) && $boatTypeID != NULL) {
             $this->db->join('jtboatmast', 'mast.mastTypeID = jtboatmast.mastTypeID', 'right');
             $this->db->where('boatTypeID', $boatTypeID);
