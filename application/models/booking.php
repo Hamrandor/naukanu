@@ -10,15 +10,15 @@ class booking extends CI_Model {
     
     public function getBookingNameSelect(){
         $myresult = array();
-        $this->db->select('*');
+        $this->db->select('*, person.name AS personname');
         $this->db->from('booking');
         $this->db->join('course', 'booking.courseid = course.courseid', 'left');
         $this->db->join('person', 'booking.personid = person.personid', 'left');
-        $this->db->join('boat', 'booking.boatid = boat.boatid', 'left');
-        $this->db->where('bookingID');
+//        $this->db->join('boat', 'booking.boatid = boat.boatid', 'left');
+//        $this->db->where('bookingID');
         $query = $this->db->get();
         foreach($query->result_array() as $row){
-            $myresult[$row['BookingID']] = $row['name.person']." ".$row['name.course'];
+            $myresult[$row['bookingID']] = $row['personname']." ".$row['courseName'];
             print_r ($row);
         }
         return $myresult;
@@ -90,8 +90,9 @@ class booking extends CI_Model {
     }
         public function saveBooking ($bookingObject) {
             //$id = $bookingObject['bookingID'];
+           print_r ($bookingObject);
             $data = array(
-                'bookingID' => $bookingObject['bookingNo'],
+//                'bookingID' => $bookingObject['bookingID'],
                 'courseID' => $bookingObject['courseID'],
                 'personID' => $bookingObject['customerID'],
                 'boatID' => $bookingObject['boatID'],
@@ -107,7 +108,7 @@ class booking extends CI_Model {
         }
         public function emptyBooking () {
             $data = array(
-                'bookingID' => '',
+//                'bookingID' => '',
                 'courseID' => '',
                 'personID' => '',
                 'boatID' => '',

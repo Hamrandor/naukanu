@@ -46,11 +46,14 @@ class bookingConfig extends CI_Controller{
             }
             if ($this->input->post('saveNewBooking')){
                 $newBooking = $this->booking->emptyBooking();
-                $newBooking['bookingID'] = $this->input->post ('bookingNo');
+//                $newBooking['bookingID'] = $this->input->post ('bookingNo');
                 $newBooking['courseID'] = $this->input->post('sCourseID');
                 $newBooking['customerID'] = $this->input->post('sCustomerID');
                 $newBooking['boatID'] = $this->input->post('sBoatID');
                 $newBooking['examID'] = $this->input->post('sExamID');
+//                print_r($newBooking);
+//                $test= $this->input->post();
+//                print_r($test);
                 $this->booking->saveBooking($newBooking);
             }
             
