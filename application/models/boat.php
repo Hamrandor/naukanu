@@ -212,6 +212,24 @@ class boat extends CI_Model{
         return $result;
     }
     
+   public function getBoatArrayForMastType($mastTypeID){
+        $result = array();
+        $this->db->select('boatID, name');
+        $this->db->from('boat');
+        if (isset($mastTypeID) && $mastTypeID != null) {
+            $this->db->join('jtboatmast', 'boat.boatTypeID = jtboatmast.boatTypeID','left');
+            $this->db->where('jtboatmast.mastTypeID', $mastTypeID);
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result_array() as $row){
+                $result[$row['boatID']] = $row['name'];
+            }
+        }
+        return $result;
+        
+    }
     
     
     

@@ -23,10 +23,11 @@
             echo '</tr>';
             echo '<tr>';
             echo '<td>';
-            echo 'Bootstyp:';
+            echo 'Masttyp:';
             echo '</td>';
             echo '<td>';
-            echo form_dropdown('sMastTypeID', $mastTypeSelect, null);
+            $js = 'onChange="this.form.submit();"';
+            echo form_dropdown('nMastTypeID', $mastTypeSelect, null, $js);
             echo '</td>';
             echo '</tr>';
             echo '<tr>';
@@ -91,6 +92,9 @@
                 echo '<tr>';
                 echo '<td>';
                 echo form_submit('saveMast', 'Mast speichern');
+                echo '</td>';
+                echo '<td>';
+                echo form_submit('deleteMast', 'Mast löschen');
                 echo '</td>';
                 echo '</tr>';
                 echo '</table>';                

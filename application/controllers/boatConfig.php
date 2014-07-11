@@ -33,7 +33,6 @@ class boatConfig extends CI_Controller{
             $this->load->view('v_navigation');
             $data = array();
             $data['editBoat'] = false;
-            $data["boatArray"] = $this->boat->getBoatNameSelect();
             $selectedBoat = $this->input->post('sBoatID');
             //hier Test ob neues Boot
             if ($this->input->post('newBoat')){
@@ -83,6 +82,13 @@ class boatConfig extends CI_Controller{
                     $this->boat->saveBoat($boatObject);
                 }
             }
+            
+            if ($this->input->post('deleteBoat')){
+                $this->boat->deleteBoat($selectedBoat);
+                $this->tools->alertMessage("Boot wurde gelöscht.");
+            }
+            $data["boatArray"] = $this->boat->getBoatNameSelect();
+
             $this->load->view('v_config_boat', $data);
 
            $this->load->view('v_wb_footer');

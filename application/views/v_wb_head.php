@@ -18,7 +18,8 @@
                     border: 0;
                     overflow: hidden;
                     height: 100%; 
-                    max-height: 100%; 
+                    max-height: 100%;
+                    font-family: Arial, sans-serif;
                 }
 
                #framecontentTopLogo{
@@ -32,12 +33,12 @@
                     height: 10%;
                     width: 15%;
                     overflow: hidden;
-                    background-color: blue;
+                    background-color: whitesmoke;
                 }
 
                 #framecontentTopHeadline{
                     position: fixed;
-                    display: block;
+                    display: compact;
                     top: 0;
                     left: 15%;
                     height: 10%;
@@ -45,7 +46,8 @@
                     overflow: hidden;
                     margin: 0;
                     padding: 0;
-                    background-color: lightcoral;
+                    background-color: whitesmoke;
+                    font-size: 30;
                 }
                 
                 #framcontentLeft{
@@ -56,7 +58,7 @@
                     left: 0;
                     height: 85%;
                     width: 15%;
-                    background-color: lightcyan;
+                    background-color: whitesmoke;
                 }
 
                 #maincontent{
@@ -67,7 +69,7 @@
                     height: 85%;
                     width: 90%;
                     max-width: 90%;
-                    background-color: #D0D0D0;
+                    background-color: white;
                     overflow-y: scroll;
                 }
 
@@ -79,7 +81,7 @@
                     left: 0;
                     height: 5%;
                     width: 100%;
-                    background-color: #888;
+                    background-color: #D0D0D0;
                 }
                 
                 #menu{

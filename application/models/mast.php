@@ -151,7 +151,7 @@ class mast extends CI_Model{
     function checkMast($aMast){
         $this->db->select('boatTypeID');
         $this->db->from('boat');
-        $this->db->where('boatid', $aCanvas['boatID']);
+        $this->db->where('boatid', $aMast['boatID']);
         $boatQuery = $this->db->get();
         if ($boatQuery->num_rows() > 0)
         {
@@ -169,8 +169,7 @@ class mast extends CI_Model{
             $result = TRUE;
         } else {
             $result = FALSE;
-        }
-        
+        }        
         return $result;        
     }   
     
@@ -196,5 +195,30 @@ class mast extends CI_Model{
         }
         return $result;
     }
+    
+    public function getMastArrayForCanvasType($canvasTypeID){
+        $result = array();
+        $this->db->select('mastID, name');
+        $this->db->from('mast');
+        if (isset($canvasTypeID) && $canvasTypeID != null) {
+            $this->db->join('jtmastcanvas', 'mast.mastTypeID = jtmastcanvas.mastTypeID','left');
+            $this->db->where('jtmastcanvas.canvasTypeID', $canvasTypeID);
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result_array() as $row){
+                $result[$row['mastID']] = $row['name'];
+            }
+        }
+        return $result;
+        
+    }
+    
+    public function deleteMast($mastID){
+        $this->db->where('mastID', $mastID);
+        $this->db->delete('mast');
+    }
+
 
 }

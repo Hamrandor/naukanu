@@ -32,27 +32,31 @@ class canvasConfig extends CI_Controller {
             $this->load->view('v_navigation');
             $data = array();
             $data['editCanvas'] = false;
-          
             $selectedCanvas = $this->input->post('sCanvasID');
+            $nCanvasTypeID = $this->input->post('nCanvasTypeID');
             //hier Test ob neues Boot
             if ($this->input->post('newCanvas')){
                 //$data = newMast($data);
                 $data['newCanvasObject'] = $this->canvas->emptyCanvas();
                 $data['selectedCanvas'] = null; //$this->canvas->emptyCanvas();
                 $data['canvasTypeSelect'] =  $this->canvas->getCanvasTypeSelect(NULL);
-                $data['mastSelect'] =  $this->mast->getMastNameSelect(NULL);
+                $keys = array_keys($data['canvasTypeSelect'] );
+                $data['mastSelect'] =  $this->tools->addNullValue($this->mast->getMastArrayForCanvasType(array_pop($keys)));
                 $data['conditionSelect'] =  $this->condition->getConditionSelect();
+                $nCanvasTypeID = null;
                 } else {
                 // wenn nicht, dann Das augewählte Boot bearbeiten
                 $data["selectedCanvas"] = $selectedCanvas;
                 $data["selectedCanvasType"] = null;
             }
+            
             if ($this->input->post('saveNewCanvas')){
                 $newCanvas = $this->canvas->emptyCanvas();
                 $newCanvas["name"] = $this->input->post('canvasName');
-                $newCanvas["canvasTypeID"] = $this->input->post('sCanvasTypeID');
+                $newCanvas["canvasTypeID"] = $nCanvasTypeID;
                 $newCanvas["conditionID"] = $this->input->post('sConditionID');
                 $newCanvas["mastID"] = $this->input->post('sMastID');
+                $nCanvasTypeID = null;
                 if ($this->canvas->checkCanvas($newCanvas)) {
                     $this->canvas->saveCanvas($newCanvas);
                 } else {
@@ -60,8 +64,8 @@ class canvasConfig extends CI_Controller {
                 }
             }
             
-            
             if ($this->input->post('chooseCanvas') || $this->input->post('saveCanvas') || $this->input->post('editCanvas')){
+                $nCanvasTypeID = null;
                 $canvasObject = $this->canvas->getCanvasForID($selectedCanvas);
                 $data['canvasObject'] = $canvasObject;
                 //$canvasArray = array();
@@ -82,15 +86,34 @@ class canvasConfig extends CI_Controller {
                     $this->canvas->saveCanvas($canvasObject);
                 }
             }
+            
+            if ($this->input->post('deleteCanvas')){
+                $this->canvas->deleteCanvas($selectedCanvas);
+                $this->tools->alertMessage("Segel wurde gelöscht.");
+            }
+
+            
+            if (isset($nCanvasTypeID) && $nCanvasTypeID != null){
+                $newCanvas = $this->canvas->emptyCanvas();
+                $newCanvas["name"] = $this->input->post('canvasName');
+                $newCanvas["canvasTypeID"] = $nCanvasTypeID;
+                $newCanvas["conditionID"] = $this->input->post('sConditionID');
+                $newCanvas["mastID"] = $this->input->post('sMastID');
+                $data['mastSelect'] = $this->tools->addNullValue($this->mast->getMastArrayForCanvasType($newCanvas["canvasTypeID"]));
+                $data['newCanvasObject'] = $newCanvas;
+                $data['canvasTypeSelect'] =  $this->canvas->getCanvasTypeSelect(NULL);
+                $data['conditionSelect'] =  $this->condition->getConditionSelect();
+                $data['selectedCanvas'] = null; //$this->canvas->emptyCanvas();
+            }
             $data["canvasArray"] = $this->canvas->getCanvasNameSelect(NULL);
             $this->load->view('v_config_canvas', $data);
-
-           $this->load->view('v_wb_footer');
+            $this->load->view('v_wb_footer');
         }else{
             //Redirect to http://xyz.de/login.html
             redirect("login");
         }
     }    
+    
 
     
     
