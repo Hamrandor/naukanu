@@ -27,7 +27,7 @@
             echo '</td>';
             echo '<td>';
             $js = 'onChange="this.form.submit();"';
-            echo form_dropdown('nMastTypeID', $mastTypeSelect, null, $js);
+            echo form_dropdown('nMastTypeID', $mastTypeSelect, $newMastObject['mastTypeID'], $js);
             echo '</td>';
             echo '</tr>';
             echo '<tr>';
@@ -56,6 +56,9 @@
         
         if (isset($mastObject)) {
             if ($editMast) {
+                echo form_hidden('eMastID', $mastObject['mastID']);
+                echo form_hidden('eConditionID', $mastObject['conditionID']);
+                echo form_hidden('eBoatTypeID', $mastObject['boatTypeID']);
                 echo '<table width="100%" border="0">';
                 echo '<tr>';
                 echo '<td width="200px">';
@@ -70,7 +73,7 @@
                 echo 'Masttyp:';
                 echo '</td>';
                 echo '<td>';
-                echo form_dropdown('sMastTypeID', $mastTypeSelect, $selectedMastType);
+                echo form_dropdown('sMastTypeID', $mastTypeSelect, $mastObject['mastTypeID']);
                 echo '</td>';
                 echo '</tr>';
                 echo '<tr>';
@@ -78,7 +81,7 @@
                 echo 'Boot:';
                 echo '</td>';
                 echo '<td>';
-                echo form_dropdown('sBoatID', $boatSelect, $selectedBoat);
+                echo form_dropdown('sBoatID', $boatSelect, $mastObject['boatID']);
                 echo '</td>';
                 echo '</tr>';
                 echo '<tr>';
@@ -166,10 +169,10 @@
             }
         }
                 
-        if (isset($canvasarrayofMast)) {
+        if (isset($canvasArrayofMast)) {
             $i = 1;
             echo '<br>';
-            foreach ($canvasarrayofMast as $canvas){
+            foreach ($canvasArrayofMast as $canvas){
                 echo '<table width="100%" border="0">';
                 echo '<tr>';
                 echo '<td>';
@@ -202,10 +205,10 @@
                 echo '</tr>';
                 echo '<tr>';
                 echo '<td width="200px">';
-                echo 'H&ouml;he: ';
+                echo 'Gr&ouml;&szlig;e : ';
                 echo '</td>';
                 echo '<td>';
-                echo $canvas['heigth'];
+                echo $canvas['size'];
                 echo '</td>';
                 echo '</tr>';
                 echo '<tr>';

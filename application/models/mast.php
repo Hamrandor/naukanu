@@ -33,7 +33,6 @@ class mast extends CI_Model{
         if ($query->num_rows() == 1)
         {
             foreach ($query->result_array() as $row){
-                print_r($row);
                 return $row;
             }
         }
@@ -86,8 +85,8 @@ class mast extends CI_Model{
         $this->db->select('*');
         $this->db->from('masttype');
         if (isset($boatTypeID) && $boatTypeID != NULL) {
-            $this->db->join('jtboatmast', 'mast.mastTypeID = jtboatmast.mastTypeID', 'right');
-            $this->db->where('boatTypeID', $boatTypeID);
+            $this->db->join('jtboatmast', 'masttype.mastTypeID = jtboatmast.mastTypeID', 'right');
+            $this->db->where('boattypeID', $boatTypeID);
         }
         $query = $this->db->get();
         foreach($query->result_array() as $row){

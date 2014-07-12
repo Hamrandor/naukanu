@@ -40,7 +40,7 @@ class mastConfig extends CI_Controller {
                 $data['newMastObject'] = $this->mast->emptyMast();
                 $data['selectedMast'] = null; //$this->mast->emptyMast();
                 $data['mastTypeSelect'] =  $this->mast->getMastTypeSelect(NULL);
-                $data['boatSelect'] =  $this->boat->getBoatArrayForMastType(NULL);
+                $data['boatSelect'] =  $this->tools->addNullValue($this->boat->getBoatArrayForMastType(NULL));
                 $data['conditionSelect'] =  $this->condition->getConditionSelect();
                 $nMastTypeID = null;
                 } else {
@@ -50,10 +50,11 @@ class mastConfig extends CI_Controller {
             }
             if ($this->input->post('saveNewMast')){
                 $newMast = $this->mast->emptyMast();
-                $newMast["name"] = $this->input->post('mastName');
-                $newMast["mastTypeID"] = $nMastTypeID;
-                $newMast["conditionID"] = $this->input->post('sConditionID');
-                $newMast["boatID"] = $this->input->post('sBoatID');
+                $newMast['name'] = $this->input->post('mastName');
+                $newMast['mastTypeID'] = $nMastTypeID;
+                $newMast['conditionID'] = $this->input->post('sConditionID');
+                $newMast['boatID'] = $this->input->post('sBoatID');
+                        
                 $nMastTypeID = null;
                 $this->mast->saveMast($newMast);
             }
@@ -61,23 +62,27 @@ class mastConfig extends CI_Controller {
             if ($this->input->post('chooseMast') || $this->input->post('saveMast') || $this->input->post('editMast')){
                 $mastObject = $this->mast->getMastForID($selectedMast);
                 $data['mastObject'] = $mastObject;
-                $canvasArray = array();
                 $canvasArray = $this->canvas->getCanvasArray($mastObject['mastID']);
                 $data['canvasArrayofMast'] = $canvasArray;
+                print_r($canvasArray);
                 $nMastTypeID = null;
 
                 if($this->input->post('editMast')){
 //                    echo '<br>edit Boot <br>';
                     $data['editMast'] = true;
-                    $data['mastTypeSelect'] =  $this->mast->getMastTypeSelect(NULL);
+                    $data['mastTypeSelect'] =  $this->mast->getMastTypeSelect($mastObject['boatTypeID']);
                     $data['boatSelect'] =  $this->boat->getBoatNameSelect();
-                    $data['selectedBoat'] = $mastObject['boatID'];
+//                    $data['selectedBoat'] = $mastObject['boatID'];
+              
                 }
                 if($this->input->post('saveMast')){
 //                    echo '<br>save Boot <br>';
+                    $mastObject['mastID'] = $this->input->post('eMastID');
                     $mastObject['mastTypeID'] = $this->input->post('sMastTypeID');
                     $mastObject['name'] = $this->input->post('mastName');
                     $mastObject['boatID'] = $this->input->post('sBoatID');
+                    $mastObject['conditionID'] = $this->input->post('eConditionID');
+                    
                     $this->mast->saveMast($mastObject);
                 }
             }
@@ -94,7 +99,7 @@ class mastConfig extends CI_Controller {
                 $newMast["boatID"] = $this->input->post('sBoatID');
                 $data['boatSelect'] = $this->tools->addNullValue($this->boat->getBoatArrayForMastType($newMast["mastTypeID"]));
                 $data['newMastObject'] = $newMast;
-                $data['mastTypeSelect'] =  $this->canvas->getCanvasTypeSelect(NULL);
+                $data['mastTypeSelect'] =  $this->mast->getMastTypeSelect(NULL);
                 $data['conditionSelect'] =  $this->condition->getConditionSelect();
                 $data['selectedMast'] = null; //$this->canvas->emptyCanvas();
             }

@@ -51,10 +51,10 @@ class booking extends CI_Model {
 	public function getCourseSelect(){
         $myresult = array();
         $this->db->select('*');
-        $this->db->from('calendarentry');
+        $this->db->from('course');
         $query = $this->db->get();
         foreach($query->result_array() as $row){
-            $myresult[$row['courseID']] = $row['description'];
+            $myresult[$row['courseID']] = $row['courseName'];
         }
         return $myresult;
         }
