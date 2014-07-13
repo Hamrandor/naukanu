@@ -3,10 +3,10 @@
  */
 (function($) {
 
-module("progressbar: options");
+    module("progressbar: options");
 
-test("{ value : 0 }, default", function() {
-	ok(false, "missing test - untested code is broken code.");
-});
+    test("{ value : 0 }, default", function() {
+        ok(false, "missing test - untested code is broken code.");
+    });
 
 })(jQuery);

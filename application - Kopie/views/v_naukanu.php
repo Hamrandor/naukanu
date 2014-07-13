@@ -1,16 +1,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <php>
-<html>
-    <meta http-equiv="X-UA-Compatible" content="IE=100" >
-        
-    </meta>
-    <head>
+    <html>
+        <meta http-equiv="X-UA-Compatible" content="IE=100" >
 
-        <title>Advanced Sailing School</title>
+        </meta>
+        <head>
 
-        <style type="text/css">
+            <title>Advanced Sailing School</title>
 
-               body{
+            <style type="text/css">
+
+                body{
                     margin: 0;
                     padding: 0;
                     border: 0;
@@ -19,7 +19,7 @@
                     max-height: 100%; 
                 }
 
-               #framecontentTopLogo{
+                #framecontentTopLogo{
                     position: fixed;
                     float: left;
                     display: block;
@@ -45,7 +45,7 @@
                     padding: 0;
                     background-color: lightcoral;
                 }
-                
+
                 #framcontentLeft{
                     position: fixed;
                     float: left;
@@ -79,29 +79,29 @@
                     width: 100%;
                     background-color: #888;
                 }
-                
+
                 #menu{
                     list-style-type: square;
                     cursor: default;
                     display: block;
-                    
+
                 }
-                
+
                 #submenuCourse{
                     text-align: left;
                 }
-                
+
                 a:link{color: #000000}
                 a:visited{color: #e13300;}
                 a:hover{color: #000000; font-weight: bold}
                 a:active{color: #EEE; font-weight: bolder;}
-                
+
                 table{border-style: dashed;}
-                
-        </style>
-    </head>
+
+            </style>
+        </head>
         <body>
-            
+
             <div id="framecontentTopLogo" name="logo">
                 <img src="\application/views/segelboot.gif">
             </div>
@@ -120,7 +120,7 @@
                         <li><a href="?page=Mastverwaltung">Masten verwalten</a></li>
                         <li><a href="?page=Segelverwaltung">Segel verwalten</a></li>
                     </ul>
-                    
+
                     <li> <a href="?page=Kundenverwaltung">Kundenverwaltung</a> </li>
                     <ul id="submenuCustomer">
                         <li>Kundendaten bearbeiten</li>
@@ -136,25 +136,28 @@
                 </ul>
             </div>
             <div id="maincontent" name="maincontent">
-                <?php
-                
-                     {
-                     if (isset($_GET["page"]))
-                     {switch($_GET["page"])
-                     {case "Mitarbeiterverwaltung": include("\application/views/v_personnelAdministration_main.php"); break;
-                     case "Bootsverwaltung": redirect("boatConfig"); break;
-                     case "Mastverwaltung": redirect("mastConfig"); break;
-                     case "Segelverwaltung": redirect("canvasConfig"); break;
-                     case "initialPersonnelData": include("\application/views/v_formular_initial_personnelData.php");break;
-                     }
-                     }
+                <?php {
+                    if (isset($_GET["page"])) {
+                        switch ($_GET["page"]) {
+                            case "Mitarbeiterverwaltung": include("\application/views/v_personnelAdministration_main.php");
+                                break;
+                            case "Bootsverwaltung": redirect("boatConfig");
+                                break;
+                            case "Mastverwaltung": redirect("mastConfig");
+                                break;
+                            case "Segelverwaltung": redirect("canvasConfig");
+                                break;
+                            case "initialPersonnelData": include("\application/views/v_formular_initial_personnelData.php");
+                                break;
+                        }
                     }
+                }
                 ?>
             </div>
             <div id="framecontentFooter" name="footer">
                 <h3>platzhalter footer</h3>
             </div>
         </body>
-	
-</html>
+
+    </html>
 </php>

@@ -11,28 +11,27 @@
  *
  * @author Jens
  */
-class Main extends CI_Controller{
-    //put your code here
-     public function __construct(){
-            parent::__Construct();
-            $this->load->helper(array('form', 'html', 'url'));
-            $this->load->library(array('session'));
-            $this->load->model('boat');
-            //$this->load->model("news");
-        }
- 
-        public function index(){
-            //Check if user is logged in
-            if($this->session->userdata('login_state') === TRUE){
-                //hier könnte man nun das entsprechende view laden.
-                $data = $this->boat->getBoatArray();
-                $this->load->view('boatConfig', $data);
+class Main extends CI_Controller {
 
-            }else{
-                //Redirect to http://xyz.de/login.html
-                redirect("login");
-            }
+    //put your code here
+    public function __construct() {
+        parent::__Construct();
+        $this->load->helper(array('form', 'html', 'url'));
+        $this->load->library(array('session'));
+        $this->load->model('boat');
+        //$this->load->model("news");
+    }
+
+    public function index() {
+        //Check if user is logged in
+        if ($this->session->userdata('login_state') === TRUE) {
+            //hier könnte man nun das entsprechende view laden.
+            $data = $this->boat->getBoatArray();
+            $this->load->view('boatConfig', $data);
+        } else {
+            //Redirect to http://xyz.de/login.html
+            redirect("login");
         }
-    
-    
+    }
+
 }

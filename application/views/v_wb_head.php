@@ -1,18 +1,18 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <php>
-<html>
-    <!--<meta http-equiv="X-UA-Compatible" content="IE=100" >-->
-    <meta charset="UTF-8">
+    <html>
+        <!--<meta http-equiv="X-UA-Compatible" content="IE=100" >-->
+        <meta charset="UTF-8">
 
-        
-    </meta>
-    <head>
 
-        <title>Advanced Sailing School</title>
+        </meta>
+        <head>
 
-        <style type="text/css">
+            <title>Advanced Sailing School</title>
 
-               body{
+            <style type="text/css">
+
+                body{
                     margin: 0;
                     padding: 0;
                     border: 0;
@@ -22,7 +22,7 @@
                     font-family: Arial, sans-serif;
                 }
 
-               #framecontentTopLogo{
+                #framecontentTopLogo{
                     position: fixed;
                     float: left;
                     display: block;
@@ -49,7 +49,7 @@
                     background-color: whitesmoke;
                     font-size: 30;
                 }
-                
+
                 #framcontentLeft{
                     position: fixed;
                     float: left;
@@ -83,25 +83,24 @@
                     width: 100%;
                     background-color: #D0D0D0;
                 }
-                
+
                 #menu{
                     list-style-type: square;
                     cursor: default;
                     display: block;
-                    
+
                 }
-                
+
                 #submenuCourse{
                     text-align: left;
                 }
-                
+
                 a:link{color: #000000}
                 a:visited{color: #e13300;}
                 a:hover{color: #000000; font-weight: bold}
                 a:active{color: #EEE; font-weight: bolder;}
-                
+
                 table{border-style: dashed;}
-                
-        </style>
-    </head>
- 
+
+            </style>
+        </head>

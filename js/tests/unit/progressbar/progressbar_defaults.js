@@ -3,8 +3,8 @@
  */
 
 var progressbar_defaults = {
-	disabled: false,
-	value: 0
+    disabled: false,
+    value: 0
 };
 
-commonWidgetTests('progressbar', { defaults: progressbar_defaults });
+commonWidgetTests('progressbar', {defaults: progressbar_defaults});

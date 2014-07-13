@@ -3,6 +3,6 @@
  */
 (function($) {
 
-module("dialog: tickets");
+    module("dialog: tickets");
 
 })(jQuery);

@@ -11,28 +11,28 @@
  *
  * @author Jens
  */
-class tools extends CI_Model{
+class tools extends CI_Model {
+
     //put your code here
-    
-    public function extractDropdownArray($array, $idField, $displayField){
+
+    public function extractDropdownArray($array, $idField, $displayField) {
         $result = array();
         foreach ($array as $obj) {
             $result[$obj[$idField]] = $obj[$displayField];
         }
-        echo "extractDropdownArray = ".print_r($result);
+        echo "extractDropdownArray = " . print_r($result);
         return $result;
     }
-    
-    function alertMessage ($message){
-        echo "<script type='text/javascript' language='javascript'> \n"; 
-        echo "<!-- \n"; 
-        echo " alert('".$message."'); \n"; 
-        echo "//--> \n"; 
-        echo "</script> \n";         
-        
-    }    
-    
-    public function addNullValue($anArray){
+
+    function alertMessage($message) {
+        echo "<script type='text/javascript' language='javascript'> \n";
+        echo "<!-- \n";
+        echo " alert('" . $message . "'); \n";
+        echo "//--> \n";
+        echo "</script> \n";
+    }
+
+    public function addNullValue($anArray) {
         $result = array(null => "keine Auswahl");
         $keyArray = array_keys($anArray);
         foreach ($keyArray as $k) {
@@ -41,5 +41,4 @@ class tools extends CI_Model{
         return $result;
     }
 
-            
 }

@@ -12,28 +12,26 @@
  * @author rnitschke
  */
 class employee extends person {
-    
-    
-    
-    
-    
-    public function selectExistingEmployees(){
+
+    public function selectExistingEmployees() {
         $myresult = array('employeesData');
         $this->db->select('*');
         $this->db->from('person');
-        $this->db->join('employee', 'employee.employeeID = person.employeeID','left');
+        $this->db->join('employee', 'employee.employeeID = person.employeeID', 'left');
         $this->db->where('employeeID is not null');
-    
-        return ['employeesData'] ;
-    
+
+        return ['employeesData'];
     }
-    
-    
-    public function updateExistingEmployee(){
+
+    public function updateExistingEmployee() {
         
     }
-    
-    public function deleteExistingEmployee(){}
+
+    public function deleteExistingEmployee() {
+        
+    }
+
 }
-    $employeeID = employeeID;
-    $personID = personID;
+
+$employeeID = employeeID;
+$personID = personID;

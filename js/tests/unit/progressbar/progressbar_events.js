@@ -3,10 +3,10 @@
  */
 (function($) {
 
-module("progressbar: events");
+    module("progressbar: events");
 
-test("change", function() {
-	ok(false, "missing test - untested code is broken code.");
-});
+    test("change", function() {
+        ok(false, "missing test - untested code is broken code.");
+    });
 
 })(jQuery);

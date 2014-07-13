@@ -3,6 +3,6 @@
  */
 (function($) {
 
-module("slider: tickets");
+    module("slider: tickets");
 
 })(jQuery);

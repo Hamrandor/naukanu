@@ -3,6 +3,6 @@
  */
 (function($) {
 
-module("resizable: tickets");
+    module("resizable: tickets");
 
 })(jQuery);

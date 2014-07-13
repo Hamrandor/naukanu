@@ -11,20 +11,20 @@
  *
  * @author Jens
  */
-class boattype extends CI_Model{
+class boattype extends CI_Model {
+
     //put your code here
     public $boatTypeID;
     public $typename;
     public $seatCount;
-    
-    public function fillDataForID($boatTypeID){
+
+    public function fillDataForID($boatTypeID) {
         $this->db->select('*');
         $this->db->from("boatType");
         $this->db->where("boatTypeID", $boatID);
         $query = $this->db->get();
-        if ($query->num_rows() == 1)
-        {
-            foreach ($query->result_array() as $row){
+        if ($query->num_rows() == 1) {
+            foreach ($query->result_array() as $row) {
                 $this->boatTypeID = $row['boatTypeID'];
                 $this->typename = $row['typename'];
                 $this->seatCount = $row['seatcount'];
@@ -32,15 +32,15 @@ class boattype extends CI_Model{
         }
     }
 
-    
-    public function getNameSelect(){
+    public function getNameSelect() {
         $myresult = array();
         $this->db->select('*');
-        $this->db->from('boatType');        
+        $this->db->from('boatType');
         $query = $this->db->get();
-        foreach($query->result_array() as $row){
+        foreach ($query->result_array() as $row) {
             $myresult[$row['boatID']] = $row['name'];
         }
         return $myresult;
     }
+
 }

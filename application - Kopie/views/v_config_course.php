@@ -1,42 +1,42 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 $this->load->helper("form");
-        echo '<table width="100%" border="0"><tr><td>';
-        echo form_open("courseConfig");
-        echo "Bitte wählen Sie einen Kurs aus:<br><br>";
-        echo form_dropdown('sCourseID', $courseArray, $selectedCourse);
-        echo "<br>";
-        echo form_submit('chooseCourse', 'Kurs auswählen');        
-        echo form_submit('newCourse', 'neuen Kurs anlegen');        
-        echo "<br>";
-        echo "<br>";
-        echo '</td></tr></table>';
-        
-        if (isset($newCourseObject)){
-            echo '<table width="100%" border="0">';
-            echo '<tr>';
-            echo '<td width="200px">';
-            echo 'Name des neuen Kurses: ';
-            echo '</td>';
-            echo '<td>';
-            echo form_input('courseName', $newCourseObject['courseName']);
-            echo '</td>';
-            echo '</tr>';
-            echo '<tr>';
-            echo '<td>';
-            echo 'Kurstyp:';
-            echo '</td>';
-            echo '<td>';
-            echo form_dropdown('sCourseTypeID', $courseTypeSelect, NULL);
-            echo '</td>';
-            echo '</tr>';
-            echo '<tr>';
-            echo '<td>';
+echo '<table width="100%" border="0"><tr><td>';
+echo form_open("courseConfig");
+echo "Bitte wählen Sie einen Kurs aus:<br><br>";
+echo form_dropdown('sCourseID', $courseArray, $selectedCourse);
+echo "<br>";
+echo form_submit('chooseCourse', 'Kurs auswählen');
+echo form_submit('newCourse', 'neuen Kurs anlegen');
+echo "<br>";
+echo "<br>";
+echo '</td></tr></table>';
+
+if (isset($newCourseObject)) {
+    echo '<table width="100%" border="0">';
+    echo '<tr>';
+    echo '<td width="200px">';
+    echo 'Name des neuen Kurses: ';
+    echo '</td>';
+    echo '<td>';
+    echo form_input('courseName', $newCourseObject['courseName']);
+    echo '</td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<td>';
+    echo 'Kurstyp:';
+    echo '</td>';
+    echo '<td>';
+    echo form_dropdown('sCourseTypeID', $courseTypeSelect, NULL);
+    echo '</td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<td>';
 //            echo 'Beginn:';
 //            echo '</td>';
 //            echo '<td>';
@@ -65,33 +65,33 @@ $this->load->helper("form");
 //            echo '</tr>';
 //            echo '<tr>';
 //            echo '<td>';
-            echo form_submit('saveNewCourse', 'Kurs speichern');
-            echo '</td>';
-            echo '</tr>';
-            echo '</table>';
-        }
-        
-        if (isset($courseObject)) {
-            if ($editCourse) {
-                echo '<table width="100%" border="0">';
-                echo '<tr>';
-                echo '<td width="200px">';
-                echo 'Name des Kurses: ';
-                echo '</td>';
-                echo '<td>';
-                echo form_input('courseName', $courseObject['courseName']);
-                echo '</td>';
-                echo '</tr>';
-                echo '<tr>';
-                echo '<td>';
-                echo 'Kurstyp:';
-                echo '</td>';
-                echo '<td>';
-                echo form_dropdown('sCourseTypeID', $courseTypeSelect, $courseObject['courseTypeID']);
-                echo '</td>';
-                echo '</tr>';
-                echo '<tr>';
-                echo '<td>';
+    echo form_submit('saveNewCourse', 'Kurs speichern');
+    echo '</td>';
+    echo '</tr>';
+    echo '</table>';
+}
+
+if (isset($courseObject)) {
+    if ($editCourse) {
+        echo '<table width="100%" border="0">';
+        echo '<tr>';
+        echo '<td width="200px">';
+        echo 'Name des Kurses: ';
+        echo '</td>';
+        echo '<td>';
+        echo form_input('courseName', $courseObject['courseName']);
+        echo '</td>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<td>';
+        echo 'Kurstyp:';
+        echo '</td>';
+        echo '<td>';
+        echo form_dropdown('sCourseTypeID', $courseTypeSelect, $courseObject['courseTypeID']);
+        echo '</td>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<td>';
 //                echo 'Beginn:';
 //                echo '</td>';
 //                echo '<td>';
@@ -120,31 +120,31 @@ $this->load->helper("form");
 //                echo '</tr>';
 //                echo '<tr>';
 //                echo '<td>';
-                echo form_submit('saveCourse', 'Kurs speichern');
-                echo '</td>';
-                echo '</tr>';
-                echo form_submit('deleteCourse', 'Kurs löschen');
-                echo '</table>';                
-            } else {
-                echo '<table width="100%" border="0">';
-                echo '<tr>';
-                echo '<td width="200px">';
-                echo 'Name des Kurses: ';
-                echo '</td>';
-                echo '<td>';
-                echo $courseObject['courseName'];
-                echo '</td>';
-                echo '</tr>';
-                echo '<tr>';
-                echo '<td>';
-                echo 'Kurstyp: ';
-                echo '</td>';
-                echo '<td>';
-                echo $courseObject['typename'];
-                echo '</td>';
-                echo '</tr>';
-                echo '<tr>';
-                echo '<td>';
+        echo form_submit('saveCourse', 'Kurs speichern');
+        echo '</td>';
+        echo '</tr>';
+        echo form_submit('deleteCourse', 'Kurs löschen');
+        echo '</table>';
+    } else {
+        echo '<table width="100%" border="0">';
+        echo '<tr>';
+        echo '<td width="200px">';
+        echo 'Name des Kurses: ';
+        echo '</td>';
+        echo '<td>';
+        echo $courseObject['courseName'];
+        echo '</td>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<td>';
+        echo 'Kurstyp: ';
+        echo '</td>';
+        echo '<td>';
+        echo $courseObject['typename'];
+        echo '</td>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<td>';
 //                echo 'Beginn: ';
 //                echo '</td>';
 //                echo '<td>';
@@ -171,12 +171,11 @@ $this->load->helper("form");
 //                echo '</tr>';
 //                echo '<tr>';
 //                echo '<td>';
-                echo form_submit('editCourse', 'Kurs bearbeiten');
-                echo '</td>';
-                echo '</tr>';
-                echo '</table>';                
+        echo form_submit('editCourse', 'Kurs bearbeiten');
+        echo '</td>';
+        echo '</tr>';
+        echo '</table>';
+    }
+}
 
-            }
-        }
-       
-        echo form_close();
+echo form_close();

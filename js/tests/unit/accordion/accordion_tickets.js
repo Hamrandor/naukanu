@@ -3,6 +3,6 @@
  */
 (function($) {
 
-module("accordion: tickets");
+    module("accordion: tickets");
 
 })(jQuery);

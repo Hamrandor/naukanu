@@ -3,6 +3,6 @@
  */
 (function($) {
 
-module("draggable: tickets");
+    module("draggable: tickets");
 
 })(jQuery);

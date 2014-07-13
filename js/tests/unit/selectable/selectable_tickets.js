@@ -3,6 +3,6 @@
  */
 (function($) {
 
-module("selectable: tickets");
+    module("selectable: tickets");
 
 })(jQuery);

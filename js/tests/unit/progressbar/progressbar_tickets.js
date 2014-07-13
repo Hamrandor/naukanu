@@ -3,6 +3,6 @@
  */
 (function($) {
 
-module("progressbar: tickets");
+    module("progressbar: tickets");
 
 })(jQuery);

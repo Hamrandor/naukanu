@@ -12,16 +12,14 @@
  * @author rnitschke
  */
 class person extends CI_Model {
-    
-    
-    public function createNewEmployeeID(){
-        
+
+    public function createNewEmployeeID() {
+
         $this->db->select('max(employeeid)');
         $this->db->from('person');
-        
-        set($NewID = $this+1);
+
+        set($NewID = $this + 1);
         return $NewID;
     }
-   
-}
 
+}

@@ -3,7 +3,7 @@
  */
 
 var datepicker_defaults = {
-	disabled: false
+    disabled: false
 };
 
 //commonWidgetTests('datepicker', { defaults: datepicker_defaults });

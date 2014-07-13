@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @property CI_DB_active_record $db
  * @property CI_DB_forge $dbforge
@@ -42,7 +43,11 @@
  * to use in your controllers here
  * 
  */
-class Controller {};
+class Controller {
+    
+}
+
+;
 
 /**
  * @property CI_DB_active_record $db
@@ -55,5 +60,9 @@ class Controller {};
  * to use in your models here.
  * 
  */
-class Model {};
+class Model {
+    
+}
+
+;
 ?>
