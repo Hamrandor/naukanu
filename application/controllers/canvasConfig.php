@@ -1,116 +1,116 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of canvasConfig
+ * description of canvasconfig
  *
- * @author Jens
+ * @author jens
  */
-class canvasConfig extends CI_Controller {
+class canvasconfig extends CI_Controller {
 
     //put your code here
     public function __construct() {
         parent::__construct();
-        //Laden der form helper
+        //laden der form helper
         $this->load->helper(array('form', 'html', 'url'));
-        //Laden der form_validation library sowie der session library
-        //Zur verwendung von sessions und form_validations
+        //laden der form_validation library sowie der session library
+        //zur verwendung von sessions und form_validations
         $this->load->library(array('form_validation', 'session'));
-        //Laden unserer m odels (/application/models/user.php)
-        //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
+        //laden unserer m odels (/application/models/user.php)
+        //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
         $this->load->model(array('user', 'mast', 'canvas', 'tools', 'condition'));
     }
 
     public function index() {
-        if ($this->session->userdata('login_state') === TRUE) {
+        if ($this->session->userdata('login_state') === true) {
             //hier könnte man nun das entsprechende view laden.
             $this->load->view('v_wb_head');
             $this->load->view('v_navigation');
             $data = array();
-            $data['editCanvas'] = false;
-            $selectedCanvas = $this->input->post('sCanvasID');
-            $nCanvasTypeID = $this->input->post('nCanvasTypeID');
-            //hier Test ob neues Boot
-            if ($this->input->post('newCanvas')) {
-                //$data = newMast($data);
-                $data['newCanvasObject'] = $this->canvas->emptyCanvas();
-                $data['selectedCanvas'] = null; //$this->canvas->emptyCanvas();
-                $data['canvasTypeSelect'] = $this->tools->addNullValue($this->canvas->getCanvasTypeSelect(NULL));
-                $keys = array_keys($data['canvasTypeSelect']);
-                $data['mastSelect'] = $this->tools->addNullValue($this->mast->getMastArrayForCanvasType(array_pop($keys)));
-                $data['conditionSelect'] = $this->condition->getConditionSelect();
-                $nCanvasTypeID = null;
+            $data['editcanvas'] = false;
+            $selectedcanvas = $this->input->post('scanvasid');
+            $ncanvastypeid = $this->input->post('ncanvastypeid');
+            //hier test ob neues boot
+            if ($this->input->post('newcanvas')) {
+                //$data = newmast($data);
+                $data['newcanvasobject'] = $this->canvas->emptycanvas();
+                $data['selectedcanvas'] = null; //$this->canvas->emptycanvas();
+                $data['canvastypeselect'] = $this->tools->addnullvalue($this->canvas->getcanvastypeselect(null));
+                $keys = array_keys($data['canvastypeselect']);
+                $data['mastselect'] = $this->tools->addnullvalue($this->mast->getmastarrayforcanvastype(array_pop($keys)));
+                $data['conditionselect'] = $this->condition->getconditionselect();
+                $ncanvastypeid = null;
             } else {
-                // wenn nicht, dann Das augewählte Boot bearbeiten
-                $data["selectedCanvas"] = $selectedCanvas;
-                $data["selectedCanvasType"] = null;
+                // wenn nicht, dann das augewählte boot bearbeiten
+                $data["selectedcanvas"] = $selectedcanvas;
+                $data["selectedcanvastype"] = null;
             }
 
-            if ($this->input->post('saveNewCanvas')) {
-                $newCanvas = $this->canvas->emptyCanvas();
-                $newCanvas["name"] = $this->input->post('canvasName');
-                $newCanvas["canvasTypeID"] = $nCanvasTypeID;
-                $newCanvas["conditionID"] = $this->input->post('sConditionID');
-                $newCanvas["mastID"] = $this->input->post('sMastID');
-                $nCanvasTypeID = null;
-                if ($this->canvas->checkCanvas($newCanvas)) {
-                    $this->canvas->saveCanvas($newCanvas);
+            if ($this->input->post('savenewcanvas')) {
+                $newcanvas = $this->canvas->emptycanvas();
+                $newcanvas["name"] = $this->input->post('canvasname');
+                $newcanvas["canvastypeid"] = $ncanvastypeid;
+                $newcanvas["conditionid"] = $this->input->post('sconditionid');
+                $newcanvas["mastid"] = $this->input->post('smastid');
+                $ncanvastypeid = null;
+                if ($this->canvas->checkcanvas($newcanvas)) {
+                    $this->canvas->savecanvas($newcanvas);
                 } else {
-                    $this->tools->alertMessage("Zuordnung Masttyp zu Segeltyp ist nicht konfiguriert.");
+                    $this->tools->alertmessage("zuordnung masttyp zu segeltyp ist nicht konfiguriert.");
                 }
             }
 
-            if ($this->input->post('chooseCanvas') || $this->input->post('saveCanvas') || $this->input->post('editCanvas')) {
-                $nCanvasTypeID = null;
-                $canvasObject = $this->canvas->getCanvasForID($selectedCanvas);
-                $data['canvasObject'] = $canvasObject;
-                //$canvasArray = array();
-                $canvasArray = $this->canvas->getCanvasArray($canvasObject['canvasID']);
-                $data['canvasArrayofCanvas'] = $canvasArray;
-                if ($this->input->post('editCanvas')) {
-//                    echo '<br>edit Boot <br>';
-                    $data['editCanvas'] = true;
-                    $data['canvasTypeSelect'] = $this->canvas->getCanvasTypeSelect(NULL);
-                    $data['mastSelect'] = $this->mast->getMastNameSelect();
-                    $data['selectedMast'] = $canvasObject['mastID'];
+            if ($this->input->post('choosecanvas') || $this->input->post('savecanvas') || $this->input->post('editcanvas')) {
+                $ncanvastypeid = null;
+                $canvasobject = $this->canvas->getcanvasforid($selectedcanvas);
+                $data['canvasobject'] = $canvasobject;
+                //$canvasarray = array();
+                $canvasarray = $this->canvas->getcanvasarray($canvasobject['canvasid']);
+                $data['canvasarrayofcanvas'] = $canvasarray;
+                if ($this->input->post('editcanvas')) {
+//                    echo '<br>edit boot <br>';
+                    $data['editcanvas'] = true;
+                    $data['canvastypeselect'] = $this->canvas->getcanvastypeselect(null);
+                    $data['mastselect'] = $this->mast->getmastnameselect();
+                    $data['selectedmast'] = $canvasobject['mastid'];
                 }
-                if ($this->input->post('saveCanvas')) {
-//                    echo '<br>save Boot <br>';
-                    $canvasObject['canvasTypeID'] = $this->input->post('sCanvasTypeID');
-                    $canvasObject['name'] = $this->input->post('canvasName');
-                    $canvasObject['mastID'] = $this->input->post('sMastID');
-                    $this->canvas->saveCanvas($canvasObject);
+                if ($this->input->post('savecanvas')) {
+//                    echo '<br>save boot <br>';
+                    $canvasobject['canvastypeid'] = $this->input->post('scanvastypeid');
+                    $canvasobject['name'] = $this->input->post('canvasname');
+                    $canvasobject['mastid'] = $this->input->post('smastid');
+                    $this->canvas->savecanvas($canvasobject);
                 }
             }
 
-            if ($this->input->post('deleteCanvas')) {
-                $this->canvas->deleteCanvas($selectedCanvas);
-                $this->tools->alertMessage("Segel wurde gelöscht.");
+            if ($this->input->post('deletecanvas')) {
+                $this->canvas->deletecanvas($selectedcanvas);
+                $this->tools->alertmessage("segel wurde gelöscht.");
             }
 
 
-            if (isset($nCanvasTypeID) && $nCanvasTypeID != null) {
-                $newCanvas = $this->canvas->emptyCanvas();
-                $newCanvas["name"] = $this->input->post('canvasName');
-                $newCanvas["canvasTypeID"] = $nCanvasTypeID;
-                $newCanvas["conditionID"] = $this->input->post('sConditionID');
-                $newCanvas["mastID"] = $this->input->post('sMastID');
-                $data['mastSelect'] = $this->tools->addNullValue($this->mast->getMastArrayForCanvasType($newCanvas["canvasTypeID"]));
-                $data['newCanvasObject'] = $newCanvas;
-                $data['canvasTypeSelect'] = $this->canvas->getCanvasTypeSelect(NULL);
-                $data['conditionSelect'] = $this->condition->getConditionSelect();
-                $data['selectedCanvas'] = null; //$this->canvas->emptyCanvas();
+            if (isset($ncanvastypeid) && $ncanvastypeid != null) {
+                $newcanvas = $this->canvas->emptycanvas();
+                $newcanvas["name"] = $this->input->post('canvasname');
+                $newcanvas["canvastypeid"] = $ncanvastypeid;
+                $newcanvas["conditionid"] = $this->input->post('sconditionid');
+                $newcanvas["mastid"] = $this->input->post('smastid');
+                $data['mastselect'] = $this->tools->addnullvalue($this->mast->getmastarrayforcanvastype($newcanvas["canvastypeid"]));
+                $data['newcanvasobject'] = $newcanvas;
+                $data['canvastypeselect'] = $this->canvas->getcanvastypeselect(null);
+                $data['conditionselect'] = $this->condition->getconditionselect();
+                $data['selectedcanvas'] = null; //$this->canvas->emptycanvas();
             }
-            $data["canvasArray"] = $this->canvas->getCanvasNameSelect(NULL);
+            $data["canvasarray"] = $this->canvas->getcanvasnameselect(null);
             $this->load->view('v_config_canvas', $data);
             $this->load->view('v_wb_footer');
         } else {
-            //Redirect to http://xyz.de/login.html
+            //redirect to http://xyz.de/login.html
             redirect("login");
         }
     }

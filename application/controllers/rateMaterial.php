@@ -1,108 +1,109 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of boatConfig
+ * description of boatconfig
  *
- * @author Jens
+ * @author jens
  */
-class rateMaterial extends CI_Controller {
+class ratematerial extends CI_Controller {
 
     //put your code here
 
     public function __construct() {
         parent::__construct();
-        //Laden der form helper
+        //laden der form helper
         $this->load->helper(array('form', 'html', 'url'));
-        //Laden der form_validation library sowie der session library
-        //Zur verwendung von sessions und form_validations
+        //laden der form_validation library sowie der session library
+        //zur verwendung von sessions und form_validations
         $this->load->library(array('form_validation', 'session'));
-        //Laden unserer models (/application/models/user.php)
-        //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
+        //laden unserer models (/application/models/user.php)
+        //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
         $this->load->model(array('user', 'boat', 'mast', 'canvas', 'tools', 'condition'));
     }
 
     public function index() {
 
-        $data['materialType'] = array('Boot', 'Mast', 'Segel');
-        $this->loadPage($data);
+        $data['materialtype'] = array('Boot', 'Mast', 'Segel');
+        $this->loadpage($data);
     }
 
-    function selectMaterialType() {
+    function selectmaterialtype() {
         $data = array();
-        $sMaterialType = $this->input->post('sMaterialType');
-        $data['sMaterialType'] = $sMaterialType;
-        if (isset($sMaterialType) && $sMaterialType != null) {
-            switch ($sMaterialType) {
-                case "Boot" : $data['sList'] = $this->boat->getBoatNameSelect();
+        $smaterialtype = $this->input->post('smaterialtype');
+        $data['smaterialtype'] = $smaterialtype;
+        echo 'Material  = '.$smaterialtype;
+        if (isset($smaterialtype) && $smaterialtype != null) {
+            switch ($smaterialtype) {
+                case "Boot" : $data['slist'] = $this->boat->getboatnameselect();
                     break;
-                case "Mast" : $data['sList'] = $this->mast->getMastNameSelect();
+                case "Mast" : $data['slist'] = $this->mast->getmastnameselect();
                     break;
-                case "Segel": $data['sList'] = $this->canvas->getCanvasNameSelect();
+                case "Segel": $data['slist'] = $this->canvas->getcanvasnameselect();
                     break;
             }
         }
-        $this->loadPage($data);
+        $this->loadpage($data);
     }
 
-    function loadPage($data) {
-        if ($this->session->userdata('login_state') === TRUE) {
+    function loadpage($data) {
+        if ($this->session->userdata('login_state') === true) {
             //hier könnte man nun das entsprechende view laden.
             $this->load->view('v_wb_head');
             $this->load->view('v_navigation');
-            $this->load->view('v_rate_Material', $data);
+            $this->load->view('v_rate_material', $data);
             $this->load->view('v_wb_footer');
         } else {
-            //Redirect to http://xyz.de/login.html
+            //redirect to http://xyz.de/login.html
             redirect("login");
         }
     }
 
-    function chooseObject() {
+    function chooseobject() {
         $data = array();
-        $sMaterialType = $this->input->post('sMaterialType');
-        $data['sMaterialType'] = $sMaterialType;
-        //$data['sObject']= 
-        $sObjectID = $this->input->post('sObject');
-        $data['sObjectID'] = $sObjectID;
-        switch ($sMaterialType) {
-            case "Boot" : $data['sObject'] = $this->boat->getBoatForID($sObjectID);
+        $smaterialtype = $this->input->post('smaterialtype');
+        $data['smaterialtype'] = $smaterialtype;
+        //$data['sobject']= 
+        $sobjectid = $this->input->post('sobject');
+        $data['sobjectid'] = $sobjectid;
+        switch ($smaterialtype) {
+            case "Boot" : $data['sobject'] = $this->boat->getboatforid($sobjectid);
                 break;
-            case "Mast" : $data['sObject'] = $this->mast->getMastForID($sObjectID);
+            case "Mast" : $data['sobject'] = $this->mast->getmastforid($sobjectid);
                 break;
-            case "Segel": $data['sObject'] = $this->canvas->getCanvasForID($sObjectID);
+            case "Segel": $data['sobject'] = $this->canvas->getcanvasforid($sobjectid);
                 break;
         }
-        $data['conditionList'] = $this->condition->getConditionSelect();
-        $this->loadPage($data);
+        $data['conditionlist'] = $this->condition->getconditionselect();
+        $this->loadpage($data);
     }
 
-    function rateObject() {
+    function rateobject() {
         $data = array();
-        $sMaterialType = $this->input->post('sMaterialType');
-        $data['sMaterialType'] = null;
-        $sObjectID = $this->input->post('sObjectID');
-        $sConditionID = $this->input->post('sCondition');
-        switch ($sMaterialType) {
+        $smaterialtype = $this->input->post('smaterialtype');
+        $data['smaterialtype'] = null;
+        $sobjectid = $this->input->post('sobjectid');
+        $sconditionid = $this->input->post('scondition');
+        switch ($smaterialtype) {
             case "Boot" :
-                $boat = $this->boat->getBoatForID($sObjectID);
-                $boat['conditionID'] = $sConditionID;
-                $this->boat->saveBoat($boat);
+                $boat = $this->boat->getboatforid($sobjectid);
+                $boat['conditionid'] = $sconditionid;
+                $this->boat->saveboat($boat);
                 break;
             case "Mast" :
-                $mast = $this->mast->getMastForID($sObjectID);
-                $mast['conditionID'] = $sConditionID;
-                $this->mast->saveMast($mast);
+                $mast = $this->mast->getmastforid($sobjectid);
+                $mast['conditionid'] = $sconditionid;
+                $this->mast->savemast($mast);
                 break;
             case "Segel":
-                $canvas = $this->canvas->getCanvasForID($sObjectID);
-                $canvas['conditionID'] = $sConditionID;
-                $this->canvas->saveCanvas($canvas);
+                $canvas = $this->canvas->getcanvasforid($sobjectid);
+                $canvas['conditionid'] = $sconditionid;
+                $this->canvas->savecanvas($canvas);
                 break;
         }
         $this->index();

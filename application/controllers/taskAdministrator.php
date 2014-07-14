@@ -1,148 +1,148 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of task
+ * description of task
  *
- * @author Jens
+ * @author jens
  */
-class taskAdministrator extends CI_Controller {
+class taskadministrator extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        //Laden der form helper
+        //laden der form helper
 //        $this->load->helper(array('form', 'html', 'url'));
-        //Laden der form_validation library sowie der session library
-        //Zur verwendung von sessions und form_validations
+        //laden der form_validation library sowie der session library
+        //zur verwendung von sessions und form_validations
 //        $this->load->library(array('form_validation', 'session'));
-        //Laden unserer models (/application/models/user.php)
-        //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
+        //laden unserer models (/application/models/user.php)
+        //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
         $this->load->model('task');
-        $this->load->library('Table');
+        $this->load->library('table');
     }
 
     public function index() {
-        $this->filterTask();
+        $this->filtertask();
 //        $data = array();
-//        $taskList = array();
-//        foreach ($this->task->getPerformerTaskArrayForUsername($this->session->userdata('username')) as $task){
-//            $taskList[$task['ticketID']] = $task['name'];
+//        $tasklist = array();
+//        foreach ($this->task->getperformertaskarrayforusername($this->session->userdata('username')) as $task){
+//            $tasklist[$task['ticketid']] = $task['name'];
 //        }
-//        $data['myTaskList'] = $taskList;
-//        $this->loadPage($data);
+//        $data['mytasklist'] = $tasklist;
+//        $this->loadpage($data);
     }
 
     //put your code here
 
-    function loadPage($data) {
-        if ($this->session->userdata('login_state') === TRUE) {
+    function loadpage($data) {
+        if ($this->session->userdata('login_state') === true) {
             //hier könnte man nun das entsprechende view laden.
             $this->load->view('v_wb_head');
             $this->load->view('v_navigation');
             $this->load->view('v_task', $data);
             $this->load->view('v_wb_footer');
         } else {
-            //Redirect to http://xyz.de/login.html
+            //redirect to http://xyz.de/login.html
             redirect("login");
         }
     }
 
-    public function selectTask() {
-//        $performer = $this->input->post('sPerformerID');
+    public function selecttask() {
+//        $performer = $this->input->post('sperformerid');
         $data = array();
-        if ($this->input->post('create_Task')) {
-            $data['sTask'] = $this->task->emptyTask();
-            $data['ownTask'] = true;
+        if ($this->input->post('create_task')) {
+            $data['stask'] = $this->task->emptytask();
+            $data['owntask'] = true;
         } else {
-            $sTaskID = $this->input->post('sTicketID');
-            $data['sTask'] = $this->task->getTaskForID($sTaskID);
-            $data['ownTask'] = $this->input->post('created');
+            $staskid = $this->input->post('sticketid');
+            $data['stask'] = $this->task->gettaskforid($staskid);
+            $data['owntask'] = $this->input->post('created');
         }
-        $data['statusArray'] = $this->task->getTicketStatusArray();
-        $data['employeeArray'] = $this->task->getEmployeeSelect(NULL);
-        $data['dayArray'] = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10',
+        $data['statusarray'] = $this->task->getticketstatusarray();
+        $data['employeearray'] = $this->task->getemployeeselect(null);
+        $data['dayarray'] = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10',
             '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
             '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31');
-        $data['monthArray'] = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
-        $data['yearArray'] = array('2014', '2015', '2016', '2017', '2018', '2019', '2020');
-        $data['sDay'] = array_search(date('d'), $data['dayArray']);
-        $data['sMonth'] = array_search(date('m'), $data['monthArray']);
-        $data['sYear'] = array_search(date('Y'), $data['yearArray']);
-        // $test = new DateTime('02/31/2011');
-        $data['user'] = $this->task->getUser($this->session->userdata('username'));
+        $data['montharray'] = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
+        $data['yeararray'] = array('2014', '2015', '2016', '2017', '2018', '2019', '2020');
+        $data['sday'] = array_search(date('d'), $data['dayarray']);
+        $data['smonth'] = array_search(date('m'), $data['montharray']);
+        $data['syear'] = array_search(date('y'), $data['yeararray']);
+        // $test = new datetime('02/31/2011');
+        $data['user'] = $this->task->getuser($this->session->userdata('username'));
 
-        $this->loadPage($data);
+        $this->loadpage($data);
     }
 
-    public function saveTask() {
-        $ticketID = $this->input->post('sTicketID');
-        echo 'ticketID = ' . $ticketID . br();
-        if (isset($ticketID) && $ticketID != null) {
-            $currentTask = $this->task->getTaskForID($this->input->post('sTicketID'));
+    public function savetask() {
+        $ticketid = $this->input->post('sticketid');
+        echo 'ticketid = ' . $ticketid . br();
+        if (isset($ticketid) && $ticketid != null) {
+            $currenttask = $this->task->gettaskforid($this->input->post('sticketid'));
         } else {
-            $currentTask = $this->task->emptyTask();
+            $currenttask = $this->task->emptytask();
         }
-        $initiatorID = $this->input->post('sInitiatorID');
-        if (isset($initiatorID) && $initiatorID != null) {
-            $currentTask['initiatorID'] = $initiatorID;
+        $initiatorid = $this->input->post('sinitiatorid');
+        if (isset($initiatorid) && $initiatorid != null) {
+            $currenttask['initiatorid'] = $initiatorid;
         } else {
-            $user = $this->task->getUser($this->session->userdata('username'));
-            $currentTask['initiatorID'] = $user['employeeID'];
+            $user = $this->task->getuser($this->session->userdata('username'));
+            $currenttask['initiatorid'] = $user['employeeid'];
         }
 
-        $performerID = $this->input->post('sPerformerID');
-        if (isset($performerID) && $performerID != null) {
-            $currentTask['performerID'] = $performerID;
+        $performerid = $this->input->post('sperformerid');
+        if (isset($performerid) && $performerid != null) {
+            $currenttask['performerid'] = $performerid;
         }
-        $sDay = $this->input->post('sDay');
-        $sMonth = $this->input->post('sMonth');
-        $sYear = $this->input->post('sYear');
-        $data['dayArray'] = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10',
+        $sday = $this->input->post('sday');
+        $smonth = $this->input->post('smonth');
+        $syear = $this->input->post('syear');
+        $data['dayarray'] = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10',
             '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
             '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31');
-        $data['monthArray'] = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
-        $data['yearArray'] = array('2014', '2015', '2016', '2017', '2018', '2019', '2020');
-        if (isset($sDay) && isset($sMonth) && isset($sYear)) {
-            $currentTask['dueDate'] = $data['yearArray'][$sYear] . '-' . $data['monthArray'][$sMonth] . '-' . $data['dayArray'][$sDay];
+        $data['montharray'] = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
+        $data['yeararray'] = array('2014', '2015', '2016', '2017', '2018', '2019', '2020');
+        if (isset($sday) && isset($smonth) && isset($syear)) {
+            $currenttask['duedate'] = $data['yeararray'][$syear] . '-' . $data['montharray'][$smonth] . '-' . $data['dayarray'][$sday];
         }
         $comment = $this->input->post('comment');
         if (isset($comment) && $comment != null) {
-            $currentTask['comment'] = $comment;
+            $currenttask['comment'] = $comment;
         }
-        $ticketStatusID = $this->input->post('sTicketStatusID');
-        if (isset($ticketStatusID) && $ticketStatusID != null) {
-            $currentTask['ticketStatusID'] = $ticketStatusID;
+        $ticketstatusid = $this->input->post('sticketstatusid');
+        if (isset($ticketstatusid) && $ticketstatusid != null) {
+            $currenttask['ticketstatusid'] = $ticketstatusid;
         }
-        $taskName = $this->input->post('taskName');
-        if (isset($taskName) && $taskName != null) {
-            $currentTask['name'] = $taskName;
+        $taskname = $this->input->post('taskname');
+        if (isset($taskname) && $taskname != null) {
+            $currenttask['name'] = $taskname;
         }
-        $this->task->saveTask($currentTask);
-        $this->filterTask();
+        $this->task->savetask($currenttask);
+        $this->filtertask();
     }
 
-    function filterTask() {
+    function filtertask() {
         $data = array();
-        $taskList = array();
+        $tasklist = array();
         if ($this->input->post('created')) {
-            foreach ($this->task->getInitiatorTaskArrayForUsername($this->session->userdata('username')) as $task) {
-                $taskList[$task['ticketID']] = $task['name'];
+            foreach ($this->task->getinitiatortaskarrayforusername($this->session->userdata('username')) as $task) {
+                $tasklist[$task['ticketid']] = $task['name'];
             }
             $data['created'] = true;
         } else {
-            foreach ($this->task->getPerformerTaskArrayForUsername($this->session->userdata('username')) as $task) {
-                $taskList[$task['ticketID']] = $task['name'];
+            foreach ($this->task->getperformertaskarrayforusername($this->session->userdata('username')) as $task) {
+                $tasklist[$task['ticketid']] = $task['name'];
             }
             $data['created'] = false;
         }
 
-        $data['myTaskList'] = $taskList;
-        $this->loadPage($data);
+        $data['mytasklist'] = $tasklist;
+        $this->loadpage($data);
     }
 
 }

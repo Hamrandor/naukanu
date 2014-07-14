@@ -1,21 +1,21 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of Main
+ * description of main
  *
- * @author Jens
+ * @author jens
  */
-class Main extends CI_Controller {
+class main extends CI_Controller {
 
     //put your code here
     public function __construct() {
-        parent::__Construct();
+        parent::__construct();
         $this->load->helper(array('form', 'html', 'url'));
         $this->load->library(array('session'));
         $this->load->model('boat');
@@ -23,13 +23,13 @@ class Main extends CI_Controller {
     }
 
     public function index() {
-        //Check if user is logged in
-        if ($this->session->userdata('login_state') === TRUE) {
+        //check if user is logged in
+        if ($this->session->userdata('login_state') === true) {
             //hier könnte man nun das entsprechende view laden.
-            $data = $this->boat->getBoatArray();
-            $this->load->view('boatConfig', $data);
+            $data = $this->boat->getboatarray();
+            $this->load->view('boatconfig', $data);
         } else {
-            //Redirect to http://xyz.de/login.html
+            //redirect to http://xyz.de/login.html
             redirect("login");
         }
     }

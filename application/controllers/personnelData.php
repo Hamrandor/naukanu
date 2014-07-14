@@ -1,17 +1,17 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of personnelData
+ * description of personneldata
  *
  * @author rnitschke
  */
-class personnelData extends CI_Controller {
+class personneldata extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -22,17 +22,17 @@ class personnelData extends CI_Controller {
 
     public function index() {
 
-        echo "personnelData index";
+        echo "personneldata index";
     }
 
-    public function initialPersonelData($NewID) {
-        echo "initialPerrsonneData function";
+    public function initialpersoneldata($newid) {
+        echo "initialperrsonnedata function";
 
 
         $this->load->model('person');
-        $NewID->person->createNewEmployeeID();
-        $data['NewID'] = $NewID;
-        $this->load->view('v_formular_initial_personnelData', $data);
+        $newid->person->createnewemployeeid();
+        $data['newid'] = $newid;
+        $this->load->view('v_formular_initial_personneldata', $data);
     }
 
 }

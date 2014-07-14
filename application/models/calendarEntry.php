@@ -1,51 +1,51 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of calendarEntry
+ * description of calendarentry
  *
- * @author Jens
+ * @author jens
  */
-class calendarEntry extends CI_Model {
+class calendarentry extends CI_Model {
 
     //put your code here
 
-    public function checkDateForBoat($boatID, $aDate) {
+    public function checkdateforboat($boatid, $adate) {
         $result = false;
         $this->db->select('*');
-        $this->db->from('calendarEntry as ce');
-        $this->db->join('booking as b', 'b.courseID= ce.courseID', 'left');
-        $this->db->where('ce.start < ', $aDate);
-        $this->db->where('ce.end > ', $aDate);
-        $this->db->where('b.boatID', $boatID);
+        $this->db->from('calendarentry as ce');
+        $this->db->join('booking as b', 'b.courseid= ce.courseid', 'left');
+        $this->db->where('ce.start < ', $adate);
+        $this->db->where('ce.end > ', $adate);
+        $this->db->where('b.boatid', $boatid);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
-            $result = FALSE;
+            $result = false;
         } else {
-            $result = TRUE;
+            $result = true;
         }
         return $result;
     }
 
-    public function checkPeriodForBoat($boatID, $aStart, $aEnd) {
+    public function checkperiodforboat($boatid, $astart, $aend) {
         $result = false;
-        if ($aEnd > $aStart) {
+        if ($aend > $astart) {
             $this->db->select('*');
-            $this->db->from('calendarEntry as ce');
-            $this->db->join('booking as b', 'b.courseID= ce.courseID', 'left');
-            $this->db->where('ce.start > ', $aEnd);
-            $this->db->or_where('ce.end < ', $aStart);
-            $this->db->where('b.boatID', $boatID);
+            $this->db->from('calendarentry as ce');
+            $this->db->join('booking as b', 'b.courseid= ce.courseid', 'left');
+            $this->db->where('ce.start > ', $aend);
+            $this->db->or_where('ce.end < ', $astart);
+            $this->db->where('b.boatid', $boatid);
             $query = $this->db->get();
             if ($query->num_rows() > 0) {
-                $result = FALSE;
+                $result = false;
             } else {
-                $result = TRUE;
+                $result = true;
             }
         }
         return $result;

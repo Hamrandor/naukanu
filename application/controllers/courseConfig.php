@@ -1,24 +1,24 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
-class courseConfig extends CI_Controller {
+class courseconfig extends CI_Controller {
 
     //put your code here
 
     public function __construct() {
         parent::__construct();
-        //Laden der form helper
+        //laden der form helper
         $this->load->helper(array('form', 'html', 'url'));
-        //Laden der form_validation library sowie der session library
-        //Zur verwendung von sessions und form_validations
+        //laden der form_validation library sowie der session library
+        //zur verwendung von sessions und form_validations
         $this->load->library(array('form_validation', 'session'));
-        //Laden unserer models (/application/models/user.php)
-        //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
+        //laden unserer models (/application/models/user.php)
+        //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
         $this->load->model(array('course', 'tools'));
     }
 
@@ -27,77 +27,77 @@ class courseConfig extends CI_Controller {
         $this->load->view('v_wb_head');
         $this->load->view('v_navigation');
         $data = array();
-        $data['editCourse'] = false;
-        $selectedCourse = $this->input->post('sCourseID');
-        //hier Test ob neues Boot
-        if ($this->input->post('newCourse')) {
-            $data['newCourseObject'] = $this->course->emptyCourse();
-            $data['selectedCourse'] = $this->course->emptyCourse();
-            $data['courseTypeSelect'] = $this->course->getCourseTypeSelect();
+        $data['editcourse'] = false;
+        $selectedcourse = $this->input->post('scourseid');
+        //hier test ob neues boot
+        if ($this->input->post('newcourse')) {
+            $data['newcourseobject'] = $this->course->emptycourse();
+            $data['selectedcourse'] = $this->course->emptycourse();
+            $data['coursetypeselect'] = $this->course->getcoursetypeselect();
 
-            //eigtl. verfügbarer und berechtigter KL
-//                $data['calendarEntrySelect'] = $this->course>getCalendarEntrySelect();
-//                $data['employeeSelect'] =  $this->course->getEmployeeSelect();
+            //eigtl. verfügbarer und berechtigter kl
+//                $data['calendarentryselect'] = $this->course>getcalendarentryselect();
+//                $data['employeeselect'] =  $this->course->getemployeeselect();
         } else {
-            // wenn nicht, dann Das augewählte Boot bearbeiten
-            $data["selectedCourse"] = $selectedCourse;
-            $data["selectedCourseType"] = null;
-//                $data["selectedCalendarEntry"] = null;
-//                $data["selectedEmployee"] = null;
+            // wenn nicht, dann das augewählte boot bearbeiten
+            $data["selectedcourse"] = $selectedcourse;
+            $data["selectedcoursetype"] = null;
+//                $data["selectedcalendarentry"] = null;
+//                $data["selectedemployee"] = null;
         }
-        if ($this->input->post('saveNewCourse')) {
-            $newCourse = $this->course->emptyCourse();
-            $newCourse['courseName'] = $this->input->post('courseName');
-            $newCourse['CourseTypeID'] = $this->input->post('sCourseTypeID');
-//                $newCourse['start'] = $this->input->post('start');
-//                $newCourse['end'] = $this->input->post('end');
-//                $newCourse["employeeID"] = $this->input->post('sEmployeeID');
-            $this->course->saveCourse($newCourse);
+        if ($this->input->post('savenewcourse')) {
+            $newcourse = $this->course->emptycourse();
+            $newcourse['coursename'] = $this->input->post('coursename');
+            $newcourse['coursetypeid'] = $this->input->post('scoursetypeid');
+//                $newcourse['start'] = $this->input->post('start');
+//                $newcourse['end'] = $this->input->post('end');
+//                $newcourse["employeeid"] = $this->input->post('semployeeid');
+            $this->course->savecourse($newcourse);
         }
 
-//            if ($this->input->post('checkEmployee')){
-//                if ($this->course->employeeAvailable($selectedEmployee)) {
-//                    $this->tools->alertMessage("Kursleiter stehen für diesen Zeitraum zur Verfügung!");
+//            if ($this->input->post('checkemployee')){
+//                if ($this->course->employeeavailable($selectedemployee)) {
+//                    $this->tools->alertmessage("kursleiter stehen für diesen zeitraum zur verfügung!");
 //                } else {
-//                    $this->tools->alertMessage("Kursleiter können aufgrund fehlender Qualifikation oder Zeit nicht zugeordnet werden.");
+//                    $this->tools->alertmessage("kursleiter können aufgrund fehlender qualifikation oder zeit nicht zugeordnet werden.");
 //                }
 //            }
-//           $data["assignMast"] = false;
-        if ($this->input->post('chooseCourse') || $this->input->post('saveCourse') || $this->input->post('editCourse')) {
-//                echo '<br>Boot ausgewählt<br>';
-            $courseObject = $this->course->getCourseForID($selectedCourse);
-//                $data['calendardetails'] = $this->course->getCalendardetailsForCourseID($selectedCourse);
-//                $data['leaderarray'] = $this->course->getEmployeeArrayForCourseID($selectedCourse);
-            $data['courseObject'] = $courseObject;
+//           $data["assignmast"] = false;
+        if ($this->input->post('choosecourse') || $this->input->post('savecourse') || $this->input->post('editcourse')) {
+//                echo '<br>boot ausgewählt<br>';
+            $courseobject = $this->course->getcourseforid($selectedcourse);
+//                $data['calendardetails'] = $this->course->getcalendardetailsforcourseid($selectedcourse);
+//                $data['leaderarray'] = $this->course->getemployeearrayforcourseid($selectedcourse);
+            $data['courseobject'] = $courseobject;
 
-            if ($this->input->post('editCourse')) {
-//                    echo '<br>edit Boot <br>';
-                $data['editCourse'] = true;
-                $data['courseTypeSelect'] = $this->course->getCourseTypeSelect();
-//                    $data['calendarEntrySelect'] = $this->course->getCalendardetailsForCourseID();
-//                    $data['employeeSelect'] = $this->course->getEmployeeSelect();
+            if ($this->input->post('editcourse')) {
+//                    echo '<br>edit boot <br>';
+                $data['editcourse'] = true;
+                $data['coursetypeselect'] = $this->course->getcoursetypeselect();
+//                    $data['calendarentryselect'] = $this->course->getcalendardetailsforcourseid();
+//                    $data['employeeselect'] = $this->course->getemployeeselect();
             }
-            if ($this->input->post('saveCourse')) {
-//                    echo '<br>save Boot <br>';
-                $courseObject['courseName'] = $this->input->post('courseName');
-                $courseObject['courseTypeID'] = $this->input->post('sCourseTypeID');
-//                    $courseObject['start'] = $this->input->post('start');
-//                    $courseObject['end'] = $this->input->post('end');
-//                    $courseObject['calendarEntryID'] = $this->input->post('sCalendarEntryID'); 
-//                    $courseObject['employeeID'] = $this->input->post('sEmployeeID');
-                $this->course->saveCourse($courseObject);
+            if ($this->input->post('savecourse')) {
+//                    echo '<br>save boot <br>';
+                $courseobject['coursename'] = $this->input->post('coursename');
+                $courseobject['coursetypeid'] = $this->input->post('scoursetypeid');
+//                    $courseobject['start'] = $this->input->post('start');
+//                    $courseobject['end'] = $this->input->post('end');
+//                    $courseobject['calendarentryid'] = $this->input->post('scalendarentryid'); 
+//                    $courseobject['employeeid'] = $this->input->post('semployeeid');
+                $this->course->savecourse($courseobject);
             }
         }
-        if ($this->input->post('deleteCourse')) {
-            $this->course->deleteCourse($selectedCourse);
-            $this->tools->alertMessage("Kurs wurde gelöscht");
+        if ($this->input->post('deletecourse')) {
+            $this->course->deletecourse($selectedcourse);
+            $this->tools->alertmessage("kurs wurde gelöscht");
         }
-        $data['courseArray'] = $this->course->getCourseNameSelect();
+        $data['coursearray'] = $this->course->getcoursenameselect();
         $this->load->view('v_config_course', $data);
         $this->load->view('v_wb_footer');
     }
 
-    function newCourse($data) {
+    function newcourse($data) {
         return $data;
     }
 
