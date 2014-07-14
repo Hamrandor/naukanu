@@ -1,33 +1,33 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 class course extends CI_Model {
 
-    public function getCourseNameSelect() {
+    public function getcoursenameselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('course');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['courseID']] = $row['courseName'];
+            $myresult[$row['courseid']] = $row['coursename'];
         }
         return $myresult;
     }
 
-    public function getCourseForID($id) {
-        //b.boatid, t.typename, c.Description 
-//        $this->db->query('SELECT * from `boat` as b left join `boattype` as t on b.boatID = t.boatTypeID left JOIN `condition` as c on b.conditionID= c.conditionID');
+    public function getcourseforid($id) {
+        //b.boatid, t.typename, c.description 
+//        $this->db->query('select * from `boat` as b left join `boattype` as t on b.boatid = t.boattypeid left join `condition` as c on b.conditionid= c.conditionid');
 //        $this->db->select('*');
 //        $this->db->from('calendarentry');
 //        $this->db->join('course', 'calendarentry.courseid = course.courseid', 'right');
 //        $this->db->join('coursetype', 'course.coursetypeid = coursetype.coursetypeid', 'left');
-//        $this->db->join('employee', 'calendarentry.employeeID = employee.employeeid','left');
-//        $this->db->join('employeerole', 'employee.roleID = employeerole.roleID');
+//        $this->db->join('employee', 'calendarentry.employeeid = employee.employeeid','left');
+//        $this->db->join('employeerole', 'employee.roleid = employeerole.roleid');
 //        $this->db->where('course.courseid', $id);        
 //        $query = $this->db->get();
 //        if ($query->num_rows() == 1)
@@ -52,12 +52,12 @@ class course extends CI_Model {
         }
     }
 
-//        $this->db->join('select courseid as cid, min(start) as start, max(end) as end from calendarentry where courseId is not null group by courseid','cid=course.courseID', 'left');
-    public function getCalendardetailsForCourseID($courseID) {
+//        $this->db->join('select courseid as cid, min(start) as start, max(end) as end from calendarentry where courseid is not null group by courseid','cid=course.courseid', 'left');
+    public function getcalendardetailsforcourseid($courseid) {
         $result = array();
         $this->db->select('min(start) as begin, max(end) as end');
         $this->db->from('calendarentry');
-        $this->db->where('courseID', $courseID);
+        $this->db->where('courseid', $courseid);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             foreach ($query->result_array() as $row) {
@@ -67,13 +67,13 @@ class course extends CI_Model {
         return $result;
     }
 
-    public function getEmployeeArrayForCourseID($courseID) {
+    public function getemployeearrayforcourseid($courseid) {
         $result = array();
-        $this->db->select('person.firstName, person.name');
+        $this->db->select('person.firstname, person.name');
         $this->db->from('calendarentry');
-        $this->db->join('person', 'calendarentry.employeeID = person.employeeID', 'inner');
-        $this->db->where('calendarentry.courseid', $courseID);
-        $this->db->group_by(array('person.firstName', 'person.name'));
+        $this->db->join('person', 'calendarentry.employeeid = person.employeeid', 'inner');
+        $this->db->where('calendarentry.courseid', $courseid);
+        $this->db->group_by(array('person.firstname', 'person.name'));
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
@@ -83,28 +83,28 @@ class course extends CI_Model {
         return $result;
     }
 
-    public function getCourseTypeSelect() {
+    public function getcoursetypeselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('coursetype');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['courseTypeID']] = $row['typename'];
+            $myresult[$row['coursetypeid']] = $row['typename'];
         }
         return $myresult;
     }
 
-    public function getBookingArrayForCourseID($courseID) {
+    public function getbookingarrayforcourseid($courseid) {
         $this->db->select('*');
         $this->db->from('booking');
-        $this->db->join('course', 'booking.courseID= course.courseID', 'left');
-        $this->db->join('person', 'person.personID = booking.personID', 'left');
-        $this->db->join('boat', 'booking.boatID = boat.boatID', 'left');
-        $this->db->where('calendarentry.courseid', $courseID);
-        $this->db->group_by(array('employee.firstName', 'employee.name'));
+        $this->db->join('course', 'booking.courseid= course.courseid', 'left');
+        $this->db->join('person', 'person.personid = booking.personid', 'left');
+        $this->db->join('boat', 'booking.boatid = boat.boatid', 'left');
+        $this->db->where('calendarentry.courseid', $courseid);
+        $this->db->group_by(array('employee.firstname', 'employee.name'));
     }
 
-//    public function getCalendarEntrySelect() {
+//    public function getcalendarentryselect() {
 //        $myresult = array ();
 //        $this->db->select ('*');
 //        $this->db->from('calendarentry');
@@ -118,49 +118,49 @@ class course extends CI_Model {
 //    }
 //   
 //
-    public function getEmployeeSelect() {
+    public function getemployeeselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('person');
-        $this->db->where('employeeID is not null', null);
+        $this->db->where('employeeid is not null', null);
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['employeeID']] = $row['firstName'] . " " . $row['name'];
+            $myresult[$row['employeeid']] = $row['firstname'] . " " . $row['name'];
         }
         return $myresult;
     }
 
-    public function saveCourse($courseObject) {
+    public function savecourse($courseobject) {
         $data = array(
-            'courseName' => $courseObject['courseName'],
-            'courseTypeID' => $courseObject['courseTypeID'],
-//          'start' => $courseObject['start'], 
-//          'end' => $courseObject['end'],
-////          'calendarEntryID' => $courseObject['calendarentryID'], 
-//          'employeeID' => $courseObject['employeeID']
+            'coursename' => $courseobject['coursename'],
+            'coursetypeid' => $courseobject['coursetypeid'],
+//          'start' => $courseobject['start'], 
+//          'end' => $courseobject['end'],
+////          'calendarentryid' => $courseobject['calendarentryid'], 
+//          'employeeid' => $courseobject['employeeid']
         );
-        if (isset($courseObject['courseID'])) {
-            $id = $courseObject['courseID'];
-            $this->db->where('courseID', $id);
+        if (isset($courseobject['courseid'])) {
+            $id = $courseobject['courseid'];
+            $this->db->where('courseid', $id);
             $this->db->update('course', $data);
         } else {
             $this->db->insert('course', $data);
         }
     }
 
-    public function emptyCourse() {
+    public function emptycourse() {
         $data = array(
-            'courseName' => '',
-            'courseTypeID' => '',
+            'coursename' => '',
+            'coursetypeid' => '',
 //          'start' => '', 
 //          'end' => '',  
-//          'emloyeeID' => ''
+//          'emloyeeid' => ''
         );
         return $data;
     }
 
-    public function deleteCourse($courseID) {
-        $this->db->where('courseID', $courseID);
+    public function deletecourse($courseid) {
+        $this->db->where('courseid', $courseid);
         $this->db->delete('course');
     }
 

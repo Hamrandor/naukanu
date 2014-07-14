@@ -2,47 +2,47 @@
 
 $this->load->helper(array("form"));
 
-if (!isset($sMaterialType) || $sMaterialType == null) {
-    echo form_open("rateMaterial/selectMaterialType");
+if (!isset($smaterialtype) || $smaterialtype == null) {
+    echo form_open("ratematerial/selectmaterialtype");
     echo "Welches Material soll bewertet werden?<br><br>";
-    foreach ($materialType as $type) {
-        echo form_radio('sMaterialType', $type) . $type . '<br>';
+    foreach ($materialtype as $type) {
+        echo form_radio('smaterialtype', $type) . $type . '<br>';
     }
     echo "<br>";
-    echo form_submit('chooseMaterialType', 'Materialart auswählen');
+    echo form_submit('choosematerialtype', 'Materialart auswählen');
     echo form_close();
 } else {
-    if (!isset($sObject) || $sObject == null) {
-        echo form_open("rateMaterial/chooseObject");
-        if ($sMaterialType == 'Mast') {
-            echo "Welcher $sMaterialType soll bewertet werden?<br><br>";
+    if (!isset($sobject) || $sobject == null) {
+        echo form_open("ratematerial/chooseobject");
+        if ($smaterialtype == 'mast') {
+            echo "Welcher $smaterialtype soll bewertet werden?<br><br>";
         } else {
-            echo "Welches $sMaterialType soll bewertet werden?<br><br>";
+            echo "Welches $smaterialtype soll bewertet werden?<br><br>";
         }
-        echo form_dropdown('sObject', $sList, null);
-        echo form_hidden('sMaterialType', $sMaterialType);
+        echo form_dropdown('sobject', $slist, null);
+        echo form_hidden('smaterialtype', $smaterialtype);
         echo "<br>";
-        echo form_submit('chooseObject', $sMaterialType . ' auswählen');
+        echo form_submit('chooseobject', $smaterialtype . ' auswählen');
         echo form_close();
     } else {
-        echo form_open("rateMaterial/rateObject");
-        echo form_hidden('sMaterialType', $sMaterialType);
-        echo form_hidden('sObjectID', $sObjectID);
-        if ($sMaterialType == 'Mast') {
-            echo "Bitte bewerten Sie folgenden $sMaterialType.<br><br>";
+        echo form_open("ratematerial/rateobject");
+        echo form_hidden('smaterialtype', $smaterialtype);
+        echo form_hidden('sobjectid', $sobjectid);
+        if ($smaterialtype == 'mast') {
+            echo "Bitte bewerten Sie folgenden $smaterialtype.<br><br>";
         } else {
-            echo "Bitte bewerten Sie folgendes $sMaterialType.<br><br>";
+            echo "Bitte bewerten Sie folgendes $smaterialtype.<br><br>";
         }
         $this->load->library('table');
-        $objectName = $sObject['name'];
-        $matName = $sMaterialType . '-Name : ';
-        echo $matName . $objectName . '<br><br>';
-        //$this->table->add_row($matName, $objectName);
-        $dropdown = form_dropdown('sCondition', $conditionList, $sObject['conditionID']);
+        $objectname = $sobject['name'];
+        $matname = $smaterialtype . '-Name : ';
+        echo $matname . $objectname . '<br><br>';
+        //$this->table->add_row($matname, $objectname);
+        $dropdown = form_dropdown('scondition', $conditionlist, $sobject['conditionid']);
         echo $dropdown . '<br>';
-        //$this->table->add_row('Zustand', $dropdown);
+        //$this->table->add_row('zustand', $dropdown);
         echo "<br>";
-        echo form_submit('saveObject', $sMaterialType . ' speichern');
+        echo form_submit('saveobject', $smaterialtype . ' speichern');
         echo form_close();
     }
 }

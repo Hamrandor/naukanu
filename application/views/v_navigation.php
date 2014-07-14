@@ -46,23 +46,23 @@
                 switch ($pagevar) {
                     case "Mitarbeiterverwaltung": include("\application/views/v_personnelAdministration_main.php");
                         break;
-                    case "Bootsverwaltung": redirect("boatConfig");
+                    case "Bootsverwaltung": redirect("boatconfig");
                         break;
-                    case "Mastverwaltung": redirect("mastConfig");
+                    case "Mastverwaltung": redirect("mastconfig");
                         break;
-                    case "Segelverwaltung": redirect("canvasConfig");
+                    case "Segelverwaltung": redirect("canvasconfig");
                         break;
-                    case "Materialbewertung": redirect("rateMaterial");
+                    case "Materialbewertung": redirect("ratematerial");
                         break;
-                    case "Aufgaben": redirect("taskAdministrator");
+                    case "Aufgaben": redirect("taskadministrator");
                         break;
-                    case "Kurstypverwaltung": redirect("courseTypeConfig");
+                    case "Kurstypverwaltung": redirect("coursetypeconfig");
                         break;
-                    case "Kursverwaltung": redirect("courseConfig");
+                    case "Kursverwaltung": redirect("courseconfig");
                         break;
-                    case "Buchung": redirect("bookingConfig");
+                    case "Buchung": redirect("bookingconfig");
                         break;
-                    case "Kalendar": redirect("calendarConfig");
+                    case "Kalendar": redirect("calendarconfig");
                         break;
 
                     case "initialPersonnelData": include("\application/views/v_formular_initial_personnelData.php");

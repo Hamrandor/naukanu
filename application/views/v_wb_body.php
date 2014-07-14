@@ -4,50 +4,50 @@
 
 $this->load->helper("form");
 // put your code here
-echo form_open("naukanu/configureBoat");
+echo form_open("naukanu/configureboat");
 //        echo "<br> selboot=";
 //        print_r($selectedBoat);        
 echo "Bitte w&auml;hlen Sie ein Boot aus:<br><br>";
-echo form_dropdown('sBoatID', $boatArray, $selectedBoat);
+echo form_dropdown('sboatid', $boatarray, $selectedboat);
 echo "<br>";
-echo form_submit('chooseBoat', 'Boot auswählen');
+echo form_submit('chooseboat', 'Boot auswählen');
 echo "<br>";
 echo "<br>";
-if (isset($boatObject)) {
-    if ($editBoat) {
+if (isset($boatobject)) {
+    if ($editboat) {
         echo '<br>';
-        echo "Name des Bootes : " . form_input('boatName', $boatObject['name']) . '<br>';
+        echo "Name des Bootes : " . form_input('boatname', $boatobject['name']) . '<br>';
 //                echo "Anzahl Sitze    : ".form_input('seatCount', $boatObject['seatCount']).'<br>';
-        echo "Zustand         : " . $boatObject['Description'] . '<br>';
-        echo "Bootstyp        : " . form_dropdown('sBoatTypeID', $boatTypeSelect, $selectedBoatType) . '<br>';
+        echo "Zustand         : " . $boatobject['description'] . '<br>';
+        echo "Bootstyp        : " . form_dropdown('sboattypeid', $boattypeselect, $selectedboattype) . '<br>';
         echo '<br>';
         echo '<br>';
-        echo form_submit('saveBoat', 'Boot speichern');
+        echo form_submit('saveboat', 'Boot speichern');
         echo '<br>';
         echo '<br>';
     } else {
         //echo form_open("naukanu/editBoat");
-        echo "Name des Bootes : " . $boatObject['name'] . '<br>';
-        echo "Zustand         : " . $boatObject['Description'] . '<br>';
+        echo "Name des Bootes : " . $boatobject['name'] . '<br>';
+        echo "Zustand         : " . $boatObject['description'] . '<br>';
         echo "Bootstyp        : " . $boatObject['typename'] . '<br>';
         echo '<br>';
-        echo form_submit('editBoat', 'Boot bearbeiten');
+        echo form_submit('editboat', 'Boot bearbeiten');
         echo '<br>';
-        if ((!isset($editAMast) || !$editAMast) && (!isset($editMast) || !$editMast)) {
-            echo form_submit('editAMast', 'Einen Mast bearbeiten') . '<br>';
+        if ((!isset($editamast) || !$editamast) && (!isset($editmast) || !$editmast)) {
+            echo form_submit('editamast', 'Einen Mast bearbeiten') . '<br>';
         } else {
-            if (!isset($editMast) || !$editMast) {
+            if (!isset($editmast) || !$editmast) {
                 echo 'W&auml;hlen Sie einen Mast aus:  ';
-                echo form_dropdown('sMast', $totalMastArray, $selectedMast);
-                echo '<br>' . form_submit('editMast', 'Ausgew&auml;hlten Mast bearbeiten');
+                echo form_dropdown('smast', $totalmastarray, $smaterialtype);
+                echo '<br>' . form_submit('editmast', 'Ausgew&auml;hlten Mast bearbeiten');
             } else {
                 echo 'Mast bearbeiten: <br>';
-                echo form_hidden($selectedMast);
-                echo 'Mastname : ' . form_input('MastName', $selectedMast['name']) . '<br>';
-                echo 'Masttyp  : ' . form_dropdown('sMastTypeID', $totalMastTypeArray, $selectedMast['mastTypeID']) . '<br>';
-                echo 'Boot     : ' . form_dropdown('sBoatID', $boatArray, $selectedMast['boatID']) . '<br>';
-                echo "Zustand  : " . $selectedMast['Description'] . '<br>';
-                echo '<br>' . form_submit('saveMast', 'Mast speichern');
+                echo form_hidden($smaterialtype);
+                echo 'Mastname : ' . form_input('mastname', $smaterialtype['name']) . '<br>';
+                echo 'Masttyp  : ' . form_dropdown('smasttypeid', $totalmasttypearray, $smaterialtype['masttypeid']) . '<br>';
+                echo 'Boot     : ' . form_dropdown('sboatid', $boatarray, $smaterialtype['boatID']) . '<br>';
+                echo "Zustand  : " . $smaterialtype['description'] . '<br>';
+                echo '<br>' . form_submit('savemast', 'Mast speichern');
             }
         }
 
@@ -76,7 +76,7 @@ if (isset($mastarrayofBoat)) {
         echo '<br>';
         echo $i . '. Mast: <br>';
         echo 'Mastname       : ' . $mast['name'] . '<br>';
-        echo 'Zustand        : ' . $mast['Description'] . '<br>';
+        echo 'Zustand        : ' . $mast['description'] . '<br>';
         echo 'Masttyp        : ' . $mast['typename'] . '<br>';
         echo 'H&ouml;he          : ' . $mast['heigth'] . '<br>';
         $i++;

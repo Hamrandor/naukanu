@@ -1,32 +1,32 @@
 <?php
 
 /**
- * Description of user
+ * description of user
  *
- * @author Ilya Beliaev
+ * @author ilya beliaev
  */
-class User extends CI_Model {
+class user extends CI_Model {
 
     public function __construct() {
         parent::__construct();
-        //Datenbankverbindung herstellen
+        //datenbankverbindung herstellen
         $this->load->database();
     }
 
     /**
-     * Überprüft die Benutzerdaten eines Benutzers der sich einloggen möchte
-     * @param String $username Benutzername des Kunden
-     * @param String $password Passwort des Kunden
-     * @return false/String Fail/Username
+     * überprüft die benutzerdaten eines benutzers der sich einloggen möchte
+     * @param string $username benutzername des kunden
+     * @param string $password passwort des kunden
+     * @return false/string fail/username
      */
-    public function checkUserCredentials($username, $password) {
+    public function checkusercredentials($username, $password) {
 
-        //Salt für den Benutzer raussuchen aus der Datenbank
-        //$salt = $this->getSalt($username);
+        //salt für den benutzer raussuchen aus der datenbank
+        //$salt = $this->getsalt($username);
         //if(!empty($salt)){
-        //Anhand des herausgesuchten Salts und des Plaintext Passworts einen Hash bilden
+        //anhand des herausgesuchten salts und des plaintext passworts einen hash bilden
         //$hash = $this->gethash($password, $salt);
-        //Datenbankabfrage mittels Active Record Pattern
+        //datenbankabfrage mittels active record pattern
         $this->db->select("login");
         $this->db->from("user");
         $this->db->where("login", $username);
@@ -35,7 +35,7 @@ class User extends CI_Model {
 
         $query = $this->db->get();
 
-        //Prüfen ob MySQL-Ausgabe mehr als 0 Zeilen ausliefert.
+        //prüfen ob mysql-ausgabe mehr als 0 zeilen ausliefert.
         if ($query->num_rows() > 0) {
             $row = $query->row(0);
             $return = $row->login;
@@ -46,18 +46,18 @@ class User extends CI_Model {
         //}else{
         //   $return = false;
         //}
-        // Username oder False zurück geben, an die Aufrufer-Klasse in dem Falle den Controller
+        // username oder false zurück geben, an die aufrufer-klasse in dem falle den controller
         return $return;
     }
 
     /**
-     * Holt den Salt eines Benutzers
-     * @param String $username Benutzername
-     * @return String Salt
+     * holt den salt eines benutzers
+     * @param string $username benutzername
+     * @return string salt
      */
-    private function getSalt($username) {
+    private function getsalt($username) {
 
-        //Salt mittels einer SQL-Abfrage aus der Datenbank holen
+        //salt mittels einer sql-abfrage aus der datenbank holen
         $this->db->select('salt');
         $this->db->from("user");
         $this->db->where("username", $username);
@@ -76,13 +76,13 @@ class User extends CI_Model {
     }
 
     /**
-     * Erzeugt aus Password und Salt einen Sha1-Hash
-     * @param String $password Plaintext Passwort
-     * @param String $salt 40stelliger Salt
-     * @return String SHA1-Hash
+     * erzeugt aus password und salt einen sha1-hash
+     * @param string $password plaintext passwort
+     * @param string $salt 40stelliger salt
+     * @return string sha1-hash
      */
     private function gethash($password, $salt) {
-        //Erzeugen eines Hashes anhand des Passworts und des Salts
+        //erzeugen eines hashes anhand des passworts und des salts
         return sha1($password . md5($salt));
     }
 

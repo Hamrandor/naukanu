@@ -1,32 +1,32 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 class booking extends CI_Model {
 
-    public function getBookingNameSelect() {
+    public function getbookingnameselect() {
         $myresult = array();
-        $this->db->select('*, person.name AS personname');
+        $this->db->select('*, person.name as personname');
         $this->db->from('booking');
         $this->db->join('course', 'booking.courseid = course.courseid', 'left');
         $this->db->join('person', 'booking.personid = person.personid', 'left');
 //        $this->db->join('boat', 'booking.boatid = boat.boatid', 'left');
-//        $this->db->where('bookingID');
+//        $this->db->where('bookingid');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['bookingID']] = $row['personname'] . " " . $row['courseName'];
+            $myresult[$row['bookingid']] = $row['personname'] . " " . $row['coursename'];
             print_r($row);
         }
         return $myresult;
     }
 
-    public function getBookingForID($id) {
+    public function getbookingforid($id) {
 
-        $this->db->select('*, person.name AS c_name, boat.name AS b_name, exam.name AS e_name');
+        $this->db->select('*, person.name as c_name, boat.name as b_name, exam.name as e_name');
         //da typename in booking und boattype gleich, beide umbenannt
         $this->db->from('booking');
         $this->db->join('course', 'booking.courseid = course.courseid', 'left');
@@ -36,7 +36,7 @@ class booking extends CI_Model {
         $this->db->join('person', 'booking.personid = person.personid', 'left');
         $this->db->join('boat', 'booking.boatid = boat.boatid', 'left');
         $this->db->join('exam', 'booking.examid = exam.examid', 'left');
-        $this->db->where('bookingID', $id);
+        $this->db->where('bookingid', $id);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             foreach ($query->result_array() as $row) {
@@ -47,82 +47,82 @@ class booking extends CI_Model {
         }
     }
 
-    public function getCourseSelect() {
+    public function getcourseselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('course');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['courseID']] = $row['courseName'];
+            $myresult[$row['courseid']] = $row['coursename'];
         }
         return $myresult;
     }
 
-    public function getCustomerSelect() {
+    public function getcustomerselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('person');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult [$row['personID']] = $row['name'];
+            $myresult [$row['personid']] = $row['name'];
         }
         return $myresult;
     }
 
-    public function getBoatSelect() {
+    public function getboatselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('boat');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult [$row['boatID']] = $row['name'];
+            $myresult [$row['boatid']] = $row['name'];
         }
         return $myresult;
     }
 
-    public function getExamSelect() {
+    public function getexamselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('exam');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult [$row['examID']] = $row['name'];
+            $myresult [$row['examid']] = $row['name'];
         }
         return $myresult;
     }
 
-    public function saveBooking($bookingObject) {
-        //$id = $bookingObject['bookingID'];
-        print_r($bookingObject);
+    public function savebooking($bookingobject) {
+        //$id = $bookingobject['bookingid'];
+        print_r($bookingobject);
         $data = array(
-//                'bookingID' => $bookingObject['bookingID'],
-            'courseID' => $bookingObject['courseID'],
-            'personID' => $bookingObject['customerID'],
-            'boatID' => $bookingObject['boatID'],
-            'examID' => $bookingObject['examID']
+//                'bookingid' => $bookingobject['bookingid'],
+            'courseid' => $bookingobject['courseid'],
+            'personid' => $bookingobject['customerid'],
+            'boatid' => $bookingobject['boatid'],
+            'examid' => $bookingobject['examid']
         );
-        if (isset($bookingObject['bookingID'])) {
-            $id = $bookingObject['bookingID'];
-            $this->db->where('bookingID', $id);
+        if (isset($bookingobject['bookingid'])) {
+            $id = $bookingobject['bookingid'];
+            $this->db->where('bookingid', $id);
             $this->db->update('booking', $data);
         } else {
             $this->db->insert('booking', $data);
         }
     }
 
-    public function emptyBooking() {
+    public function emptybooking() {
         $data = array(
-//                'bookingID' => '',
-            'courseID' => '',
-            'personID' => '',
-            'boatID' => '',
-            'examID' => '',
+//                'bookingid' => '',
+            'courseid' => '',
+            'personid' => '',
+            'boatid' => '',
+            'examid' => '',
         );
         return $data;
     }
 
-    public function deleteBooking($BookingID) {
-        $this->db->where('bookingID', $bookingID);
+    public function deletebooking($bookingid) {
+        $this->db->where('bookingid', $bookingid);
         $this->db->delete('booking');
     }
 

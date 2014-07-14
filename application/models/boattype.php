@@ -1,44 +1,44 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of boattype
+ * description of boattype
  *
- * @author Jens
+ * @author jens
  */
 class boattype extends CI_Model {
 
     //put your code here
-    public $boatTypeID;
+    public $boattypeid;
     public $typename;
-    public $seatCount;
+    public $seatcount;
 
-    public function fillDataForID($boatTypeID) {
+    public function filldataforid($boattypeid) {
         $this->db->select('*');
-        $this->db->from("boatType");
-        $this->db->where("boatTypeID", $boatID);
+        $this->db->from("boattype");
+        $this->db->where("boattypeid", $boatid);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             foreach ($query->result_array() as $row) {
-                $this->boatTypeID = $row['boatTypeID'];
+                $this->boattypeid = $row['boattypeid'];
                 $this->typename = $row['typename'];
-                $this->seatCount = $row['seatcount'];
+                $this->seatcount = $row['seatcount'];
             }
         }
     }
 
-    public function getNameSelect() {
+    public function getnameselect() {
         $myresult = array();
         $this->db->select('*');
-        $this->db->from('boatType');
+        $this->db->from('boattype');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['boatID']] = $row['name'];
+            $myresult[$row['boatid']] = $row['name'];
         }
         return $myresult;
     }

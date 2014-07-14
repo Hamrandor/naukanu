@@ -7,25 +7,25 @@
  */
 $this->load->helper("form");
 echo '<table width="100%" border="0"><tr><td>';
-echo form_open("bookingConfig");
+echo form_open("bookingconfig");
 echo "Buchung:<br><br>";
-echo form_dropdown('sBookingID', $bookingArray, $selectedBooking);
+echo form_dropdown('sbookingid', $bookingarray, $selectedbooking);
 echo "<br>";
-echo form_submit('chooseBooking', 'Buchung auswählen');
-echo form_submit('newBooking', 'neue Buchung');
+echo form_submit('choosebooking', 'Buchung auswählen');
+echo form_submit('newbooking', 'neue Buchung');
 
 echo "<br>";
 echo "<br>";
 echo '</td></tr></table>';
 
-if (isset($newBookingObject)) {
+if (isset($newbookingobject)) {
     echo '<table width="100%" border="0">';
     echo '<tr>';
     echo '<td width="200px">';
     echo 'Kurs: ';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sCourseID', $courseSelect, NULL);
+    echo form_dropdown('scourseid', $courseselect, null);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -33,7 +33,7 @@ if (isset($newBookingObject)) {
     echo 'Kunde/Reisegruppe:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sCustomerID', $customerSelect, NULL);
+    echo form_dropdown('scustomerid', $customerselect, null);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -41,7 +41,7 @@ if (isset($newBookingObject)) {
     echo 'Material:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sBoatID', $boatSelect, NULL);
+    echo form_dropdown('sboatid', $boatselect, null);
 //echo form_dropdown('sConditionID', $conditionSelect, null);
     echo '</td>';
     echo '</tr>';
@@ -50,26 +50,26 @@ if (isset($newBookingObject)) {
     echo 'Prüfung:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sExamID', $examSelect, NULL);
+    echo form_dropdown('sexamid', $examselect, null);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
     echo '<td>';
-    echo form_submit('saveNewBooking', 'Buchung speichern');
+    echo form_submit('savenewbooking', 'Buchung speichern');
     echo '</td>';
     echo '</tr>';
     echo '</table>';
 }
 
-if (isset($bookingObject)) {
-    if ($editBooking) {
+if (isset($bookingobject)) {
+    if ($editbooking) {
         echo '<table width="100%" border="0">';
         echo '<tr>';
         echo '<td width="200px">';
         echo 'Name des Kurses: ';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sCourseID', $courseSelect, $bookingObject['courseID']);
+        echo form_dropdown('scourseid', $courseselect, $bookingobject['courseid']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -77,7 +77,7 @@ if (isset($bookingObject)) {
         echo 'Kunde/Reisegruppe:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sCustomerID', $customerSelect, $bookingObject['customerID']);
+        echo form_dropdown('scustomerid', $customerselect, $bookingobject['customerid']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -85,7 +85,7 @@ if (isset($bookingObject)) {
         echo 'Material:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sBoatID', $boatSelect, $bookingObject['boatID']);
+        echo form_dropdown('sboatid', $boatselect, $bookingobject['boatid']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -93,15 +93,15 @@ if (isset($bookingObject)) {
         echo 'Prüfung:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sExamID', $examSelect, $bookingObject['examID']);
+        echo form_dropdown('sexamid', $examselect, $bookingobject['examid']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>';
-        echo form_submit('saveBooking', 'Buchung speichern');
+        echo form_submit('savebooking', 'Buchung speichern');
         echo '</td>';
         echo '</tr>';
-        echo form_submit('deleteBooking', 'Buchung löschen');
+        echo form_submit('deletebooking', 'Buchung löschen');
         echo '</table>';
     } else {
         echo '<table width="100%" border="0">';
@@ -110,7 +110,7 @@ if (isset($bookingObject)) {
         echo 'Name des Kurses: ';
         echo '</td>';
         echo '<td>';
-        echo $bookingObject['courseName'];
+        echo $bookingobject['coursename'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -118,7 +118,7 @@ if (isset($bookingObject)) {
         echo 'Kunde/Reisegruppe: ';
         echo '</td>';
         echo '<td>';
-        echo $bookingObject['c_name'];
+        echo $bookingobject['c_name'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -126,7 +126,7 @@ if (isset($bookingObject)) {
         echo 'Material: ';
         echo '</td>';
         echo '<td>';
-        echo $bookingObject['b_name'];
+        echo $bookingobject['b_name'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -134,12 +134,12 @@ if (isset($bookingObject)) {
         echo 'Prüfung: ';
         echo '</td>';
         echo '<td>';
-        echo $bookingObject['e_name'];
+        echo $bookingobject['e_name'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>';
-        echo form_submit('editBooking', 'Buchung bearbeiten');
+        echo form_submit('editbooking', 'Buchung bearbeiten');
         echo '</td>';
         echo '</tr>';
         echo '</table>';

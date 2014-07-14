@@ -1,37 +1,37 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of employee
+ * description of employee
  *
  * @author rnitschke
  */
 class employee extends person {
 
-    public function selectExistingEmployees() {
-        $myresult = array('employeesData');
+    public function selectexistingemployees() {
+        $myresult = array('employeesdata');
         $this->db->select('*');
         $this->db->from('person');
-        $this->db->join('employee', 'employee.employeeID = person.employeeID', 'left');
-        $this->db->where('employeeID is not null');
+        $this->db->join('employee', 'employee.employeeid = person.employeeid', 'left');
+        $this->db->where('employeeid is not null');
 
-        return ['employeesData'];
+        return ['employeesdata'];
     }
 
-    public function updateExistingEmployee() {
+    public function updateexistingemployee() {
         
     }
 
-    public function deleteExistingEmployee() {
+    public function deleteexistingemployee() {
         
     }
 
 }
 
-$employeeID = employeeID;
-$personID = personID;
+$employeeid = employeeid;
+$personid = personid;

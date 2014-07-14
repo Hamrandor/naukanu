@@ -2,24 +2,24 @@
 
 class coursetype extends CI_Model {
 
-    public function getCourseTypeNameSelect() {
+    public function getcoursetypenameselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('coursetype');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['courseTypeID']] = $row['typename'];
+            $myresult[$row['coursetypeid']] = $row['typename'];
         }
         return $myresult;
     }
 
-    public function getcourseTypeForID($id) {
+    public function getcoursetypeforid($id) {
 
-        $this->db->select('*, coursetype.typename AS c_typename, boattype.typename AS b_typename');
+        $this->db->select('*, coursetype.typename as c_typename, boattype.typename as b_typename');
         //da typename in coursetype und boattype gleich, beide umbenannt
         $this->db->from('coursetype');
         $this->db->join('boattype', 'coursetype.boattypeid = boattype.boattypeid', 'left');
-        $this->db->join('license', 'coursetype.licenseID = license.licenseid', 'left');
+        $this->db->join('license', 'coursetype.licenseid = license.licenseid', 'left');
         $this->db->where('coursetypeid', $id);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
@@ -31,74 +31,74 @@ class coursetype extends CI_Model {
         }
     }
 
-    public function getBoatTypeSelect() {
+    public function getboattypeselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('boattype');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['boatTypeID']] = $row['typename'];
+            $myresult[$row['boattypeid']] = $row['typename'];
         }
         return $myresult;
     }
 
-    public function getLicenseSelect() {
+    public function getlicenseselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('license');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult [$row['licenseID']] = $row['name'];
+            $myresult [$row['licenseid']] = $row['name'];
         }
         return $myresult;
     }
 
-    public function saveCourseType($courseTypeObject) {
-        //$id = $courseTypeObject['courseTypeID'];
+    public function savecoursetype($coursetypeobject) {
+        //$id = $coursetypeobject['coursetypeid'];
         $data = array(
-            'typename' => $courseTypeObject['c_typename'],
-            'description' => $courseTypeObject['description'],
-            'durationDays' => $courseTypeObject['durationDays'],
-            'durationHours' => $courseTypeObject['durationHours'],
-            'minParticipants' => $courseTypeObject['minParticipants'],
-            'maxParticipants' => $courseTypeObject['maxParticipants'],
-            'boatTypeID' => $courseTypeObject['boatTypeID'],
-            'numberOfCourseLeaders' => $courseTypeObject['numberOfCourseLeaders'],
-            'licenseID' => $courseTypeObject['licenseID'],
-            'salary' => $courseTypeObject['salary'],
-            'price' => $courseTypeObject['price'],
-            'priceExam' => $courseTypeObject['priceExam']
+            'typename' => $coursetypeobject['c_typename'],
+            'description' => $coursetypeobject['description'],
+            'durationdays' => $coursetypeobject['durationdays'],
+            'durationhours' => $coursetypeobject['durationhours'],
+            'minparticipants' => $coursetypeobject['minparticipants'],
+            'maxparticipants' => $coursetypeobject['maxparticipants'],
+            'boattypeid' => $coursetypeobject['boattypeid'],
+            'numberofcourseleaders' => $coursetypeobject['numberofcourseleaders'],
+            'licenseid' => $coursetypeobject['licenseid'],
+            'salary' => $coursetypeobject['salary'],
+            'price' => $coursetypeobject['price'],
+            'priceexam' => $coursetypeobject['priceexam']
         );
-        if (isset($courseTypeObject['courseTypeID'])) {
-            $id = $courseTypeObject['courseTypeID'];
-            $this->db->where('courseTypeID', $id);
-            $this->db->update('courseType', $data);
+        if (isset($coursetypeobject['coursetypeid'])) {
+            $id = $coursetypeobject['coursetypeid'];
+            $this->db->where('coursetypeid', $id);
+            $this->db->update('coursetype', $data);
         } else {
-            $this->db->insert('courseType', $data);
+            $this->db->insert('coursetype', $data);
         }
     }
 
-    public function emptyCourseType() {
+    public function emptycoursetype() {
         $data = array(
             'typename' => '',
             'description' => '',
-            'durationDays' => '',
-            'durationHours' => '',
-            'minParticipants' => '',
-            'maxParticipants' => '',
-            'boatTypeID' => '',
-            'numberOfCourseLeaders' => '',
-            'licenseID' => '',
+            'durationdays' => '',
+            'durationhours' => '',
+            'minparticipants' => '',
+            'maxparticipants' => '',
+            'boattypeid' => '',
+            'numberofcourseleaders' => '',
+            'licenseid' => '',
             'salary' => '',
             'price' => '',
-            'priceExam' => ''
+            'priceexam' => ''
         );
         return $data;
     }
 
-    public function deleteCourseType($courseTypeID) {
-        $this->db->where('courseTypeID', $courseTypeID);
-        $this->db->delete('courseType');
+    public function deletecoursetype($coursetypeid) {
+        $this->db->where('coursetypeid', $coursetypeid);
+        $this->db->delete('coursetype');
     }
 
 }

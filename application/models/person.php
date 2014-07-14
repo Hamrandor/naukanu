@@ -1,25 +1,25 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of person
+ * description of person
  *
  * @author rnitschke
  */
 class person extends CI_Model {
 
-    public function createNewEmployeeID() {
+    public function createnewemployeeid() {
 
         $this->db->select('max(employeeid)');
         $this->db->from('person');
 
-        set($NewID = $this + 1);
-        return $NewID;
+        set($newid = $this + 1);
+        return $newid;
     }
 
 }

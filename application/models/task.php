@@ -1,55 +1,55 @@
 <?php
 
 /**
- * Description of task
+ * description of task
  *
- * @author Jens
+ * @author jens
  */
 class task extends CI_Model {
 
     public function __construct() {
-        //Laden unserer models (/application/models/user.php)
-        //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
-//        $this->load->model(array('mast', 'calendarEntry'));
+        //laden unserer models (/application/models/user.php)
+        //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
+//        $this->load->model(array('mast', 'calendarentry'));
     }
 
-    public function saveTask($task) {
-        $data = Array(
-            'initiatorID' => $task['initiatorID'],
-            'performerID' => $task['performerID'],
+    public function savetask($task) {
+        $data = array(
+            'initiatorid' => $task['initiatorid'],
+            'performerid' => $task['performerid'],
             'comment' => $task['comment'],
-            'dueDate' => $task['dueDate'],
-            'ticketStatusID' => $task['ticketStatusID']
+            'duedate' => $task['duedate'],
+            'ticketstatusid' => $task['ticketstatusid']
         );
-        $tDB = array(
+        $tdb = array(
             'name' => $task['name']
         );
-        if (isset($task['taskID']) && $task['taskID'] != null) {
-            $tid = $task['taskID'];
-            $this->db->where('taskID', $tid);
-            $this->db->update('task', $tDB);
+        if (isset($task['taskid']) && $task['taskid'] != null) {
+            $tid = $task['taskid'];
+            $this->db->where('taskid', $tid);
+            $this->db->update('task', $tdb);
         } else {
-            $this->db->insert('task', $tDB);
-            $query = $this->db->query('SELECT taskID FROM task where name like \'' . $tDB['name'] . '\' LIMIT 1');
+            $this->db->insert('task', $tdb);
+            $query = $this->db->query('select taskid from task where name like \'' . $tdb['name'] . '\' limit 1');
             $row = $query->row();
-            $data['taskID'] = $row->taskID;
+            $data['taskid'] = $row->taskid;
         }
-        if (isset($task['ticketID']) && $task['ticketID'] != null) {
-            $id = $task['ticketID'];
-            $this->db->where('ticketID', $id);
+        if (isset($task['ticketid']) && $task['ticketid'] != null) {
+            $id = $task['ticketid'];
+            $this->db->where('ticketid', $id);
             $this->db->update('ticket', $data);
         } else {
             $this->db->insert('ticket', $data);
         }
     }
 
-    public function getPerformerTaskArrayForUsername($username) {
+    public function getperformertaskarrayforusername($username) {
         $result = array();
         $this->db->select('*')->
                 from('user')->
-                join('person', 'user.personID=person.personID', 'left')->
-                join('ticket', 'ticket.performerID = person.employeeID', 'left')->
-                join('task', 'ticket.taskID = task.taskID', 'left')->
+                join('person', 'user.personid=person.personid', 'left')->
+                join('ticket', 'ticket.performerid = person.employeeid', 'left')->
+                join('task', 'ticket.taskid = task.taskid', 'left')->
                 where('login', $username);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -60,25 +60,25 @@ class task extends CI_Model {
         return $result;
     }
 
-    public function getPerformerTaskCountForUsername($username) {
+    public function getperformertaskcountforusername($username) {
         $result = array();
         $this->db->select('count(*) as c')->
                 from('user')->
-                join('person', 'user.personID=person.personID', 'left')->
-                join('ticket', 'ticket.performerID = person.employeeID', 'left')->
+                join('person', 'user.personid=person.personid', 'left')->
+                join('ticket', 'ticket.performerid = person.employeeid', 'left')->
                 where('login', $username)->
-                where('ticketStatusID != 4', null);
+                where('ticketstatusid != 4', null);
         $result = $this->db->get()->row()->c;
         return $result;
     }
 
-    public function getInitiatorTaskArrayForUsername($username) {
+    public function getinitiatortaskarrayforusername($username) {
         $result = array();
         $this->db->select('*')->
                 from('user')->
-                join('person', 'user.personID=person.personID', 'left')->
-                join('ticket', 'ticket.initiatorID = person.employeeID', 'left')->
-                join('task', 'task.taskID=ticket.taskID', 'left')->
+                join('person', 'user.personid=person.personid', 'left')->
+                join('ticket', 'ticket.initiatorid = person.employeeid', 'left')->
+                join('task', 'task.taskid=ticket.taskid', 'left')->
                 where('login', $username);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -89,54 +89,54 @@ class task extends CI_Model {
         return $result;
     }
 
-    public function getEmployeeSelect($aRole) {
+    public function getemployeeselect($arole) {
         $myresult = array();
         $this->db->select('*')
                 ->from('employee')
-                ->join('person', 'employee.employeeID = person.employeeid', 'left');
-        if (isset($aRole) && $aRole != NULL) {
-            $this->db->join('employeerole', 'employeerole.roleID = employee.roleID', 'right');
-            $this->db->where('employeeRole.roleID', $aRole);
+                ->join('person', 'employee.employeeid = person.employeeid', 'left');
+        if (isset($arole) && $arole != null) {
+            $this->db->join('employeerole', 'employeerole.roleid = employee.roleid', 'right');
+            $this->db->where('employeerole.roleid', $arole);
         }
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['employeeID']] = $row['firstName'] . ' ' . $row['name'];
+            $myresult[$row['employeeid']] = $row['firstname'] . ' ' . $row['name'];
         }
         return $myresult;
     }
 
-    public function getTicketStatusArray() {
+    public function getticketstatusarray() {
         $myresult = array();
         $this->db->select('*')
                 ->from('ticketstatus');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['ticketStatusID']] = $row['status'];
+            $myresult[$row['ticketstatusid']] = $row['status'];
         }
         return $myresult;
     }
 
-    public function emptyTask() {
+    public function emptytask() {
         return array(
-            'initiatorID' => 'null',
-            'performerID' => 'null',
+            'initiatorid' => 'null',
+            'performerid' => 'null',
             'comment' => '',
             'name' => '',
-            'dueDate' => 'null',
-            'ticketStatusID' => null
+            'duedate' => 'null',
+            'ticketstatusid' => null
         );
     }
 
-    public function getUser($user) {
+    public function getuser($user) {
         $result = array();
         $name = '';
         $this->db->select('*')->from('person')
-                ->join('user', 'user.personID=person.personID', 'right')
+                ->join('user', 'user.personid=person.personid', 'right')
                 ->where('user.login', $user);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             foreach ($query->result_array() as $row) {
-                $row['fullName'] = $row['firstName'] . " " . $row['name'];
+                $row['fullname'] = $row['firstname'] . " " . $row['name'];
                 $result = $row;
             }
         }
@@ -144,11 +144,11 @@ class task extends CI_Model {
         return $result;
     }
 
-    public function getTaskForID($id) {
+    public function gettaskforid($id) {
         $result = array();
         $this->db->select('*')->from('ticket')
-                ->join('task', 'task.taskID=ticket.taskID', 'left')
-                ->where('ticketID', $id);
+                ->join('task', 'task.taskid=ticket.taskid', 'left')
+                ->where('ticketid', $id);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             foreach ($query->result_array() as $row) {

@@ -7,7 +7,7 @@ class Calendar extends CI_Model {
 
         $pref = array(
             'show_next_prev' => TRUE,
-            'next_prev_url' => base_url() . 'calendarConfig/showCalendar',
+            'next_prev_url' => base_url() . 'calendarconfig/showcalendar',
             'start_day' => 'monday',
             'month_type' => 'long',
             'day_type' => 'long'
@@ -75,7 +75,9 @@ class Calendar extends CI_Model {
         return $cal_data;
     }
 
-    function add_events($date, $event, $employeeID, $courseID) {
+    function add_events($date, $event, $employeeid, $courseid) {
+        echo 'Hier werden Events gespeichert:   date='.$date.'event='.$event.'empid='.$employeeid.'courseid='.$courseid;
+                
         //$events = array(
         //'start'=>'2014-08-30',
         //'description'=>'Kinderkurs');
@@ -85,7 +87,8 @@ class Calendar extends CI_Model {
 //                $this->db->update('calendarentry', array('description'=>$event));
 //              //  echo "Event does exist";
 //            }else {
-        $this->db->insert('calendarentry', array('start' => $date, 'description' => $event, 'employeeID' => $employeeID, 'courseID' => $courseID));
+        $this->db->insert('calendarentry', array('start' => $date, 'description' => $event, 'employeeid' => $employeeid, 'courseid' => $courseid));
+        redirect("calendarconfig");
 //    }
     }
 

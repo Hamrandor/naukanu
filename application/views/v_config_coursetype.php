@@ -7,24 +7,24 @@
  */
 $this->load->helper("form");
 echo '<table width="100%" border="0"><tr><td>';
-echo form_open("courseTypeConfig");
+echo form_open("coursetypeconfig");
 echo "Bitte wählen Sie einen Kurstyp aus:<br><br>";
-echo form_dropdown('sCourseTypeID', $courseTypeArray, $selectedCourseType);
+echo form_dropdown('scoursetypeid', $coursetypearray, $selectedcoursetype);
 echo "<br>";
-echo form_submit('chooseCourseType', 'Kurstyp auswählen');
-echo form_submit('newCourseType', 'neuen Kurstyp anlegen');
+echo form_submit('choosecoursetype', 'Kurstyp auswählen');
+echo form_submit('newcoursetype', 'neuen Kurstyp anlegen');
 echo "<br>";
 echo "<br>";
 echo '</td></tr></table>';
 
-if (isset($newCourseTypeObject)) {
+if (isset($newcoursetypeobject)) {
     echo '<table width="100%" border="0">';
     echo '<tr>';
     echo '<td width="200px">';
     echo 'Name neuer Kurstyp: ';
     echo '</td>';
     echo '<td>';
-    echo form_input('courseTypeName', $newCourseTypeObject['typename']);
+    echo form_input('coursetypename', $newcoursetypeobject['typename']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -32,7 +32,7 @@ if (isset($newCourseTypeObject)) {
     echo 'Inhalt:';
     echo '</td>';
     echo '<td>';
-    echo form_input('description', $newCourseTypeObject['description']);
+    echo form_input('description', $newcoursetypeobject['description']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -40,7 +40,7 @@ if (isset($newCourseTypeObject)) {
     echo 'Kursdauer (Tage):';
     echo '</td>';
     echo '<td>';
-    echo form_input('durationDays', $newCourseTypeObject['durationDays']);
+    echo form_input('durationdays', $newcoursetypeobject['durationdays']);
 //echo form_dropdown('sConditionID', $conditionSelect, null);
     echo '</td>';
     echo '</tr>';
@@ -49,7 +49,7 @@ if (isset($newCourseTypeObject)) {
     echo 'Kursdauer (Stunden):';
     echo '</td>';
     echo '<td>';
-    echo form_input('durationHours', $newCourseTypeObject['durationHours']);
+    echo form_input('durationhours', $newcoursetypeobject['durationhours']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -57,7 +57,7 @@ if (isset($newCourseTypeObject)) {
     echo 'Min. Teilnehmerzahl:';
     echo '</td>';
     echo '<td>';
-    echo form_input('minParticipants', $newCourseTypeObject['minParticipants']);
+    echo form_input('minparticipants', $newcoursetypeobject['minparticipants']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -65,7 +65,7 @@ if (isset($newCourseTypeObject)) {
     echo 'Max. Teilnehmerzahl:';
     echo '</td>';
     echo '<td>';
-    echo form_input('maxParticipants', $newCourseTypeObject['maxParticipants']);
+    echo form_input('maxparticipants', $newcoursetypeobject['maxparticipants']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -73,7 +73,7 @@ if (isset($newCourseTypeObject)) {
     echo 'benötigtes Material:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sBoatTypeID', $boatTypeSelect, NULL);
+    echo form_dropdown('sboattypeid', $boattypeselect, null);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -81,7 +81,7 @@ if (isset($newCourseTypeObject)) {
     echo 'Anzahl Kursleiter:';
     echo '</td>';
     echo '<td>';
-    echo form_input('numberOfCourseLeaders', $newCourseTypeObject['numberOfCourseLeaders']);
+    echo form_input('numberofcourseleaders', $newcoursetypeobject['numberofcourseleaders']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -89,7 +89,7 @@ if (isset($newCourseTypeObject)) {
     echo 'Qualifikationen Kursleiter:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sLicenseID', $licenseSelect, NULL);
+    echo form_dropdown('slicenseid', $licenseselect, null);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -97,7 +97,7 @@ if (isset($newCourseTypeObject)) {
     echo 'Lohn Kursleiter:';
     echo '</td>';
     echo '<td>';
-    echo form_input('salary', $newCourseTypeObject['salary']);
+    echo form_input('salary', $newcoursetypeobject['salary']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -105,7 +105,7 @@ if (isset($newCourseTypeObject)) {
     echo 'Kurspreis in €:';
     echo '</td>';
     echo '<td>';
-    echo form_input('price', $newCourseTypeObject['price']);
+    echo form_input('price', $newcoursetypeobject['price']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -113,26 +113,26 @@ if (isset($newCourseTypeObject)) {
     echo 'Prüfungspreis in €:';
     echo '</td>';
     echo '<td>';
-    echo form_input('priceExam', $newCourseTypeObject['priceExam']);
+    echo form_input('priceexam', $newcoursetypeobject['priceexam']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
     echo '<td>';
-    echo form_submit('saveNewCourseType', 'Kurstyp speichern');
+    echo form_submit('savenewcoursetype', 'Kurstyp speichern');
     echo '</td>';
     echo '</tr>';
     echo '</table>';
 }
 
-if (isset($courseTypeObject)) {
-    if ($editCourseType) {
+if (isset($coursetypeobject)) {
+    if ($editcoursetype) {
         echo '<table width="100%" border="0">';
         echo '<tr>';
         echo '<td width="200px">';
         echo 'Name Kurstyp: ';
         echo '</td>';
         echo '<td>';
-        echo form_input('courseTypeName', $courseTypeObject['c_typename']);
+        echo form_input('coursetypename', $coursetypeobject['c_typename']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -140,7 +140,7 @@ if (isset($courseTypeObject)) {
         echo 'Inhalt:';
         echo '</td>';
         echo '<td>';
-        echo form_input('description', $courseTypeObject['description']);
+        echo form_input('description', $coursetypeobject['description']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -148,7 +148,7 @@ if (isset($courseTypeObject)) {
         echo 'Kursdauer (Tage):';
         echo '</td>';
         echo '<td>';
-        echo form_input('durationDays', $courseTypeObject['durationDays']);
+        echo form_input('durationdays', $coursetypeobject['durationdays']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -156,7 +156,7 @@ if (isset($courseTypeObject)) {
         echo 'Kursdauer (Stunden):';
         echo '</td>';
         echo '<td>';
-        echo form_input('durationHours', $courseTypeObject['durationHours']);
+        echo form_input('durationhours', $coursetypeobject['durationhours']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -164,7 +164,7 @@ if (isset($courseTypeObject)) {
         echo 'Min. Teilnehmerzahl:';
         echo '</td>';
         echo '<td>';
-        echo form_input('minParticipants', $courseTypeObject['minParticipants']);
+        echo form_input('minparticipants', $coursetypeobject['minparticipants']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -172,7 +172,7 @@ if (isset($courseTypeObject)) {
         echo 'Max. Teilnehmerzahl:';
         echo '</td>';
         echo '<td>';
-        echo form_input('maxParticipants', $courseTypeObject['maxParticipants']);
+        echo form_input('maxparticipants', $coursetypeobject['maxparticipants']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -180,7 +180,7 @@ if (isset($courseTypeObject)) {
         echo 'benötigtes Material:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sBoatTypeID', $boatTypeSelect, $courseTypeObject['boatTypeID']);
+        echo form_dropdown('sboattypeid', $boattypeselect, $coursetypeobject['boattypeid']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -188,7 +188,7 @@ if (isset($courseTypeObject)) {
         echo 'Anzahl Kursleiter:';
         echo '</td>';
         echo '<td>';
-        echo form_input('numberOfCourseLeaders', $courseTypeObject['numberOfCourseLeaders']);
+        echo form_input('numberofcourseleaders', $coursetypeobject['numberofcourseleaders']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -196,7 +196,7 @@ if (isset($courseTypeObject)) {
         echo 'Qualifikationen Kursleiter:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sLicenseID', $licenseSelect, $courseTypeObject['licenseID']);
+        echo form_dropdown('slicenseid', $licenseselect, $coursetypeobject['licenseid']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -204,7 +204,7 @@ if (isset($courseTypeObject)) {
         echo 'Lohn Kursleiter:';
         echo '</td>';
         echo '<td>';
-        echo form_input('salary', $courseTypeObject['salary']);
+        echo form_input('salary', $coursetypeobject['salary']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -212,7 +212,7 @@ if (isset($courseTypeObject)) {
         echo 'Kurspreis in €:';
         echo '</td>';
         echo '<td>';
-        echo form_input('price', $courseTypeObject['price']);
+        echo form_input('price', $coursetypeobject['price']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -220,15 +220,15 @@ if (isset($courseTypeObject)) {
         echo 'Prüfungspreis in €:';
         echo '</td>';
         echo '<td>';
-        echo form_input('priceExam', $courseTypeObject['priceExam']);
+        echo form_input('priceexam', $coursetypeobject['priceexam']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>';
-        echo form_submit('saveCourseType', 'Kurstyp speichern');
+        echo form_submit('savecoursetype', 'Kurstyp speichern');
         echo '</td>';
         echo '</tr>';
-        echo form_submit('deleteCourseType', 'Kurstyp löschen');
+        echo form_submit('deletecoursetype', 'Kurstyp löschen');
         echo '</table>';
     } else {
         echo '<table width="100%" border="0">';
@@ -237,7 +237,7 @@ if (isset($courseTypeObject)) {
         echo 'Name Kurstyp: ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['c_typename'];
+        echo $coursetypeobject['c_typename'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -245,7 +245,7 @@ if (isset($courseTypeObject)) {
         echo 'Inhalt: ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['description'];
+        echo $coursetypeobject['description'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -253,7 +253,7 @@ if (isset($courseTypeObject)) {
         echo 'Kursdauer (Tage): ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['durationDays'];
+        echo $coursetypeobject['durationdays'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -261,7 +261,7 @@ if (isset($courseTypeObject)) {
         echo 'Kursdauer (Stunden): ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['durationHours'];
+        echo $coursetypeobject['durationhours'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -269,7 +269,7 @@ if (isset($courseTypeObject)) {
         echo 'Min. Teilnehmerzahl: ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['minParticipants'];
+        echo $coursetypeobject['minparticipants'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -277,7 +277,7 @@ if (isset($courseTypeObject)) {
         echo 'Max. Teilnehmerzahl: ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['maxParticipants'];
+        echo $coursetypeobject['maxparticipants'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -285,7 +285,7 @@ if (isset($courseTypeObject)) {
         echo 'benötigtes Material: ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['b_typename'];
+        echo $coursetypeobject['b_typename'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -293,7 +293,7 @@ if (isset($courseTypeObject)) {
         echo 'Anzahl Kursleiter: ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['numberOfCourseLeaders'];
+        echo $coursetypeobject['numberofcourseleaders'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -302,7 +302,7 @@ if (isset($courseTypeObject)) {
         echo '</td>';
         echo '<td>';
         //print_r($courseTypeObject);
-        echo $courseTypeObject['name'];
+        echo $coursetypeobject['name'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -310,7 +310,7 @@ if (isset($courseTypeObject)) {
         echo 'Lohn Kursleiter: ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['salary'];
+        echo $coursetypeobject['salary'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -318,7 +318,7 @@ if (isset($courseTypeObject)) {
         echo 'Kurspreis in €: ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['price'];
+        echo $coursetypeobject['price'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -326,12 +326,12 @@ if (isset($courseTypeObject)) {
         echo 'Prüfungspreis in €: ';
         echo '</td>';
         echo '<td>';
-        echo $courseTypeObject['priceExam'];
+        echo $coursetypeobject['priceexam'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>';
-        echo form_submit('editCourseType', 'Kurstyp bearbeiten');
+        echo form_submit('editcoursetype', 'Kurstyp bearbeiten');
         echo '</td>';
         echo '</tr>';
         echo '</table>';

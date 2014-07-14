@@ -19,8 +19,8 @@ $text = array(
     'style' => 'width:97%'
 );
 echo form_input($text) . br(2);
-echo form_dropdown('sCourseID', $courseArray);
-echo form_dropdown('sEmployeeID', $employeeArray);
+echo form_dropdown('scourseid', $coursearray);
+echo form_dropdown('semployeeid', $employeearray);
 
 $text = array(
     'name' => 'addEvent',

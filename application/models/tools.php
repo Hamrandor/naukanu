@@ -1,30 +1,30 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of tools
+ * description of tools
  *
- * @author Jens
+ * @author jens
  */
 class tools extends CI_Model {
 
     //put your code here
 
-    public function extractDropdownArray($array, $idField, $displayField) {
+    public function extractdropdownarray($array, $idfield, $displayfield) {
         $result = array();
         foreach ($array as $obj) {
-            $result[$obj[$idField]] = $obj[$displayField];
+            $result[$obj[$idfield]] = $obj[$displayfield];
         }
-        echo "extractDropdownArray = " . print_r($result);
+        echo "extractdropdownarray = " . print_r($result);
         return $result;
     }
 
-    function alertMessage($message) {
+    function alertmessage($message) {
         echo "<script type='text/javascript' language='javascript'> \n";
         echo "<!-- \n";
         echo " alert('" . $message . "'); \n";
@@ -32,11 +32,11 @@ class tools extends CI_Model {
         echo "</script> \n";
     }
 
-    public function addNullValue($anArray) {
-        $result = array(null => "keine Auswahl");
-        $keyArray = array_keys($anArray);
-        foreach ($keyArray as $k) {
-            $result[$k] = $anArray[$k];
+    public function addnullvalue($anarray) {
+        $result = array(null => "keine auswahl");
+        $keyarray = array_keys($anarray);
+        foreach ($keyarray as $k) {
+            $result[$k] = $anarray[$k];
         }
         return $result;
     }

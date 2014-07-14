@@ -1,118 +1,118 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of mastConfig
+ * description of mastconfig
  *
- * @author Jens
+ * @author jens
  */
-class mastConfig extends CI_Controller {
+class mastconfig extends CI_Controller {
 
     //put your code here
     public function __construct() {
         parent::__construct();
-        //Laden der form helper
+        //laden der form helper
         $this->load->helper(array('form', 'html', 'url'));
-        //Laden der form_validation library sowie der session library
-        //Zur verwendung von sessions und form_validations
+        //laden der form_validation library sowie der session library
+        //zur verwendung von sessions und form_validations
         $this->load->library(array('form_validation', 'session'));
-        //Laden unserer models (/application/models/user.php)
-        //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
+        //laden unserer models (/application/models/user.php)
+        //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
         $this->load->model(array('user', 'boat', 'mast', 'canvas', 'tools', 'condition'));
     }
 
     public function index() {
-        if ($this->session->userdata('login_state') === TRUE) {
+        if ($this->session->userdata('login_state') === true) {
             //hier könnte man nun das entsprechende view laden.
             $this->load->view('v_wb_head');
             $this->load->view('v_navigation');
             $data = array();
-            $data['editMast'] = false;
-            $nMastTypeID = $this->input->post('nMastTypeID');
-            $selectedMast = $this->input->post('sMastID');
-            //hier Test ob neues Boot
-            if ($this->input->post('newMast')) {
-                //$data = newBoat($data);
-                $data['newMastObject'] = $this->mast->emptyMast();
-                $data['selectedMast'] = null; //$this->mast->emptyMast();
-                $data['mastTypeSelect'] = $this->mast->getMastTypeSelect(NULL);
-                $data['boatSelect'] = $this->tools->addNullValue($this->boat->getBoatArrayForMastType(NULL));
-                $data['conditionSelect'] = $this->condition->getConditionSelect();
-                $nMastTypeID = null;
+            $data['editmast'] = false;
+            $nmasttypeid = $this->input->post('nmasttypeid');
+            $selectedmast = $this->input->post('smastid');
+            //hier test ob neues boot
+            if ($this->input->post('newmast')) {
+                //$data = newboat($data);
+                $data['newmastobject'] = $this->mast->emptymast();
+                $data['selectedmast'] = null; //$this->mast->emptymast();
+                $data['masttypeselect'] = $this->mast->getmasttypeselect(null);
+                $data['boatselect'] = $this->tools->addnullvalue($this->boat->getboatarrayformasttype(null));
+                $data['conditionselect'] = $this->condition->getconditionselect();
+                $nmasttypeid = null;
             } else {
-                // wenn nicht, dann Das augewählte Boot bearbeiten
-                $data["selectedMast"] = $selectedMast;
-                $data["selectedMastType"] = null;
+                // wenn nicht, dann das augewählte boot bearbeiten
+                $data["selectedmast"] = $selectedmast;
+                $data["selectedmasttype"] = null;
             }
-            if ($this->input->post('saveNewMast')) {
-                $newMast = $this->mast->emptyMast();
-                $newMast['name'] = $this->input->post('mastName');
-                $newMast['mastTypeID'] = $nMastTypeID;
-                $newMast['conditionID'] = $this->input->post('sConditionID');
-                $newMast['boatID'] = $this->input->post('sBoatID');
+            if ($this->input->post('savenewmast')) {
+                $newmast = $this->mast->emptymast();
+                $newmast['name'] = $this->input->post('mastname');
+                $newmast['masttypeid'] = $nmasttypeid;
+                $newmast['conditionid'] = $this->input->post('sconditionid');
+                $newmast['boatid'] = $this->input->post('sboatid');
 
-                $nMastTypeID = null;
-                $this->mast->saveMast($newMast);
+                $nmasttypeid = null;
+                $this->mast->savemast($newmast);
             }
 
-            if ($this->input->post('chooseMast') || $this->input->post('saveMast') || $this->input->post('editMast')) {
-                $mastObject = $this->mast->getMastForID($selectedMast);
-                $data['mastObject'] = $mastObject;
-                $canvasArray = $this->canvas->getCanvasArray($mastObject['mastID']);
-                $data['canvasArrayofMast'] = $canvasArray;
-                print_r($canvasArray);
-                $nMastTypeID = null;
+            if ($this->input->post('choosemast') || $this->input->post('savemast') || $this->input->post('editmast')) {
+                $mastobject = $this->mast->getmastforid($selectedmast);
+                $data['mastobject'] = $mastobject;
+                $canvasarray = $this->canvas->getcanvasarray($mastobject['mastid']);
+                $data['canvasarrayofmast'] = $canvasarray;
+                print_r($canvasarray);
+                $nmasttypeid = null;
 
-                if ($this->input->post('editMast')) {
-//                    echo '<br>edit Boot <br>';
-                    $data['editMast'] = true;
-                    $data['mastTypeSelect'] = $this->mast->getMastTypeSelect($mastObject['boatTypeID']);
-                    $data['boatSelect'] = $this->boat->getBoatNameSelect();
-//                    $data['selectedBoat'] = $mastObject['boatID'];
+                if ($this->input->post('editmast')) {
+//                    echo '<br>edit boot <br>';
+                    $data['editmast'] = true;
+                    $data['masttypeselect'] = $this->mast->getmasttypeselect($mastobject['boattypeid']);
+                    $data['boatselect'] = $this->boat->getboatnameselect();
+//                    $data['selectedboat'] = $mastobject['boatid'];
                 }
-                if ($this->input->post('saveMast')) {
-//                    echo '<br>save Boot <br>';
-                    $mastObject['mastID'] = $this->input->post('eMastID');
-                    $mastObject['mastTypeID'] = $this->input->post('sMastTypeID');
-                    $mastObject['name'] = $this->input->post('mastName');
-                    $mastObject['boatID'] = $this->input->post('sBoatID');
-                    $mastObject['conditionID'] = $this->input->post('eConditionID');
+                if ($this->input->post('savemast')) {
+//                    echo '<br>save boot <br>';
+                    $mastobject['mastid'] = $this->input->post('emastid');
+                    $mastobject['masttypeid'] = $this->input->post('smasttypeid');
+                    $mastobject['name'] = $this->input->post('mastname');
+                    $mastobject['boatid'] = $this->input->post('sboatid');
+                    $mastobject['conditionid'] = $this->input->post('econditionid');
 
-                    $this->mast->saveMast($mastObject);
+                    $this->mast->savemast($mastobject);
                 }
             }
-            if ($this->input->post('deleteMast')) {
-                $this->mast->deleteMast($selectedMast);
-                $this->tools->alertMessage("Mast wurde gelöscht.");
+            if ($this->input->post('deletemast')) {
+                $this->mast->deletemast($selectedmast);
+                $this->tools->alertmessage("mast wurde gelöscht.");
             }
 
-            if (isset($nMastTypeID) && $nMastTypeID != null) {
-                $newMast = $this->mast->emptyMast();
-                $newMast["name"] = $this->input->post('mastName');
-                $newMast["mastTypeID"] = $nMastTypeID;
-                $newMast["conditionID"] = $this->input->post('sConditionID');
-                $newMast["boatID"] = $this->input->post('sBoatID');
-                $data['boatSelect'] = $this->tools->addNullValue($this->boat->getBoatArrayForMastType($newMast["mastTypeID"]));
-                $data['newMastObject'] = $newMast;
-                $data['mastTypeSelect'] = $this->mast->getMastTypeSelect(NULL);
-                $data['conditionSelect'] = $this->condition->getConditionSelect();
-                $data['selectedMast'] = null; //$this->canvas->emptyCanvas();
+            if (isset($nmasttypeid) && $nmasttypeid != null) {
+                $newmast = $this->mast->emptymast();
+                $newmast["name"] = $this->input->post('mastname');
+                $newmast["masttypeid"] = $nmasttypeid;
+                $newmast["conditionid"] = $this->input->post('sconditionid');
+                $newmast["boatid"] = $this->input->post('sboatid');
+                $data['boatselect'] = $this->tools->addnullvalue($this->boat->getboatarrayformasttype($newmast["masttypeid"]));
+                $data['newmastobject'] = $newmast;
+                $data['masttypeselect'] = $this->mast->getmasttypeselect(null);
+                $data['conditionselect'] = $this->condition->getconditionselect();
+                $data['selectedmast'] = null; //$this->canvas->emptycanvas();
             }
-            $data["mastArray"] = $this->mast->getMastNameSelect(NULL);
+            $data["mastarray"] = $this->mast->getmastnameselect(null);
             $this->load->view('v_config_mast', $data);
             $this->load->view('v_wb_footer');
         } else {
-            //Redirect to http://xyz.de/login.html
+            //redirect to http://xyz.de/login.html
             redirect("login");
         }
     }
 
-    function newBoat($data) {
+    function newboat($data) {
         return $data;
     }
 

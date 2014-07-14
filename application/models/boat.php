@@ -1,73 +1,73 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * to change this license header, choose license headers in project properties.
+ * to change this template file, choose tools | templates
  * and open the template in the editor.
  */
 
 /**
- * Description of boat
+ * description of boat
  *
- * @author Jens
+ * @author jens
  */
 class boat extends CI_Model {
 
     public function __construct() {
-        //Laden unserer models (/application/models/user.php)
-        //Methoden des models können dann verwendet werden mit z. B. $this->user->[..];
-        $this->load->model(array('mast', 'calendarEntry'));
+        //laden unserer models (/application/models/user.php)
+        //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
+        $this->load->model(array('mast', 'calendarentry'));
     }
 
     //put your code here
 
 
-    public function fillDataForID($boatID) {
+    public function filldataforid($boatid) {
         $this->db->select('*');
         $this->db->from("boat");
-        $this->db->where("boatid", $boatID);
+        $this->db->where("boatid", $boatid);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             foreach ($query->result_array() as $row) {
-                $this->boatid = $row['boatID'];
+                $this->boatid = $row['boatid'];
                 $this->boattype = new boattype();
-                $this->boattype->fillDataForID($row['boatTypeID']);
+                $this->boattype->filldataforid($row['boattypeid']);
                 $this->name = $row['name'];
                 $this->condition = new condition();
-                $this->condition->fillDataForID($row['conditionID']);
+                $this->condition->filldataforid($row['conditionid']);
 
-//     echo "test = ".$row['boatID']."yyy<br>";
+//     echo "test = ".$row['boatid']."yyy<br>";
             }
             // return $row;
         }
     }
 
-    public function getBoatArray() {
+    public function getboatarray() {
         $this->db->select('*');
         $this->db->from('boat');
         $query = $this->db->get();
         return $query;
     }
 
-    public function getValueArray($val, $result) {
-        $resArray = array();
+    public function getvaluearray($val, $result) {
+        $resarray = array();
 //        echo "val= ".$val."<br>";
 //        echo "übergebener result= ".print_r($result)."<br>";
 
         foreach ($result->result_array() as $row) {
-            $resArray[] = $row[$val];
+            $resarray[] = $row[$val];
         }
-//        echo "resArray = ".print_r($resArray)."<br>";
-        return $resArray;
+//        echo "resarray = ".print_r($resarray)."<br>";
+        return $resarray;
     }
 
-    public function objectAsArray($data) {
+    public function objectasarray($data) {
         $result = array();
         foreach ($data->result_array() as $row) {
             $result[] = array(
                 'name' => $row['name'],
-                'boatTypeID' => $row['boatTypeID'],
-                'conditionID' => $row['conditionID']
+                'boattypeid' => $row['boattypeid'],
+                'conditionid' => $row['conditionid']
             );
             //echo print_r($result);
             return $result;
@@ -76,20 +76,20 @@ class boat extends CI_Model {
 
     //#######################################################################
 
-    public function getBoatNameSelect() {
+    public function getboatnameselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('boat');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['boatID']] = $row['name'];
+            $myresult[$row['boatid']] = $row['name'];
         }
         return $myresult;
     }
 
-    public function getBoatForID($id) {
-        //b.boatid, t.typename, c.Description 
-//        $this->db->query('SELECT * from `boat` as b left join `boattype` as t on b.boatID = t.boatTypeID left JOIN `condition` as c on b.conditionID= c.conditionID');
+    public function getboatforid($id) {
+        //b.boatid, t.typename, c.description 
+//        $this->db->query('select * from `boat` as b left join `boattype` as t on b.boatid = t.boattypeid left join `condition` as c on b.conditionid= c.conditionid');
         $this->db->select('*');
         $this->db->from('boat');
         $this->db->join('boattype', 'boat.boattypeid = boattype.boattypeid', 'left');
@@ -103,120 +103,120 @@ class boat extends CI_Model {
         }
     }
 
-    public function getBoatTypeSelect() {
+    public function getboattypeselect() {
         $myresult = array();
         $this->db->select('*');
         $this->db->from('boattype');
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $myresult[$row['boatTypeID']] = $row['typename'];
+            $myresult[$row['boattypeid']] = $row['typename'];
         }
         return $myresult;
     }
 
-    public function saveBoat($boatObject) {
+    public function saveboat($boatobject) {
         $data = array(
-            'name' => $boatObject['name'],
-            'boatTypeID' => $boatObject["boatTypeID"],
-            'conditionID' => $boatObject["conditionID"]
+            'name' => $boatobject['name'],
+            'boattypeid' => $boatobject["boattypeid"],
+            'conditionid' => $boatobject["conditionid"]
         );
-        if (isset($boatObject["boatID"])) {
-            $id = $boatObject["boatID"];
-            $this->db->where('boatID', $id);
+        if (isset($boatobject["boatid"])) {
+            $id = $boatobject["boatid"];
+            $this->db->where('boatid', $id);
             $this->db->update('boat', $data);
         } else {
             $this->db->insert('boat', $data);
         }
     }
 
-    public function emptyBoat() {
+    public function emptyboat() {
         $data = array(
             'name' => '',
-            'boatTypeID' => '',
-            'conditionID' => ''
+            'boattypeid' => '',
+            'conditionid' => ''
         );
         return $data;
     }
 
-    public function boatReadyForUse($boatid) {
-        $mastArray = array();
+    public function boatreadyforuse($boatid) {
+        $mastarray = array();
         $result = true;
         $this->db->select('*');
         $this->db->from('boat');
         $this->db->join('mast', 'boat.boatid= mast.boatid', 'left');
-        $this->db->join('condition', 'boat.conditionID= condition.conditionID', 'left');
+        $this->db->join('condition', 'boat.conditionid= condition.conditionid', 'left');
         $this->db->where('condition.grade < ', '3');
-        $this->db->where('boat.boatID', $boatid);
+        $this->db->where('boat.boatid', $boatid);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
                 if ($result) {
-                    $result = $this->mast->mastReadyForUse($row['mastID']);
+                    $result = $this->mast->mastreadyforuse($row['mastid']);
                 }
             }
         } else {
-            $result = FALSE;
+            $result = false;
         }
         return $result;
     }
 
-    public function boatArrayForType($boatTypeID) {
+    public function boatarrayfortype($boattypeid) {
         $result = array();
         $this->db->select('*');
         $this->db->from('boat');
-        $this->db->where('boatTypeID', $boatTypeID);
+        $this->db->where('boattypeid', $boattypeid);
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
-            $result[$row['boatID']] = $row['name'];
+            $result[$row['boatid']] = $row['name'];
         }
         return $result;
     }
 
-    public function deleteBoat($boatID) {
-        $this->db->where('boatID', $boatID);
+    public function deleteboat($boatid) {
+        $this->db->where('boatid', $boatid);
         $this->db->delete('boat');
     }
 
-    public function filterArrayByReadyforUse($boatArray) {
+    public function filterarraybyreadyforuse($boatarray) {
         $result = array();
-        foreach ($boatArray as $boatID => $name) {
-            if ($this->boatReadyForUse($boatID)) {
-                $result[$boatID] = $name;
+        foreach ($boatarray as $boatid => $name) {
+            if ($this->boatreadyforuse($boatid)) {
+                $result[$boatid] = $name;
             }
         }
         return $result;
     }
 
-    public function filterArrayForPeriod($from, $to, $boatArray) {
+    public function filterarrayforperiod($from, $to, $boatarray) {
         $result = array();
-        foreach ($boatArray as $boatID => $name) {
-            if ($this->calendarEntry->checkPeriodForBoat($boatID, $from, $to)) {
-                $result[$boatID] = $name;
+        foreach ($boatarray as $boatid => $name) {
+            if ($this->calendarentry->checkperiodforboat($boatid, $from, $to)) {
+                $result[$boatid] = $name;
             }
         }
         return $result;
     }
 
-    public function getBoatArrayReadyForPeriodForBoatType($from, $to, $boatTypeID) {
-        $boatArray = $this->boatArrayForType($boatTypeID);
-        $readyArray = $this->filterArrayByReadyforUse($boatArray);
-        $result = $this->filterArrayForPeriod($from, $to, $readyArray);
+    public function getboatarrayreadyforperiodforboattype($from, $to, $boattypeid) {
+        $boatarray = $this->boatarrayfortype($boattypeid);
+        $readyarray = $this->filterarraybyreadyforuse($boatarray);
+        $result = $this->filterarrayforperiod($from, $to, $readyarray);
         return $result;
     }
 
-    public function getBoatArrayForMastType($mastTypeID) {
+    public function getboatarrayformasttype($masttypeid) {
         $result = array();
-        $this->db->select('boatID, name');
+        $this->db->select('boatid, name');
         $this->db->from('boat');
-        if (isset($mastTypeID) && $mastTypeID != null) {
-            $this->db->join('jtboatmast', 'boat.boatTypeID = jtboatmast.boatTypeID', 'left');
-            $this->db->where('jtboatmast.mastTypeID', $mastTypeID);
+        if (isset($masttypeid) && $masttypeid != null) {
+            $this->db->join('jtboatmast', 'boat.boattypeid = jtboatmast.boattypeid', 'left');
+            $this->db->where('jtboatmast.masttypeid', $masttypeid);
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
                 print_r($row);
-                $result[$row['boatID']] = $row['name'];
+                $result[$row['boatid']] = $row['name'];
             }
         }
         return $result;

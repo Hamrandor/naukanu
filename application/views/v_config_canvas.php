@@ -2,24 +2,24 @@
 
 $this->load->helper("form");
 echo '<table width="100%" border="0"><tr><td>';
-echo form_open("canvasConfig");
+echo form_open("canvasconfig");
 echo "Bitte w&auml;hlen Sie ein Segel aus:<br><br>";
-echo form_dropdown('sCanvasID', $canvasArray, $selectedCanvas);
+echo form_dropdown('scanvasid', $canvasarray, $selectedcanvas);
 echo "<br>";
-echo form_submit('chooseCanvas', 'Segel auswählen');
-echo form_submit('newCanvas', 'neues Segel anlegen');
+echo form_submit('choosecanvas', 'Segel auswählen');
+echo form_submit('newcanvas', 'neues Segel anlegen');
 echo "<br>";
 echo "<br>";
 echo '</td></tr></table>';
 
-if (isset($newCanvasObject)) {
+if (isset($newcanvasobject)) {
     echo '<table width="100%" border="0">';
     echo '<tr>';
     echo '<td width="200px">';
     echo 'Name des neuen Segel: ';
     echo '</td>';
     echo '<td>';
-    echo form_input('canvasName', $newCanvasObject['name']);
+    echo form_input('canvasname', $newcanvasobject['name']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -28,7 +28,7 @@ if (isset($newCanvasObject)) {
     echo '</td>';
     echo '<td>';
     $js = 'onChange="this.form.submit();"';
-    echo form_dropdown('nCanvasTypeID', $canvasTypeSelect, $newCanvasObject['canvasTypeID'], $js);
+    echo form_dropdown('ncanvastypeid', $canvastypeselect, $newcanvasobject['canvastypeid'], $js);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -36,7 +36,7 @@ if (isset($newCanvasObject)) {
     echo 'Zustand:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sConditionID', $conditionSelect, $newCanvasObject['conditionID']);
+    echo form_dropdown('sconditionid', $conditionselect, $newcanvasobject['conditionid']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -44,26 +44,26 @@ if (isset($newCanvasObject)) {
     echo 'Mast:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sMastID', $mastSelect, $newCanvasObject['mastID']);
+    echo form_dropdown('smastid', $mastselect, $newcanvasobject['mastid']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
     echo '<td>';
-    echo form_submit('saveNewCanvas', 'Segel speichern');
+    echo form_submit('savenewcanvas', 'Segel speichern');
     echo '</td>';
     echo '</tr>';
     echo '</table>';
 }
 
-if (isset($canvasObject)) {
-    if ($editCanvas) {
+if (isset($canvasobject)) {
+    if ($editcanvas) {
         echo '<table width="100%" border="0">';
         echo '<tr>';
         echo '<td width="200px">';
         echo 'Name des Segel: ';
         echo '</td>';
         echo '<td>';
-        echo form_input('canvasName', $canvasObject['name']);
+        echo form_input('canvasname', $canvasobject['name']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -71,7 +71,7 @@ if (isset($canvasObject)) {
         echo 'Segeltyp:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sCanvasTypeID', $canvasTypeSelect, $selectedCanvasType);
+        echo form_dropdown('scanvastypeid', $canvastypeselect, $selectedcanvastype);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -79,7 +79,7 @@ if (isset($canvasObject)) {
         echo 'Mast:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sMastID', $mastSelect, $selectedMast);
+        echo form_dropdown('smastid', $mastselect, $selectedmast);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -87,15 +87,15 @@ if (isset($canvasObject)) {
         echo 'Zustand:';
         echo '</td>';
         echo '<td>';
-        echo $canvasObject['Description'];
+        echo $canvasobject['description'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>';
-        echo form_submit('saveCanvas', 'Segel speichern');
+        echo form_submit('savecanvas', 'Segel speichern');
         echo '</td>';
         echo '<td>';
-        echo form_submit('deleteCanvas', 'Segel löschen');
+        echo form_submit('deletecanvas', 'Segel löschen');
         echo '</td>';
         echo '</tr>';
         echo '</table>';
@@ -106,7 +106,7 @@ if (isset($canvasObject)) {
         echo 'Name des Segel: ';
         echo '</td>';
         echo '<td>';
-        echo $canvasObject['name'];
+        echo $canvasobject['name'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -114,7 +114,7 @@ if (isset($canvasObject)) {
         echo 'Segeltyp:';
         echo '</td>';
         echo '<td>';
-        echo $canvasObject['typename'];
+        echo $canvasobject['typename'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -122,7 +122,7 @@ if (isset($canvasObject)) {
         echo 'Mast:';
         echo '</td>';
         echo '<td>';
-        echo $canvasObject['mastname'];
+        echo $canvasobject['mastname'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -130,12 +130,12 @@ if (isset($canvasObject)) {
         echo 'Zustand:';
         echo '</td>';
         echo '<td>';
-        echo $canvasObject['Description'];
+        echo $canvasobject['description'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>';
-        echo form_submit('editCanvas', 'Segel bearbeiten');
+        echo form_submit('editcanvas', 'Segel bearbeiten');
         echo '</td>';
         echo '</tr>';
         echo '</table>';

@@ -7,24 +7,24 @@
  */
 $this->load->helper("form");
 echo '<table width="100%" border="0"><tr><td>';
-echo form_open("courseConfig");
+echo form_open("courseconfig");
 echo "Bitte wählen Sie einen Kurs aus:<br><br>";
-echo form_dropdown('sCourseID', $courseArray, $selectedCourse);
+echo form_dropdown('scourseid', $coursearray, $selectedcourse);
 echo "<br>";
-echo form_submit('chooseCourse', 'Kurs auswählen');
-echo form_submit('newCourse', 'neuen Kurs anlegen');
+echo form_submit('choosecourse', 'Kurs auswählen');
+echo form_submit('newcourse', 'neuen Kurs anlegen');
 echo "<br>";
 echo "<br>";
 echo '</td></tr></table>';
 
-if (isset($newCourseObject)) {
+if (isset($newcourseobject)) {
     echo '<table width="100%" border="0">';
     echo '<tr>';
     echo '<td width="200px">';
     echo 'Name des neuen Kurses: ';
     echo '</td>';
     echo '<td>';
-    echo form_input('courseName', $newCourseObject['courseName']);
+    echo form_input('coursename', $newcourseobject['coursename']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -32,7 +32,7 @@ if (isset($newCourseObject)) {
     echo 'Kurstyp:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sCourseTypeID', $courseTypeSelect, NULL);
+    echo form_dropdown('scoursetypeid', $coursetypeselect, null);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -65,21 +65,21 @@ if (isset($newCourseObject)) {
 //            echo '</tr>';
 //            echo '<tr>';
 //            echo '<td>';
-    echo form_submit('saveNewCourse', 'Kurs speichern');
+    echo form_submit('savenewcourse', 'Kurs speichern');
     echo '</td>';
     echo '</tr>';
     echo '</table>';
 }
 
-if (isset($courseObject)) {
-    if ($editCourse) {
+if (isset($courseobject)) {
+    if ($editcourse) {
         echo '<table width="100%" border="0">';
         echo '<tr>';
         echo '<td width="200px">';
         echo 'Name des Kurses: ';
         echo '</td>';
         echo '<td>';
-        echo form_input('courseName', $courseObject['courseName']);
+        echo form_input('coursename', $courseobject['coursename']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -87,7 +87,7 @@ if (isset($courseObject)) {
         echo 'Kurstyp:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sCourseTypeID', $courseTypeSelect, $courseObject['courseTypeID']);
+        echo form_dropdown('scoursetypeid', $coursetypeselect, $courseobject['coursetypeid']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -120,10 +120,10 @@ if (isset($courseObject)) {
 //                echo '</tr>';
 //                echo '<tr>';
 //                echo '<td>';
-        echo form_submit('saveCourse', 'Kurs speichern');
+        echo form_submit('savecourse', 'Kurs speichern');
         echo '</td>';
         echo '</tr>';
-        echo form_submit('deleteCourse', 'Kurs löschen');
+        echo form_submit('deletecourse', 'Kurs löschen');
         echo '</table>';
     } else {
         echo '<table width="100%" border="0">';
@@ -132,7 +132,7 @@ if (isset($courseObject)) {
         echo 'Name des Kurses: ';
         echo '</td>';
         echo '<td>';
-        echo $courseObject['courseName'];
+        echo $courseobject['coursename'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -140,7 +140,7 @@ if (isset($courseObject)) {
         echo 'Kurstyp: ';
         echo '</td>';
         echo '<td>';
-        echo $courseObject['typename'];
+        echo $courseobject['typename'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -171,7 +171,7 @@ if (isset($courseObject)) {
 //                echo '</tr>';
 //                echo '<tr>';
 //                echo '<td>';
-        echo form_submit('editCourse', 'Kurs bearbeiten');
+        echo form_submit('editcourse', 'Kurs bearbeiten');
         echo '</td>';
         echo '</tr>';
         echo '</table>';

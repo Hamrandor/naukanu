@@ -2,24 +2,24 @@
 
 $this->load->helper("form");
 echo '<table width="100%" border="0"><tr><td>';
-echo form_open("boatConfig");
+echo form_open("boatconfig");
 echo "Bitte wählen Sie ein Boot aus:<br><br>";
-echo form_dropdown('sBoatID', $boatArray, $selectedBoat);
+echo form_dropdown('sboatid', $boatarray, $selectedboat);
 echo "<br>";
-echo form_submit('chooseBoat', 'Boot auswählen');
-echo form_submit('newBoat', 'neues Boot anlegen');
+echo form_submit('chooseboat', 'Boot auswählen');
+echo form_submit('newboat', 'neues Boot anlegen');
 echo "<br>";
 echo "<br>";
 echo '</td></tr></table>';
 
-if (isset($newBoatObject)) {
+if (isset($newboatobject)) {
     echo '<table width="100%" border="0">';
     echo '<tr>';
     echo '<td width="200px">';
     echo 'Name des neuen Bootes: ';
     echo '</td>';
     echo '<td>';
-    echo form_input('boatName', $newBoatObject['name']);
+    echo form_input('boatname', $newboatobject['name']);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -27,7 +27,7 @@ if (isset($newBoatObject)) {
     echo 'Bootstyp:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sBoatTypeID', $boatTypeSelect, null);
+    echo form_dropdown('sboattypeid', $boattypeselect, null);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
@@ -35,26 +35,26 @@ if (isset($newBoatObject)) {
     echo 'Zustand:';
     echo '</td>';
     echo '<td>';
-    echo form_dropdown('sConditionID', $conditionSelect, null);
+    echo form_dropdown('sconditionid', $conditionselect, null);
     echo '</td>';
     echo '</tr>';
     echo '<tr>';
     echo '<td>';
-    echo form_submit('saveNewBoat', 'Boot speichern');
+    echo form_submit('savenewboat', 'boot speichern');
     echo '</td>';
     echo '</tr>';
     echo '</table>';
 }
 
-if (isset($boatObject)) {
-    if ($editBoat) {
+if (isset($boatobject)) {
+    if ($editboat) {
         echo '<table width="100%" border="0">';
         echo '<tr>';
         echo '<td width="200px">';
         echo 'Name des Bootes: ';
         echo '</td>';
         echo '<td>';
-        echo form_input('boatName', $boatObject['name']);
+        echo form_input('boatname', $boatobject['name']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -62,7 +62,7 @@ if (isset($boatObject)) {
         echo 'Bootstyp:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('sBoatTypeID', $boatTypeSelect, $selectedBoatType);
+        echo form_dropdown('sboattypeid', $boattypeselect, $selectedboattype);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -70,15 +70,15 @@ if (isset($boatObject)) {
         echo 'Zustand:';
         echo '</td>';
         echo '<td>';
-        echo $boatObject['Description'];
+        echo $boatobject['description'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>';
-        echo form_submit('saveBoat', 'Boot speichern');
+        echo form_submit('saveboat', 'Boot speichern');
         echo '</td>';
         echo '<td>';
-        echo form_submit('deleteBoat', 'Boot löschen');
+        echo form_submit('deleteboat', 'Boot löschen');
         echo '</td>';
         echo '</tr>';
         echo '</table>';
@@ -89,7 +89,7 @@ if (isset($boatObject)) {
         echo 'Name des Bootes: ';
         echo '</td>';
         echo '<td>';
-        echo $boatObject['name'];
+        echo $boatobject['name'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -97,7 +97,7 @@ if (isset($boatObject)) {
         echo 'Bootstyp:';
         echo '</td>';
         echo '<td>';
-        echo $boatObject['typename'];
+        echo $boatobject['typename'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -105,25 +105,25 @@ if (isset($boatObject)) {
         echo 'Zustand:';
         echo '</td>';
         echo '<td>';
-        echo $boatObject['Description'];
+        echo $boatobject['description'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>';
-        echo form_submit('editBoat', 'Boot bearbeiten');
+        echo form_submit('editboat', 'Boot bearbeiten');
         echo '</td>';
         echo '<td>';
-        echo form_submit('checkBoat', 'Boot prüfen');
+        echo form_submit('checkboat', 'Boot prüfen');
         echo '</td>';
         echo '</tr>';
         echo '</table>';
     }
 }
 
-if (isset($mastarrayofBoat)) {
+if (isset($mastarrayofboat)) {
     $i = 1;
     echo '<br>';
-    foreach ($mastarrayofBoat as $mast) {
+    foreach ($mastarrayofboat as $mast) {
         echo '<table width="100%" border="0">';
         echo '<tr>';
         echo '<td>';
@@ -151,7 +151,7 @@ if (isset($mastarrayofBoat)) {
         echo 'Zustand: ';
         echo '</td>';
         echo '<td>';
-        echo $mast['Description'];
+        echo $mast['description'];
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
