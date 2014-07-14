@@ -55,23 +55,23 @@ class Calendar extends CI_Model {
         foreach ($query->result() as $row) { //for every date fetch data
             $a = array();
             $i = 0;
-            echo "SELECT description
-                                                FROM calendarentry
-                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ";
+//            echo "SELECT description
+//                                                FROM calendarentry
+//                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ";
             $query2 = $this->db->query("SELECT description
                                                 FROM calendarentry
                                                 WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ");
             //date format change back the date format
             //that fetched earlier
-            print_r($row);
+//            print_r($row);
             foreach ($query2->result() as $r) {
-                print_r($r);
+//                print_r($r);
                 $a[$i] = $r->description;     //make data array to put to specific date
                 $i++;
             }
             $cal_data[(int) substr($row->start, 8, 2)] = $a;
         }
-        print_r($cal_data);
+//        print_r($cal_data);
         return $cal_data;
     }
 

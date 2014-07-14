@@ -5,6 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+echo form_open('calendarconfig/showcalendar');
 
 $style = array(
     'class' => 'field_set',
@@ -50,3 +51,4 @@ echo form_fieldset_close();
 //    echo form_hidden($style, $text); 
 echo br();
 echo $calendar . br(3);
+echo form_close();
