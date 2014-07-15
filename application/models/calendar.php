@@ -103,7 +103,7 @@ class Calendar extends CI_Model {
         $hide = "
                 $('.field_set').hide();
             ";
-        $function = "
+        $dayfunction = "
                 $('.field_set').fadeIn(600);
                 $('.this_day').removeClass('selected');
                 $(this).addClass('selected');
@@ -124,28 +124,27 @@ class Calendar extends CI_Model {
                 var event = $('#day_event').val();
                 if ( (selected_day == '') || (event == '')){
                     if(selected_day == ''){
-                        alert('select a valid day')
+                        alert('select a valid day');
                         $('.this_day').removeClass('selected');
                         exit;
                     }
                     if (event == ''){
-                        alert('enter an event')
+                        alert('enter an event');
                     }
                 
                 }else {
                     $.ajax({
-                    url:window.location,
-                    type:'POST',
-                    data:{
-                        day :   selected_day,
-                        event   :   event
-                    } ,
-                    success :   function (msg){
-                        location.reload();
-                    }    
-                    });
-                    }
-            ";
+                        url: window.location.href,
+                        type: 'POST',
+                        data:{
+                            day:   selected_day,
+                            event:   event
+                        } ,
+                        success:   function (){
+                            location.reload();
+                        }    
+                        });
+                    }";
         $cancel_button = "
                $('.field_set').hide();
                $('.this_day').removeClass('selected');
@@ -157,12 +156,12 @@ class Calendar extends CI_Model {
                if (day_event != ''){
                
                 $.ajax({
-                    url:window.location,
-                    type:'POST',
+                    url:window.location.href,
+                    type: 'POST',
                     data:{
-                        day_to_delete :   selected_day,
+                        day_to_delete :   selected_day
                     } ,
-                    success :   function (msg){
+                    success :   function (){
                         location.reload();
                         }
                     });
@@ -171,7 +170,7 @@ class Calendar extends CI_Model {
 //            $this->javascript->click('.calendar td',$function, $click_function);
 //            $this->load->library('jquery');
 //            $this->javascript->onload('.field_set', $hide); 
-        $this->javascript->click('.this_day', $function);
+        $this->javascript->click('.this_day', $dayfunction);
         $this->javascript->click('#addEvent', $add_new_event);
         $this->javascript->click('#cancel', $cancel_button);
         $this->javascript->click('#delete', $delete_button);
