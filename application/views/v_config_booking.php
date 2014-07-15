@@ -146,5 +146,9 @@ if (isset($bookingobject)) {
     }
 }
 
+
 echo form_close();
 
+echo form_open('bookingconfig/sendemail');
+echo form_submit('testmail', 'Test EMail');
+echo form_close();

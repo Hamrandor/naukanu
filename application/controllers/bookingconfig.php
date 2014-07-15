@@ -96,5 +96,19 @@ class bookingconfig extends CI_Controller {
     function newbooking($data) {
         return $data;
     }
+    
+    
+    function sendemail(){
+        $this->load->library('email');
+        $this->email->from('jens@jeschke.biz', 'Jens Jeschke');
+        $this->email->to('jjeschke@web.de');
+        $this->email->cc('sarah@damm.in');
+//        $this->email->bcc('them@their-example.com');
+
+        $this->email->subject('Email Test');
+        $this->email->message('Testing the email class.');
+
+        $this->email->send();
+    }
 
 }
