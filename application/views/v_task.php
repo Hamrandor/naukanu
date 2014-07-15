@@ -2,7 +2,7 @@
 
 if (!isset($stask) || $stask == null) {
     echo "Ihre Aufgaben : <br><br>";
-    echo form_open('taskAdministrator/filterTask');
+    echo form_open('taskadministrator/filtertask');
     echo form_checkbox('created', true, $created, 'onclick="this.form.submit();"') . ' Nur von mir erstellte Aufgaben anzeigen' . br(2);
     echo form_close();
     echo form_open('taskadministrator/selecttask');
