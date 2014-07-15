@@ -33,6 +33,8 @@ class calendarConfig extends CI_Controller {
             $date = "$year-$month-$day";
             $employee = $this->input->post('semployeeid');
             $course = $this->input->post('scourseid');
+            
+//            echo 'lkhjdfaskfhjksfhsghjfaksöfhduifahfd';
             $this->calendar->add_events($date, $event, $employee, $course);
         }
 
