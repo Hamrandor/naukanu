@@ -24,7 +24,7 @@ class calendarConfig extends CI_Controller {
         $this->showCalendar($year, $month);
     }
 
-    public function showCalendar($year = NULL, $month = NULL) {
+    public function showcalendar($year = NULL, $month = NULL) {
         $this->calendar->java_functions();
         if ($this->input->post('day')) {
 
