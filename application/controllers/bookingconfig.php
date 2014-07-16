@@ -75,12 +75,13 @@ class bookingconfig extends CI_Controller {
                 $data['examselect'] = $this->booking->getexamselect();
             }
             if ($this->input->post('savebooking')) {
-//                    echo '<br>save boot <br>';
+                    echo '<br>save boot <br>';
                 $bookingobject['bookingid'] = $this->input->post('bookingno');
                 $bookingobject['courseid'] = $this->input->post('scourseid');
                 $bookingobject['customerid'] = $this->input->post('scustomerid');
                 $bookingobject['boatid'] = $this->input->post('sboatid');
                 $bookingobject['examid'] = $this->input->post('sexamid');
+                print_r($bookingobject);
                 $this->booking->savebooking($bookingobject);
             }
         }
@@ -100,15 +101,33 @@ class bookingconfig extends CI_Controller {
     
     function sendemail(){
         $this->load->library('email');
-        $this->email->from('jens@jeschke.biz', 'Jens Jeschke');
-        $this->email->to('jjeschke@web.de');
-        $this->email->cc('sarah@damm.in');
-//        $this->email->bcc('them@their-example.com');
+        $bookingid = $this->input->post('bookingid');
+        if (isset($bookingid)) {
+            $bookingobject = $this->booking->getbookingforid($bookingid);
+            $this->email->from('jens@jeschke.biz', 'Jens Jeschke');
+            $this->email->to($bookingobject['email']);
+    //        $this->email->bcc('them@their-example.com');
 
-        $this->email->subject('Email Test');
-        $this->email->message('Testing the email class.');
+            $this->email->subject('Buchungsbestätigung');
+            $this->email->message(
+                    'Sehr geehrte(r) '.$bookingobject['salutation'].$bookingobject['c_name'].', \r'
+                    .'hiermit bestätigen wir die Buchung des Kurses '.$bookingobject['coursename'].' \r'
+                    .'Ihr zugeordnetes Boot ist : '.$bookingobject['b_name'].' \r'
+                    .'Die gebuchte Prüfung ist : '.$bookingobject['e_name'].' \r'
+                    .'Mit freundlichen Grüßen \r'
+                    .'Ihre Naukanu Sailing School');
+            $this->email->send();
 
-        $this->email->send();
+            $data = array();
+            $data['selectedbooking'] = $bookingid;
+            $data["bookingarray"] = $this->booking->getbookingnameselect();
+            $data["message"] = 'Ihre Mail wurde verschickt!';
+            $this->load->view('v_wb_head');
+            $this->load->view('v_navigation');
+            $this->load->view('v_config_booking', $data);
+            $this->load->view('v_wb_footer');
+            
+        }
     }
 
 }

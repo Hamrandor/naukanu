@@ -1,10 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 $this->load->helper("form");
 echo '<table width="100%" border="0"><tr><td>';
 echo form_open("bookingconfig");
@@ -99,6 +94,7 @@ if (isset($bookingobject)) {
         echo '<tr>';
         echo '<td>';
         echo form_submit('savebooking', 'Buchung speichern');
+        echo form_hidden('bookingno', $bookingobject['bookingid']);
         echo '</td>';
         echo '</tr>';
         echo form_submit('deletebooking', 'Buchung löschen');
@@ -146,9 +142,14 @@ if (isset($bookingobject)) {
     }
 }
 
+if (isset($bookingobject)) {
+    echo form_close();
+    echo form_hidden('bookingid', $bookingobject['bookingid']);
+    echo form_open('bookingconfig/sendemail');
+    echo form_submit('testmail', 'Test EMail');
+    echo form_close();
+}
 
-echo form_close();
-
-echo form_open('bookingconfig/sendemail');
-echo form_submit('testmail', 'Test EMail');
-echo form_close();
+if (isset($message)) {
+    echo $message;
+}

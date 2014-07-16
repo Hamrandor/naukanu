@@ -19,7 +19,6 @@ class booking extends CI_Model {
         $query = $this->db->get();
         foreach ($query->result_array() as $row) {
             $myresult[$row['bookingid']] = $row['personname'] . " " . $row['coursename'];
-            print_r($row);
         }
         return $myresult;
     }
@@ -34,6 +33,7 @@ class booking extends CI_Model {
 //      $this->db->join('customer', 'booking.customerid = customer.customerid', 'left');
 //      $this->db->join('address', 'customer.addressid = address.addressid', 'left');
         $this->db->join('person', 'booking.personid = person.personid', 'left');
+        $this->db->join('address', 'person.addressid = address.addressid', 'left');
         $this->db->join('boat', 'booking.boatid = boat.boatid', 'left');
         $this->db->join('exam', 'booking.examid = exam.examid', 'left');
         $this->db->where('bookingid', $id);
