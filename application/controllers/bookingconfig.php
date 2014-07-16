@@ -99,22 +99,25 @@ class bookingconfig extends CI_Controller {
     
     
     function sendemail(){
-        $this->load->library('email');
         $data = array();
         $bookingid = $this->input->post('bookingid');
         if (isset($bookingid) && $bookingid != null) {
             $bookingobject = $this->booking->getbookingforid($bookingid);
+    //        $this->email->bcc('them@their-example.com')
+    //         
+            $this->load->library('email');
+            $config['charset'] = 'utf-8';
+            $config['mailtype'] = 'html';
+            $this->email->initialize($config);
             $this->email->from('jens@jeschke.biz', 'Jens Jeschke');
             $this->email->to($bookingobject['email']);
-    //        $this->email->bcc('them@their-example.com');
-
             $this->email->subject('Buchungsbestätigung');
             $this->email->message(
-                    'Sehr geehrte(r) '.$bookingobject['salutation'].$bookingobject['c_name'].', \r'
-                    .'hiermit bestätigen wir die Buchung des Kurses '.$bookingobject['coursename'].' \r'
-                    .'Ihr zugeordnetes Boot ist : '.$bookingobject['b_name'].' \r'
-                    .'Die gebuchte Prüfung ist : '.$bookingobject['e_name'].' \r'
-                    .'Mit freundlichen Grüßen \r'
+                    'Sehr geehrte(r) '.$bookingobject['salutation'].$bookingobject['c_name'].','.br(2)
+                    .'hiermit bestätigen wir die Buchung des Kurses '.$bookingobject['coursename'].br()
+                    .'Ihr zugeordnetes Boot ist : '.$bookingobject['b_name'].br()
+                    .'Die gebuchte Prüfung ist : '.$bookingobject['e_name'].br()
+                    .'Mit freundlichen Grüßen'.br(2)
                     .'Ihre Naukanu Sailing School');
             $this->email->send();
             $data["message"] = 'Ihre Mail wurde verschickt!';
