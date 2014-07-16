@@ -46,7 +46,7 @@ class course extends CI_Model {
         if ($query->num_rows() == 1) {
             foreach ($query->result_array() as $row) {
                 echo 'hier row booking';
-                print_r($row);
+//                print_r($row);
                 return $row;
             }
         }

@@ -65,7 +65,7 @@ class mastconfig extends CI_Controller {
                 $data['mastobject'] = $mastobject;
                 $canvasarray = $this->canvas->getcanvasarray($mastobject['mastid']);
                 $data['canvasarrayofmast'] = $canvasarray;
-                print_r($canvasarray);
+//                print_r($canvasarray);
                 $nmasttypeid = null;
 
                 if ($this->input->post('editmast')) {

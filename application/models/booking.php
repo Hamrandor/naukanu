@@ -40,8 +40,6 @@ class booking extends CI_Model {
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
             foreach ($query->result_array() as $row) {
-                echo 'hier row booking';
-                print_r($row);
                 return $row;
             }
         }
@@ -93,7 +91,7 @@ class booking extends CI_Model {
 
     public function savebooking($bookingobject) {
         //$id = $bookingobject['bookingid'];
-        print_r($bookingobject);
+//        print_r($bookingobject);
         $data = array(
 //                'bookingid' => $bookingobject['bookingid'],
             'courseid' => $bookingobject['courseid'],

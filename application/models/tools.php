@@ -20,7 +20,7 @@ class tools extends CI_Model {
         foreach ($array as $obj) {
             $result[$obj[$idfield]] = $obj[$displayfield];
         }
-        echo "extractdropdownarray = " . print_r($result);
+//        echo "extractdropdownarray = " . print_r($result);
         return $result;
     }
 

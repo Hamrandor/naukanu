@@ -63,8 +63,8 @@ class coursetypeconfig extends CI_Controller {
 //                echo '<br>boot ausgewählt<br>';
             $coursetypeobject = $this->coursetype->getcoursetypeforid($selectedcoursetype);
             $data['coursetypeobject'] = $coursetypeobject;
-            print_r($coursetypeobject);
-            print_r($this->boat->getboatarrayreadyforperiodforboattype('2012-01-01', '2012-01-01', $coursetypeobject['boattypeid']));
+//            print_r($coursetypeobject);
+//            print_r($this->boat->getboatarrayreadyforperiodforboattype('2012-01-01', '2012-01-01', $coursetypeobject['boattypeid']));
 
             if ($this->input->post('editcoursetype')) {
 //                    echo '<br>edit boot <br>';

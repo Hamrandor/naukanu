@@ -68,6 +68,7 @@ class bookingconfig extends CI_Controller {
 
             if ($this->input->post('editbooking')) {
 //                    echo '<br>edit boot <br>';
+//                print_r($bookingobject);
                 $data['editbooking'] = true;
                 $data['courseselect'] = $this->booking->getcourseselect();
                 $data['customerselect'] = $this->booking->getcustomerselect();
@@ -75,17 +76,15 @@ class bookingconfig extends CI_Controller {
                 $data['examselect'] = $this->booking->getexamselect();
             }
             if ($this->input->post('savebooking')) {
-                    echo '<br>save boot <br>';
-                $bookingobject['bookingid'] = $this->input->post('bookingno');
+                //$bookingobject['bookingid'] = $this->input->post('bookingno');
                 $bookingobject['courseid'] = $this->input->post('scourseid');
                 $bookingobject['customerid'] = $this->input->post('scustomerid');
                 $bookingobject['boatid'] = $this->input->post('sboatid');
                 $bookingobject['examid'] = $this->input->post('sexamid');
-                print_r($bookingobject);
                 $this->booking->savebooking($bookingobject);
             }
         }
-        if ($this->input->post('deletebookin')) {
+        if ($this->input->post('deletebooking')) {
             $this->course->deletecourse($selectedbooking);
             $this->tools->alertmessage("buchung wurde gelöscht");
         }
@@ -101,8 +100,9 @@ class bookingconfig extends CI_Controller {
     
     function sendemail(){
         $this->load->library('email');
+        $data = array();
         $bookingid = $this->input->post('bookingid');
-        if (isset($bookingid)) {
+        if (isset($bookingid) && $bookingid != null) {
             $bookingobject = $this->booking->getbookingforid($bookingid);
             $this->email->from('jens@jeschke.biz', 'Jens Jeschke');
             $this->email->to($bookingobject['email']);
@@ -117,17 +117,18 @@ class bookingconfig extends CI_Controller {
                     .'Mit freundlichen Grüßen \r'
                     .'Ihre Naukanu Sailing School');
             $this->email->send();
-
-            $data = array();
-            $data['selectedbooking'] = $bookingid;
-            $data["bookingarray"] = $this->booking->getbookingnameselect();
             $data["message"] = 'Ihre Mail wurde verschickt!';
-            $this->load->view('v_wb_head');
-            $this->load->view('v_navigation');
-            $this->load->view('v_config_booking', $data);
-            $this->load->view('v_wb_footer');
-            
+        } else {
+            $data["message"] = 'Mailversand fehlgeschlagen!';
         }
+            
+
+        $data['selectedbooking'] = $bookingid;
+        $data["bookingarray"] = $this->booking->getbookingnameselect();
+        $this->load->view('v_wb_head');
+        $this->load->view('v_navigation');
+        $this->load->view('v_config_booking', $data);
+        $this->load->view('v_wb_footer');
     }
 
 }

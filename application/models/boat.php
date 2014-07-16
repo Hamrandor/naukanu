@@ -215,7 +215,7 @@ class boat extends CI_Model {
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
-                print_r($row);
+//                print_r($row);
                 $result[$row['boatid']] = $row['name'];
             }
         }

@@ -72,7 +72,7 @@ if (isset($bookingobject)) {
         echo 'Kunde/Reisegruppe:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('scustomerid', $customerselect, $bookingobject['customerid']);
+        echo form_dropdown('scustomerid', $customerselect, $bookingobject['personid']);
         echo '</td>';
         echo '</tr>';
         echo '<tr>';
@@ -144,9 +144,11 @@ if (isset($bookingobject)) {
 
 if (isset($bookingobject)) {
     echo form_close();
-    echo form_hidden('bookingid', $bookingobject['bookingid']);
+//    echo 'BookingObject = '.print_r($bookingobject, true).  br();
+//    echo 'bookingID = '.$bookingobject['bookingid'];
     echo form_open('bookingconfig/sendemail');
-    echo form_submit('testmail', 'Test EMail');
+    echo form_hidden('bookingid', $bookingobject['bookingid']);
+    echo form_submit('mailbutton', 'Buchungsbestätigung verschicken');
     echo form_close();
 }
 

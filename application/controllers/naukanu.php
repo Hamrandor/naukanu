@@ -221,7 +221,7 @@ class naukanu extends CI_Controller {
                 $data['totalmasttypearray'] = $this->mast->getmasttypenameselect(null);
             }
             if ($this->input->post('savemast')) {
-                echo '<br>mast speichern<br> :' . print_r($data);
+//                echo '<br>mast speichern<br> :' . print_r($data);
                 $mast = $this->mast->getmastforid($this->input->post('mastid'));
                 $mast['name'] = $this->input->post('mastname');
                 $mast['masttypeid'] = $this->input->post('smasttypeid');

@@ -41,7 +41,7 @@
     <div id="maincontent" name="maincontent">
         <?php {
             $pagevar = $this->input->get('page');
-            print_r($pagevar);
+//            print_r($pagevar);
             if (isset($pagevar) && $pagevar != null) {
                 switch ($pagevar) {
                     case "Mitarbeiterverwaltung": include("\application/views/v_personnelAdministration_main.php");
