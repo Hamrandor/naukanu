@@ -19,7 +19,7 @@ class bookingconfig extends CI_Controller {
         $this->load->library(array('form_validation', 'session'));
         //laden unserer models (/application/models/user.php)
         //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
-        $this->load->model(array('booking', 'tools'));
+        $this->load->model(array('booking', 'tools', 'calendarentry'));
     }
 
     public function index() {
