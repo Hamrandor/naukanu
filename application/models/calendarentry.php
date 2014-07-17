@@ -15,13 +15,15 @@ class calendarentry extends CI_Model {
 
     //put your code here
 
-    public function checkdateforboat($boatid, $adate) {
+    public function checkdateforboat($adate, $boatid) {
         $result = false;
         $this->db->select('*');
         $this->db->from('calendarentry as ce');
         $this->db->join('booking as b', 'b.courseid= ce.courseid', 'left');
-        $this->db->where('ce.start < ', $adate);
-        $this->db->where('ce.end > ', $adate);
+        $this->db->where('ce.start', $adate);
+//        spätere Erweiterung auf Zeiträume
+//        $this->db->where('ce.start < ', $adate);
+//        $this->db->where('ce.end > ', $adate);
         $this->db->where('b.boatid', $boatid);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -32,6 +34,7 @@ class calendarentry extends CI_Model {
         return $result;
     }
 
+    //später
     public function checkperiodforboat($boatid, $astart, $aend) {
         $result = false;
         if ($aend > $astart) {
@@ -48,6 +51,30 @@ class calendarentry extends CI_Model {
                 $result = true;
             }
         }
+        return $result;
+    }
+    
+    
+    public function getcalendarentryarrayforcourseid($courseid){
+        $result = array();
+        $this->db->select('*');
+        $this->db->from('calendarentry');
+        $this->db->where('courseid', $courseid);
+        if ($query->num_rows() > 0) {
+            foreach ($data->result_array() as $row) {
+                $result[] = $row;
+            }
+        }
+        return $result;
+    }
+    
+    public function checkboatassignmenttocourse($boatid, $courseid){
+        $result = true;
+        foreach ($this->getcalendarentryarrayforcourseid($courseid) as $ce) {
+            if (!($this->checkdateforboat($ce['start'], $boatid))){
+                return FALSE;
+            }
+        }    
         return $result;
     }
 

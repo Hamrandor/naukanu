@@ -56,7 +56,11 @@ class bookingconfig extends CI_Controller {
 //                print_r($newbooking);
 //                $test= $this->input->post();
 //                print_r($test);
-            $this->booking->savebooking($newbooking);
+            if ($this->calendarentry->checkboatassignmenttocourse($newbooking['boatid'], $newbooking['courseid'])){
+                $this->booking->savebooking($newbooking);
+            } else {
+                $this->tools->alertmessage("Boot ist an einem Termin bereits gebucht");
+            }
         }
 
         if ($this->input->post('choosebooking') || $this->input->post('savebooking') || $this->input->post('editbooking')) {
@@ -81,7 +85,12 @@ class bookingconfig extends CI_Controller {
                 $bookingobject['customerid'] = $this->input->post('scustomerid');
                 $bookingobject['boatid'] = $this->input->post('sboatid');
                 $bookingobject['examid'] = $this->input->post('sexamid');
-                $this->booking->savebooking($bookingobject);
+                if ($this->calendarentry->checkboatassignmenttocourse($bookingobject['boatid'], $bookingobject['courseid'])){
+                    $this->booking->savebooking($bookingobject);
+                } else {
+                    $this->tools->alertmessage("Boot ist an einem Termin bereits gebucht");
+                }
+                
             }
         }
         if ($this->input->post('deletebooking')) {
