@@ -21,7 +21,7 @@ class calendarConfig extends CI_Controller {
         if (!$month) {
             $month = date('m');
         }
-        $this->showCalendar($year, $month);
+        $this->showcalendar($year, $month);
     }
 
     public function showcalendar($year = NULL, $month = NULL) {
