@@ -60,8 +60,9 @@ class calendarentry extends CI_Model {
         $this->db->select('*');
         $this->db->from('calendarentry');
         $this->db->where('courseid', $courseid);
+        $query = $this->db->get();
         if ($query->num_rows() > 0) {
-            foreach ($data->result_array() as $row) {
+            foreach ($query->result_array() as $row) {
                 $result[] = $row;
             }
         }
