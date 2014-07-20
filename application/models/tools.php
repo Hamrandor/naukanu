@@ -20,7 +20,6 @@ class tools extends CI_Model {
         foreach ($array as $obj) {
             $result[$obj[$idfield]] = $obj[$displayfield];
         }
-//        echo "extractdropdownarray = " . print_r($result);
         return $result;
     }
 
@@ -33,7 +32,7 @@ class tools extends CI_Model {
     }
 
     public function addnullvalue($anarray) {
-        $result = array(null => "keine auswahl");
+        $result = array(null => "keine Auswahl");
         $keyarray = array_keys($anarray);
         foreach ($keyarray as $k) {
             $result[$k] = $anarray[$k];
