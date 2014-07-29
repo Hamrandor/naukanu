@@ -29,17 +29,16 @@ class bookingconfig extends CI_Controller {
         $data['editbooking'] = false;
 
         $selectedbooking = $this->input->post('sbookingid');
-        //hier test ob neues boot
+        //hier test ob neue Buchung
         if ($this->input->post('newbooking')) {
-            //$data = newboat($data);
             $data['newbookingobject'] = $this->booking->emptybooking();
             $data['selectedbooking'] = $this->booking->emptybooking();
             $data['courseselect'] = $this->booking->getcourseselect();
             $data['customerselect'] = $this->booking->getcustomerselect();
             $data['boatselect'] = $this->booking->getboatselect();
-            $data['examselect'] = $this->booking->getexamselect();
+            $data['examselect'] = $this->tools->addnullvalue($this->booking->getexamselect());
         } else {
-            // wenn nicht, dann das augewählte boot bearbeiten
+            // wenn nicht, dann die ausgewählte Buchung bearbeiten
             $data["selectedbooking"] = $selectedbooking;
             $data["selectedcourse"] = null;
             $data["selectedcustomer"] = null;
@@ -48,14 +47,10 @@ class bookingconfig extends CI_Controller {
         }
         if ($this->input->post('savenewbooking')) {
             $newbooking = $this->booking->emptybooking();
-//                $newbooking['bookingid'] = $this->input->post ('bookingno');
             $newbooking['courseid'] = $this->input->post('scourseid');
             $newbooking['customerid'] = $this->input->post('scustomerid');
             $newbooking['boatid'] = $this->input->post('sboatid');
             $newbooking['examid'] = $this->input->post('sexamid');
-//                print_r($newbooking);
-//                $test= $this->input->post();
-//                print_r($test);
             if ($this->calendarentry->checkboatassignmenttocourse($newbooking['boatid'], $newbooking['courseid'])){
                 $this->booking->savebooking($newbooking);
             } else {
@@ -64,15 +59,10 @@ class bookingconfig extends CI_Controller {
         }
 
         if ($this->input->post('choosebooking') || $this->input->post('savebooking') || $this->input->post('editbooking')) {
-//                echo '<br>boot ausgewählt<br>';
             $bookingobject = $this->booking->getbookingforid($selectedbooking);
             $data['bookingobject'] = $bookingobject;
-//                print_r($bookingobject);
-//                print_r($this->boat->getboatarrayreadyforperiodforboattype('2012-01-01', '2012-01-01', $bookingobject['boattypeid']));
 
             if ($this->input->post('editbooking')) {
-//                    echo '<br>edit boot <br>';
-//                print_r($bookingobject);
                 $data['editbooking'] = true;
                 $data['courseselect'] = $this->booking->getcourseselect();
                 $data['customerselect'] = $this->booking->getcustomerselect();
@@ -80,11 +70,11 @@ class bookingconfig extends CI_Controller {
                 $data['examselect'] = $this->booking->getexamselect();
             }
             if ($this->input->post('savebooking')) {
-                //$bookingobject['bookingid'] = $this->input->post('bookingno');
                 $bookingobject['courseid'] = $this->input->post('scourseid');
                 $bookingobject['customerid'] = $this->input->post('scustomerid');
                 $bookingobject['boatid'] = $this->input->post('sboatid');
                 $bookingobject['examid'] = $this->input->post('sexamid');
+                //erst prüfen ob boot verfügbar und einsatzbereit dann speichern
                 if ($this->calendarentry->checkboatassignmenttocourse($bookingobject['boatid'], $bookingobject['courseid'])){
                     $this->booking->savebooking($bookingobject);
                 } else {
@@ -95,7 +85,7 @@ class bookingconfig extends CI_Controller {
         }
         if ($this->input->post('deletebooking')) {
             $this->course->deletecourse($selectedbooking);
-            $this->tools->alertmessage("buchung wurde gelöscht");
+            $this->tools->alertmessage("Buchung wurde gelöscht");
         }
         $data["bookingarray"] = $this->booking->getbookingnameselect();
         $this->load->view('v_config_booking', $data);

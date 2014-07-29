@@ -88,7 +88,7 @@ class mastconfig extends CI_Controller {
             }
             if ($this->input->post('deletemast')) {
                 $this->mast->deletemast($selectedmast);
-                $this->tools->alertmessage("mast wurde gelöscht.");
+                $this->tools->alertmessage("Mast wurde gelöscht.");
             }
 
             if (isset($nmasttypeid) && $nmasttypeid != null) {

@@ -61,7 +61,7 @@ class canvasconfig extends CI_Controller {
                 if ($this->canvas->checkcanvas($newcanvas)) {
                     $this->canvas->savecanvas($newcanvas);
                 } else {
-                    $this->tools->alertmessage("zuordnung masttyp zu segeltyp ist nicht konfiguriert.");
+                    $this->tools->alertmessage("Zuordnung des Masttyp zu Segeltyp ist nicht konfiguriert.");
                 }
             }
 
@@ -90,7 +90,7 @@ class canvasconfig extends CI_Controller {
 
             if ($this->input->post('deletecanvas')) {
                 $this->canvas->deletecanvas($selectedcanvas);
-                $this->tools->alertmessage("segel wurde gelöscht.");
+                $this->tools->alertmessage("Segel wurde gelöscht.");
             }
 
 

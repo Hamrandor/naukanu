@@ -57,9 +57,9 @@ class boatconfig extends CI_Controller {
 
             if ($this->input->post('checkboat')) {
                 if ($this->boat->boatreadyforuse($selectedboat)) {
-                    $this->tools->alertmessage("boot einsatzbereit!");
+                    $this->tools->alertmessage("Boot einsatzbereit!");
                 } else {
-                    $this->tools->alertmessage("boot fehlerhaft konfiguriert.");
+                    $this->tools->alertmessage("Boot fehlerhaft konfiguriert.");
                 }
             }
 
@@ -86,7 +86,7 @@ class boatconfig extends CI_Controller {
 
             if ($this->input->post('deleteboat')) {
                 $this->boat->deleteboat($selectedboat);
-                $this->tools->alertmessage("boot wurde gelöscht.");
+                $this->tools->alertmessage("Boot wurde gelöscht.");
             }
             $data["boatarray"] = $this->boat->getboatnameselect();
 

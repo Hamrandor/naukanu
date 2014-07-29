@@ -91,7 +91,7 @@ class coursetypeconfig extends CI_Controller {
         }
         if ($this->input->post('deletecoursetype')) {
             $this->coursetype->deletecoursetype($selectedcoursetype);
-            $this->tools->alertmessage("kurstyp wurde gelöscht.");
+            $this->tools->alertmessage("Kurstyp wurde gelöscht.");
         }
 
         $data["coursetypearray"] = $this->coursetype->getcoursetypenameselect();

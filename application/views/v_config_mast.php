@@ -12,7 +12,7 @@ echo "<br>";
 echo "<br>";
 echo '</td></tr></table>';
 
-if (isset($newMastObject)) {
+if (isset($newmastobject)) {
     echo '<table width="100%" border="0">';
     echo '<tr>';
     echo '<td width="200px">';
@@ -74,7 +74,7 @@ if (isset($mastobject)) {
         echo 'Masttyp:';
         echo '</td>';
         echo '<td>';
-        echo form_dropdown('smasttypeid', $masttypeselect, $mastobject['masttypeid']);
+        echo form_dropdown('smasttypeid', $masttypeselect, $mastobject['masttypeid'], 'disabled');
         echo '</td>';
         echo '</tr>';
         echo '<tr>';

@@ -40,7 +40,7 @@ if (isset($newboatobject)) {
     echo '</tr>';
     echo '<tr>';
     echo '<td>';
-    echo form_submit('savenewboat', 'boot speichern');
+    echo form_submit('savenewboat', 'Boot speichern');
     echo '</td>';
     echo '</tr>';
     echo '</table>';

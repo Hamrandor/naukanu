@@ -90,7 +90,7 @@ class courseconfig extends CI_Controller {
         }
         if ($this->input->post('deletecourse')) {
             $this->course->deletecourse($selectedcourse);
-            $this->tools->alertmessage("kurs wurde gelöscht");
+            $this->tools->alertmessage("Kurs wurde gelöscht");
         }
         $data['coursearray'] = $this->course->getcoursenameselect();
         $this->load->view('v_config_course', $data);

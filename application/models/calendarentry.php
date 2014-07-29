@@ -8,6 +8,8 @@
 
 /**
  * description of calendarentry
+ * 
+ * Zusatzfunktionen aus dem Material für die Zuordnung von Booten über den Kalender
  *
  * @author jens
  */
@@ -71,11 +73,18 @@ class calendarentry extends CI_Model {
     
     public function checkboatassignmenttocourse($boatid, $courseid){
         $result = true;
-        foreach ($this->getcalendarentryarrayforcourseid($courseid) as $ce) {
-            if (!($this->checkdateforboat($ce['start'], $boatid))){
-                return FALSE;
-            }
-        }    
+        //Check ob Boot i.O.
+        if (!($this->boat->boatreadyforuse($boatid))){
+           $result = false;
+        }
+        //Check ob boot zu den gewünschten Terminen verfügbar (alle Kurstermine)
+        if ($result) {
+            foreach ($this->getcalendarentryarrayforcourseid($courseid) as $ce) {
+                if (!($this->checkdateforboat($ce['start'], $boatid))){
+                    return FALSE;
+                }
+            }    
+        }
         return $result;
     }
 

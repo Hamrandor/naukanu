@@ -12,8 +12,8 @@
             <ul id="submenuCourse">
                 <li><a href="?page=Kurstypverwaltung">Kurstyp verwalten</a></li>
                 <li><a href="?page=Kursverwaltung">Kurs verwalten</a></li>
+                <li><a href="?page=Kalender">Kalendar</a></li>
                 <li><a href="?page=Buchung">Kurse buchen</a></li>
-                <li><a href="?page=Kalendar">Kalendar</a></li>
             </ul>
             <li> <a>Materialverwaltung</a> </li>
             <ul id="submenuMaterial">
