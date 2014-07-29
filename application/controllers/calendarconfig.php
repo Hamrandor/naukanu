@@ -21,7 +21,13 @@ class calendarConfig extends CI_Controller {
         if (!$month) {
             $month = date('m');
         }
-        $this->showcalendar($year, $month);
+        if ($this->session->userdata('login_state') === true) {
+            $this->showcalendar($year, $month);
+        } else {
+            //redirect to http://xyz.de/login.html
+            redirect("login");
+        }
+
     }
 
     public function showcalendar($year = NULL, $month = NULL) {

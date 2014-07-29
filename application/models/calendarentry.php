@@ -16,6 +16,12 @@
 class calendarentry extends CI_Model {
 
     //put your code here
+        public function __construct() {
+        //laden unserer models (/application/models/user.php)
+        //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
+            //boot laden
+    }
+
 
     public function checkdateforboat($adate, $boatid) {
         $result = false;
@@ -85,6 +91,23 @@ class calendarentry extends CI_Model {
                 }
             }    
         }
+        return $result;
+    }
+    
+    public function filterarrayforperiod($from, $to, $boatarray) {
+        $result = array();
+        foreach ($boatarray as $boatid => $name) {
+            if ($this->checkperiodforboat($boatid, $from, $to)) {
+                $result[$boatid] = $name;
+            }
+        }
+        return $result;
+    }
+
+    public function getboatarrayreadyforperiodforboattype($from, $to, $boattypeid) {
+        $boatarray = $this->boat->boatarrayfortype($boattypeid);
+        $readyarray = $this->boat->filterarraybyreadyforuse($boatarray);
+        $result = $this->filterarrayforperiod($from, $to, $readyarray);
         return $result;
     }
 

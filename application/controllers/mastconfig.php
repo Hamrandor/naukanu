@@ -65,18 +65,14 @@ class mastconfig extends CI_Controller {
                 $data['mastobject'] = $mastobject;
                 $canvasarray = $this->canvas->getcanvasarray($mastobject['mastid']);
                 $data['canvasarrayofmast'] = $canvasarray;
-//                print_r($canvasarray);
                 $nmasttypeid = null;
 
                 if ($this->input->post('editmast')) {
-//                    echo '<br>edit boot <br>';
                     $data['editmast'] = true;
                     $data['masttypeselect'] = $this->mast->getmasttypeselect($mastobject['boattypeid']);
                     $data['boatselect'] = $this->boat->getboatnameselect();
-//                    $data['selectedboat'] = $mastobject['boatid'];
                 }
                 if ($this->input->post('savemast')) {
-//                    echo '<br>save boot <br>';
                     $mastobject['mastid'] = $this->input->post('emastid');
                     $mastobject['masttypeid'] = $this->input->post('smasttypeid');
                     $mastobject['name'] = $this->input->post('mastname');

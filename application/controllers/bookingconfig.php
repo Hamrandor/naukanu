@@ -23,73 +23,86 @@ class bookingconfig extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('v_wb_head');
-        $this->load->view('v_navigation');
-        $data = array();
-        $data['editbooking'] = false;
+        if ($this->session->userdata('login_state') === true) {
+            $this->load->view('v_wb_head');
+            $this->load->view('v_navigation');
+            $data = array();
+            $data['editbooking'] = false;
 
-        $selectedbooking = $this->input->post('sbookingid');
-        //hier test ob neue Buchung
-        if ($this->input->post('newbooking')) {
-            $data['newbookingobject'] = $this->booking->emptybooking();
-            $data['selectedbooking'] = $this->booking->emptybooking();
-            $data['courseselect'] = $this->booking->getcourseselect();
-            $data['customerselect'] = $this->booking->getcustomerselect();
-            $data['boatselect'] = $this->booking->getboatselect();
-            $data['examselect'] = $this->tools->addnullvalue($this->booking->getexamselect());
-        } else {
-            // wenn nicht, dann die ausgewählte Buchung bearbeiten
-            $data["selectedbooking"] = $selectedbooking;
-            $data["selectedcourse"] = null;
-            $data["selectedcustomer"] = null;
-            $data["selectedboat"] = null;
-            $data["selectedexam"] = null;
-        }
-        if ($this->input->post('savenewbooking')) {
-            $newbooking = $this->booking->emptybooking();
-            $newbooking['courseid'] = $this->input->post('scourseid');
-            $newbooking['customerid'] = $this->input->post('scustomerid');
-            $newbooking['boatid'] = $this->input->post('sboatid');
-            $newbooking['examid'] = $this->input->post('sexamid');
-            if ($this->calendarentry->checkboatassignmenttocourse($newbooking['boatid'], $newbooking['courseid'])){
-                $this->booking->savebooking($newbooking);
+            //Damit mache ich die ausgewählte Buchung unabhängig vom Dropdown
+            $bookingno = $this->input->post('bookingno');
+            if (isset($bookingno) && $bookingno != null){
+                $selectedbooking = $bookingno;
             } else {
-                $this->tools->alertmessage("Boot ist an einem Termin bereits gebucht");
+                $selectedbooking = $this->input->post('sbookingid');
             }
-        }
 
-        if ($this->input->post('choosebooking') || $this->input->post('savebooking') || $this->input->post('editbooking')) {
-            $bookingobject = $this->booking->getbookingforid($selectedbooking);
-            $data['bookingobject'] = $bookingobject;
-
-            if ($this->input->post('editbooking')) {
-                $data['editbooking'] = true;
+            //hier test ob neue Buchung
+            if ($this->input->post('newbooking')) {
+                $data['newbookingobject'] = $this->booking->emptybooking();
+                $data['selectedbooking'] = $this->booking->emptybooking();
                 $data['courseselect'] = $this->booking->getcourseselect();
                 $data['customerselect'] = $this->booking->getcustomerselect();
                 $data['boatselect'] = $this->booking->getboatselect();
-                $data['examselect'] = $this->booking->getexamselect();
+                $data['examselect'] = $this->tools->addnullvalue($this->booking->getexamselect());
+            } else {
+                // wenn nicht, dann die ausgewählte Buchung bearbeiten
+                $data["selectedbooking"] = $selectedbooking;
+                $data["selectedcourse"] = null;
+                $data["selectedcustomer"] = null;
+                $data["selectedboat"] = null;
+                $data["selectedexam"] = null;
             }
-            if ($this->input->post('savebooking')) {
-                $bookingobject['courseid'] = $this->input->post('scourseid');
-                $bookingobject['customerid'] = $this->input->post('scustomerid');
-                $bookingobject['boatid'] = $this->input->post('sboatid');
-                $bookingobject['examid'] = $this->input->post('sexamid');
-                //erst prüfen ob boot verfügbar und einsatzbereit dann speichern
-                if ($this->calendarentry->checkboatassignmenttocourse($bookingobject['boatid'], $bookingobject['courseid'])){
-                    $this->booking->savebooking($bookingobject);
+            if ($this->input->post('savenewbooking')) {
+                $newbooking = $this->booking->emptybooking();
+                $newbooking['courseid'] = $this->input->post('scourseid');
+                $newbooking['customerid'] = $this->input->post('scustomerid');
+                $newbooking['boatid'] = $this->input->post('sboatid');
+                $newbooking['examid'] = $this->input->post('sexamid');
+                if ($this->calendarentry->checkboatassignmenttocourse($newbooking['boatid'], $newbooking['courseid'])){
+                    $this->booking->savebooking($newbooking);
                 } else {
-                    $this->tools->alertmessage("Boot ist an einem Termin bereits gebucht");
+                    $this->tools->alertmessage("Boot ist einem Termin nicht verfügbar oder nicht einsatzbereit.");
                 }
-                
             }
+
+            if ($this->input->post('choosebooking') || $this->input->post('savebooking') || $this->input->post('editbooking')) {
+                $bookingobject = $this->booking->getbookingforid($selectedbooking);
+                $data['bookingobject'] = $bookingobject;
+
+                if ($this->input->post('editbooking')) {
+                    $data['editbooking'] = true;
+                    $data['courseselect'] = $this->booking->getcourseselect();
+                    $data['customerselect'] = $this->booking->getcustomerselect();
+                    $data['boatselect'] = $this->booking->getboatselect();
+                    $data['examselect'] = $this->booking->getexamselect();
+                }
+                if ($this->input->post('savebooking')) {
+                    $bookingobject['courseid'] = $this->input->post('scourseid');
+                    $bookingobject['customerid'] = $this->input->post('scustomerid');
+                    $bookingobject['boatid'] = $this->input->post('sboatid');
+                    $bookingobject['examid'] = $this->input->post('sexamid');
+                    //erst prüfen ob boot verfügbar und einsatzbereit dann speichern
+                    if ($this->calendarentry->checkboatassignmenttocourse($bookingobject['boatid'], $bookingobject['courseid'])){
+                        $this->booking->savebooking($bookingobject);
+                    } else {
+                        $this->tools->alertmessage("Boot ist einem Termin nicht verfügbar oder nicht einsatzbereit.");
+                    }
+
+                }
+            }
+            if ($this->input->post('deletebooking')) {
+
+                $this->booking->deletebooking($selectedbooking);
+                $this->tools->alertmessage("Buchung wurde gelöscht");
+            }
+            $data["bookingarray"] = $this->booking->getbookingnameselect();
+            $this->load->view('v_config_booking', $data);
+            $this->load->view('v_wb_footer');
+        } else {
+            //redirect to http://xyz.de/login.html
+            redirect("login");
         }
-        if ($this->input->post('deletebooking')) {
-            $this->course->deletecourse($selectedbooking);
-            $this->tools->alertmessage("Buchung wurde gelöscht");
-        }
-        $data["bookingarray"] = $this->booking->getbookingnameselect();
-        $this->load->view('v_config_booking', $data);
-        $this->load->view('v_wb_footer');
     }
 
     function newbooking($data) {

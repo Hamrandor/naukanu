@@ -57,6 +57,7 @@ if (isset($newbookingobject)) {
 }
 
 if (isset($bookingobject)) {
+    echo form_hidden('bookingno', $bookingobject['bookingid']);
     if ($editbooking) {
         echo '<table width="100%" border="0">';
         echo '<tr>';
@@ -93,11 +94,10 @@ if (isset($bookingobject)) {
         echo '</tr>';
         echo '<tr>';
         echo '<td>';
-        echo form_submit('savebooking', 'Buchung speichern');
-        echo form_hidden('bookingno', $bookingobject['bookingid']);
+        echo form_submit('savebooking', 'Buchung speichern').  br();
+        echo form_submit('deletebooking', 'Buchung löschen');
         echo '</td>';
         echo '</tr>';
-        echo form_submit('deletebooking', 'Buchung löschen');
         echo '</table>';
     } else {
         echo '<table width="100%" border="0">';

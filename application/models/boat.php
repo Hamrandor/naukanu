@@ -16,7 +16,7 @@ class boat extends CI_Model {
     public function __construct() {
         //laden unserer models (/application/models/user.php)
         //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
-        $this->load->model(array('mast', 'calendarentry'));
+        $this->load->model(array('mast'));
     }
 
     //put your code here
@@ -187,22 +187,7 @@ class boat extends CI_Model {
         return $result;
     }
 
-    public function filterarrayforperiod($from, $to, $boatarray) {
-        $result = array();
-        foreach ($boatarray as $boatid => $name) {
-            if ($this->calendarentry->checkperiodforboat($boatid, $from, $to)) {
-                $result[$boatid] = $name;
-            }
-        }
-        return $result;
-    }
 
-    public function getboatarrayreadyforperiodforboattype($from, $to, $boattypeid) {
-        $boatarray = $this->boatarrayfortype($boattypeid);
-        $readyarray = $this->filterarraybyreadyforuse($boatarray);
-        $result = $this->filterarrayforperiod($from, $to, $readyarray);
-        return $result;
-    }
 
     public function getboatarrayformasttype($masttypeid) {
         $result = array();

@@ -59,25 +59,21 @@ class boatconfig extends CI_Controller {
                 if ($this->boat->boatreadyforuse($selectedboat)) {
                     $this->tools->alertmessage("Boot einsatzbereit!");
                 } else {
-                    $this->tools->alertmessage("Boot fehlerhaft konfiguriert.");
+                    $this->tools->alertmessage("Boot fehlerhaft konfiguriert oder nicht einsatzbereit.");
                 }
             }
 
-//           $data["assignmast"] = false;
             if ($this->input->post('chooseboat') || $this->input->post('saveboat') || $this->input->post('editboat')) {
-//                echo '<br>boot ausgewählt<br>';
                 $boatobject = $this->boat->getboatforid($selectedboat);
                 $data['boatobject'] = $boatobject;
                 $mastarray = array();
                 $mastarray = $this->mast->getmastarray($boatobject['boatid']);
                 $data['mastarrayofboat'] = $mastarray;
                 if ($this->input->post('editboat')) {
-//                    echo '<br>edit boot <br>';
                     $data['editboat'] = true;
                     $data['boattypeselect'] = $this->boat->getboattypeselect();
                 }
                 if ($this->input->post('saveboat')) {
-//                    echo '<br>save boot <br>';
                     $boatobject['boattypeid'] = $this->input->post('sboattypeid');
                     $boatobject['name'] = $this->input->post('boatname');
                     $this->boat->saveboat($boatobject);

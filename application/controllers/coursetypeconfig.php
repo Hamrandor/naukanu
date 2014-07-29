@@ -25,79 +25,84 @@ class coursetypeconfig extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('v_wb_head');
-        $this->load->view('v_navigation');
-        $data = array();
-        $data['editcoursetype'] = false;
-        $selectedcoursetype = $this->input->post('scoursetypeid');
-        //hier test ob neues boot
-        if ($this->input->post('newcoursetype')) {
-            //$data = newboat($data);
-            $data['newcoursetypeobject'] = $this->coursetype->emptycoursetype();
-            $data['selectedcoursetype'] = $this->coursetype->emptycoursetype();
-            $data['boattypeselect'] = $this->coursetype->getboattypeselect();
-            $data['licenseselect'] = $this->coursetype->getlicenseselect();
-        } else {
-            // wenn nicht, dann das augewählte boot bearbeiten
-            $data["selectedcoursetype"] = $selectedcoursetype;
-            $data["selectedboattype" && 'selectedlicense'] = null;
-        }
-        if ($this->input->post('savenewcoursetype')) {
-            $newcoursetype = $this->coursetype->emptycoursetype();
-            $newcoursetype["c_typename"] = $this->input->post('coursetypename');
-            $newcoursetype['description'] = $this->input->post('description');
-            $newcoursetype['durationdays'] = $this->input->post('durationdays');
-            $newcoursetype['durationhours'] = $this->input->post('durationhours');
-            $newcoursetype['minparticipants'] = $this->input->post('minparticipants');
-            $newcoursetype['maxparticipants'] = $this->input->post('maxparticipants');
-            $newcoursetype['numberofcourseleaders'] = $this->input->post('numberofcourseleaders');
-            $newcoursetype['salary'] = $this->input->post('salary');
-            $newcoursetype['price'] = $this->input->post('price');
-            $newcoursetype['priceexam'] = $this->input->post('priceexam');
-            $newcoursetype['boattypeid'] = $this->input->post('sboattypeid');
-            $newcoursetype['licenseid'] = $this->input->post('slicenseid');
-            $this->coursetype->savecoursetype($newcoursetype);
-        }
+        if ($this->session->userdata('login_state') === true) {
 
-        if ($this->input->post('choosecoursetype') || $this->input->post('savecoursetype') || $this->input->post('editcoursetype')) {
-//                echo '<br>boot ausgewählt<br>';
-            $coursetypeobject = $this->coursetype->getcoursetypeforid($selectedcoursetype);
-            $data['coursetypeobject'] = $coursetypeobject;
-//            print_r($coursetypeobject);
-//            print_r($this->boat->getboatarrayreadyforperiodforboattype('2012-01-01', '2012-01-01', $coursetypeobject['boattypeid']));
-
-            if ($this->input->post('editcoursetype')) {
-//                    echo '<br>edit boot <br>';
-                $data['editcoursetype'] = true;
+            $this->load->view('v_wb_head');
+            $this->load->view('v_navigation');
+            $data = array();
+            $data['editcoursetype'] = false;
+            $selectedcoursetype = $this->input->post('scoursetypeid');
+            //hier test ob neues boot
+            if ($this->input->post('newcoursetype')) {
+                //$data = newboat($data);
+                $data['newcoursetypeobject'] = $this->coursetype->emptycoursetype();
+                $data['selectedcoursetype'] = $this->coursetype->emptycoursetype();
                 $data['boattypeselect'] = $this->coursetype->getboattypeselect();
                 $data['licenseselect'] = $this->coursetype->getlicenseselect();
+            } else {
+                // wenn nicht, dann das augewählte boot bearbeiten
+                $data["selectedcoursetype"] = $selectedcoursetype;
+                $data["selectedboattype" && 'selectedlicense'] = null;
             }
-            if ($this->input->post('savecoursetype')) {
-//                    echo '<br>save boot <br>';
-                $coursetypeobject['boattypeid'] = $this->input->post('sboattypeid');
-                $coursetypeobject['licenseid'] = $this->input->post('slicenseid');
-                $coursetypeobject['c_typename'] = $this->input->post('coursetypename');
-                $coursetypeobject['description'] = $this->input->post('description');
-                $coursetypeobject['durationdays'] = $this->input->post('durationdays');
-                $coursetypeobject['durationhours'] = $this->input->post('durationhours');
-                $coursetypeobject['minparticipants'] = $this->input->post('minparticipants');
-                $coursetypeobject['maxparticipants'] = $this->input->post('maxparticipants');
-                $coursetypeobject['numberofcourseleaders'] = $this->input->post('numberofcourseleaders');
-                $coursetypeobject['salary'] = $this->input->post('salary');
-                $coursetypeobject['price'] = $this->input->post('price');
-                $coursetypeobject['priceexam'] = $this->input->post('priceexam');
-                $this->coursetype->savecoursetype($coursetypeobject);
+            if ($this->input->post('savenewcoursetype')) {
+                $newcoursetype = $this->coursetype->emptycoursetype();
+                $newcoursetype["c_typename"] = $this->input->post('coursetypename');
+                $newcoursetype['description'] = $this->input->post('description');
+                $newcoursetype['durationdays'] = $this->input->post('durationdays');
+                $newcoursetype['durationhours'] = $this->input->post('durationhours');
+                $newcoursetype['minparticipants'] = $this->input->post('minparticipants');
+                $newcoursetype['maxparticipants'] = $this->input->post('maxparticipants');
+                $newcoursetype['numberofcourseleaders'] = $this->input->post('numberofcourseleaders');
+                $newcoursetype['salary'] = $this->input->post('salary');
+                $newcoursetype['price'] = $this->input->post('price');
+                $newcoursetype['priceexam'] = $this->input->post('priceexam');
+                $newcoursetype['boattypeid'] = $this->input->post('sboattypeid');
+                $newcoursetype['licenseid'] = $this->input->post('slicenseid');
+                $this->coursetype->savecoursetype($newcoursetype);
             }
-        }
-        if ($this->input->post('deletecoursetype')) {
-            $this->coursetype->deletecoursetype($selectedcoursetype);
-            $this->tools->alertmessage("Kurstyp wurde gelöscht.");
-        }
 
-        $data["coursetypearray"] = $this->coursetype->getcoursetypenameselect();
-        $this->load->view('v_config_coursetype', $data);
+            if ($this->input->post('choosecoursetype') || $this->input->post('savecoursetype') || $this->input->post('editcoursetype')) {
+    //                echo '<br>boot ausgewählt<br>';
+                $coursetypeobject = $this->coursetype->getcoursetypeforid($selectedcoursetype);
+                $data['coursetypeobject'] = $coursetypeobject;
+    //            print_r($coursetypeobject);
+    //            print_r($this->boat->getboatarrayreadyforperiodforboattype('2012-01-01', '2012-01-01', $coursetypeobject['boattypeid']));
 
-        $this->load->view('v_wb_footer');
+                if ($this->input->post('editcoursetype')) {
+    //                    echo '<br>edit boot <br>';
+                    $data['editcoursetype'] = true;
+                    $data['boattypeselect'] = $this->coursetype->getboattypeselect();
+                    $data['licenseselect'] = $this->coursetype->getlicenseselect();
+                }
+                if ($this->input->post('savecoursetype')) {
+    //                    echo '<br>save boot <br>';
+                    $coursetypeobject['boattypeid'] = $this->input->post('sboattypeid');
+                    $coursetypeobject['licenseid'] = $this->input->post('slicenseid');
+                    $coursetypeobject['c_typename'] = $this->input->post('coursetypename');
+                    $coursetypeobject['description'] = $this->input->post('description');
+                    $coursetypeobject['durationdays'] = $this->input->post('durationdays');
+                    $coursetypeobject['durationhours'] = $this->input->post('durationhours');
+                    $coursetypeobject['minparticipants'] = $this->input->post('minparticipants');
+                    $coursetypeobject['maxparticipants'] = $this->input->post('maxparticipants');
+                    $coursetypeobject['numberofcourseleaders'] = $this->input->post('numberofcourseleaders');
+                    $coursetypeobject['salary'] = $this->input->post('salary');
+                    $coursetypeobject['price'] = $this->input->post('price');
+                    $coursetypeobject['priceexam'] = $this->input->post('priceexam');
+                    $this->coursetype->savecoursetype($coursetypeobject);
+                }
+            }
+            if ($this->input->post('deletecoursetype')) {
+                $this->coursetype->deletecoursetype($selectedcoursetype);
+                $this->tools->alertmessage("Kurstyp wurde gelöscht.");
+            }
+            $data["coursetypearray"] = $this->coursetype->getcoursetypenameselect();
+            $this->load->view('v_config_coursetype', $data);
+
+            $this->load->view('v_wb_footer');
+        } else {
+            //redirect to http://xyz.de/login.html
+            redirect("login");
+        }
     }
 
     function newcoursetype($data) {
