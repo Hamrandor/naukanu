@@ -19,7 +19,9 @@ class calendarentry extends CI_Model {
         public function __construct() {
         //laden unserer models (/application/models/user.php)
         //methoden des models können dann verwendet werden mit z. b. $this->user->[..];
+
             //boot laden
+        $this->load->model(array('boat'));
     }
 
 
@@ -83,7 +85,7 @@ class calendarentry extends CI_Model {
         if (!($this->boat->boatreadyforuse($boatid))){
            $result = false;
         }
-        //Check ob boot zu den gewünschten Terminen verfügbar (alle Kurstermine)
+        //Check ob boot zu den gewuenschten Terminen verfuegbar (alle Kurstermine)
         if ($result) {
             foreach ($this->getcalendarentryarrayforcourseid($courseid) as $ce) {
                 if (!($this->checkdateforboat($ce['start'], $boatid))){

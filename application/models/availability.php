@@ -1,6 +1,13 @@
 <?php
 
-class Calendar extends CI_Model {
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+class availability extends CI_Model {
 
     function generate_calendar($year, $month) {
 //        echo 'Jahr='.$year."   Monat = ".$month."\n";
@@ -63,19 +70,33 @@ class Calendar extends CI_Model {
                                                 WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ");
             //date format change back the date format
             //that fetched earlier
+//            print_r($row);
             foreach ($query2->result() as $r) {
+//                print_r($r);
                 $a[$i] = $r->description;     //make data array to put to specific date
                 $i++;
             }
             $cal_data[(int) substr($row->start, 8, 2)] = $a;
         }
+//        print_r($cal_data);
         return $cal_data;
     }
 
-    function add_events($date, $event, $employeeid, $courseid) {
+    function add_events($date, $event, $employeeid) {
+        echo 'Hier werden Events gespeichert:   date='.$date.'event='.$event.'empid='.$employeeid;
                 
-        $this->db->insert('calendarentry', array('start' => $date, 'description' => $event, 'employeeid' => $employeeid, 'courseid' => $courseid));
-        redirect("calendarconfig");
+        //$events = array(
+        //'start'=>'2014-08-30',
+        //'description'=>'Kinderkurs');
+//            $query = $this->db->get_where('calendarentry',array('start'=>$date));
+//            if ($query->num_rows() > 0) {
+//                $this->db->where('start',$date);
+//                $this->db->update('calendarentry', array('description'=>$event));
+//              //  echo "Event does exist";
+//            }else {
+        $this->db->insert('calendarentry', array('start' => $date, 'description' => $event, 'employeeid' => $employeeid));
+        redirect("leaderavailability");
+//    }
     }
 
     function delete_event($date) {
@@ -83,6 +104,9 @@ class Calendar extends CI_Model {
     }
 
     function java_functions() {
+//            $click_function = "
+//                alert('ok');
+//            ";
         $hide = "
                 $('.field_set').hide();
             ";
@@ -105,8 +129,6 @@ class Calendar extends CI_Model {
         $add_new_event = "
                 var selected_day = $('.selected .day_num').text();
                 var event = $('#day_event').val();
-                var emp = $('#employeeid').val();
-                var course = $('#courseid').val();
                 if ( (selected_day == '') || (event == '')){
                     if(selected_day == ''){
                         alert('select a valid day');
@@ -123,9 +145,7 @@ class Calendar extends CI_Model {
                         type: 'POST',
                         data:{
                             day:   selected_day,
-                            event:   event,
-                            semployeeid:    emp,
-                            scourseid:  course
+                            event:   event
                         } ,
                         success:   function (){
                             location.reload();
@@ -163,70 +183,5 @@ class Calendar extends CI_Model {
         $this->javascript->click('#delete', $delete_button);
         $this->javascript->compile();
     }
-    
-    //Mitarbeiter pro Tag
-    public function get_event_employees($year, $month) {
-        $query = $this->db->query("SELECT DISTINCT DATE_FORMAT(start, '%Y-%m-%e') AS start
-                                            FROM calendarentry
-                                            WHERE start LIKE '$year-$month%' "); //date format eliminates zeros make
-        //days look 05 to 5
-
-        $cal_data = array();
-
-        foreach ($query->result() as $row) { //for every date fetch data
-            $a = array();
-            $i = 0;
-//            echo "SELECT description
-//                                                FROM calendarentry
-//                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ";
-            $query2 = $this->db->query("SELECT employeeid
-                                                FROM calendarentry
-                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ");
-            //date format change back the date format
-            //that fetched earlier
-            foreach ($query2->result() as $r) {
-                $a[$i] = $r->employeeid;     //make data array to put to specific date
-                $i++;
-            }
-            $cal_data[(int) substr($row->start, 8, 2)] = $a;
-        }
-        return $cal_data;
-    }
-    //und die Kurse
-    public function get_event_courses($year, $month) {
-        $query = $this->db->query("SELECT DISTINCT DATE_FORMAT(start, '%Y-%m-%e') AS start
-                                            FROM calendarentry
-                                            WHERE start LIKE '$year-$month%' "); //date format eliminates zeros make
-        //days look 05 to 5
-
-        $cal_data = array();
-
-        foreach ($query->result() as $row) { //for every date fetch data
-            $a = array();
-            $i = 0;
-//            echo "SELECT description
-//                                                FROM calendarentry
-//                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ";
-            $query2 = $this->db->query("SELECT courseid
-                                                FROM calendarentry
-                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ");
-            //date format change back the date format
-            //that fetched earlier
-            foreach ($query2->result() as $r) {
-                $a[$i] = $r->courseid;     //make data array to put to specific date
-                $i++;
-            }
-            $cal_data[(int) substr($row->start, 8, 2)] = $a;
-        }
-        return $cal_data;
-    }
-
 
 }
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-

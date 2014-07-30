@@ -11,7 +11,7 @@
  *
  * @author rnitschke
  */
-class employee extends person {
+class employee extends personmodel {
 
     public function selectexistingemployees() {
         $myresult = array('employeesdata');
@@ -33,5 +33,3 @@ class employee extends person {
 
 }
 
-$employeeid = employeeid;
-$personid = personid;

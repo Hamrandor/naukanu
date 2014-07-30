@@ -164,4 +164,63 @@ class course extends CI_Model {
         $this->db->delete('course');
     }
 
+        //Mitarbeiter pro Tag
+    public function get_event_employees($year, $month) {
+        $query = $this->db->query("SELECT DISTINCT DATE_FORMAT(start, '%Y-%m-%e') AS start
+                                            FROM calendarentry
+                                            WHERE start LIKE '$year-$month%' "); //date format eliminates zeros make
+        //days look 05 to 5
+
+        $cal_data = array();
+
+        foreach ($query->result() as $row) { //for every date fetch data
+            $a = array();
+            $i = 0;
+//            echo "SELECT description
+//                                                FROM calendarentry
+//                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ";
+            $query2 = $this->db->query("SELECT employeeid
+                                                FROM calendarentry
+                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ");
+            //date format change back the date format
+            //that fetched earlier
+            foreach ($query2->result() as $r) {
+                $a[$i] = $r->employeeid;     //make data array to put to specific date
+                $i++;
+            }
+            $cal_data[(int) substr($row->start, 8, 2)] = $a;
+        }
+        return $cal_data;
+    }
+    //und die Kurse
+    public function get_event_courses($year, $month) {
+        $query = $this->db->query("SELECT DISTINCT DATE_FORMAT(start, '%Y-%m-%e') AS start
+                                            FROM calendarentry
+                                            WHERE start LIKE '$year-$month%' "); //date format eliminates zeros make
+        //days look 05 to 5
+
+        $cal_data = array();
+
+        foreach ($query->result() as $row) { //for every date fetch data
+            $a = array();
+            $i = 0;
+//            echo "SELECT description
+//                                                FROM calendarentry
+//                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ";
+            $query2 = $this->db->query("SELECT courseid
+                                                FROM calendarentry
+                                                WHERE start LIKE DATE_FORMAT('$row->start', '%Y-%m-%d 00:00:00') ");
+            //date format change back the date format
+            //that fetched earlier
+            foreach ($query2->result() as $r) {
+                $a[$i] = $r->courseid;     //make data array to put to specific date
+                $i++;
+            }
+            $cal_data[(int) substr($row->start, 8, 2)] = $a;
+        }
+        return $cal_data;
+    }
+
+
+    
 }

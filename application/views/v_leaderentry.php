@@ -1,19 +1,16 @@
 <?php
 
-/*
+/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//echo form_open('calendarconfig/showcalendar');
 
 $style = array(
     'class' => 'field_set',
     'hidden' => 'hidden'
 );
 echo form_hidden($style);
-//echo form_hidden('employeeperday',$employeeperday, 'id="employeeperday"');
-//echo form_hidden('courseperday',$courseperday,'id="courseperday"' );
 echo form_fieldset('Day Event', $style);
 
 $text = array(
@@ -22,8 +19,8 @@ $text = array(
     'style' => 'width:97%'
 );
 echo form_input($text) . br(2);
-echo form_dropdown('scourseid', $coursearray, null, 'id="courseid"');
-echo form_dropdown('semployeeid', $employeearray, null, 'id="employeeid"');
+//echo form_dropdown('scourseid', $coursearray);
+echo form_dropdown('semployeeid', $employeearray);
 
 $text = array(
     'name' => 'addEvent',
@@ -53,4 +50,3 @@ echo form_fieldset_close();
 //    echo form_hidden($style, $text); 
 echo br();
 echo $calendar . br(3);
-//echo form_close();

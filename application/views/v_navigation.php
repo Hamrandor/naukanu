@@ -12,7 +12,7 @@
             <ul id="submenuCourse">
                 <li><a href="?page=Kurstypverwaltung">Kurstyp verwalten</a></li>
                 <li><a href="?page=Kursverwaltung">Kurs verwalten</a></li>
-                <li><a href="?page=Kalender">Kalendar</a></li>
+                <li><a href="?page=Kalender">Kalender</a></li>
                 <li><a href="?page=Buchung">Kurse buchen</a></li>
             </ul>
             <li> <a>Materialverwaltung</a> </li>
@@ -32,7 +32,7 @@
             <li> <a href="?page=Mitarbeiterverwaltung">Mitarbeiterverwaltung</a> </li>
             <ul id="submenuPersonnel">
                 <li>Mitarbeiterdaten bearbeiten</li>
-                <li>Verf&uuml;gungszeitr&auml;ume planen</li>
+                <li><a href="?page=Anwesenheit">Verf&uuml;gungszeitr&auml;ume planen</a></li>
                 <li>Bewertungsnotizen erstellen</li>
                 <li>Abrechnung f&uuml;r Mitarbeiter erstellen</li>
             </ul>
@@ -44,7 +44,7 @@
 //            print_r($pagevar);
             if (isset($pagevar) && $pagevar != null) {
                 switch ($pagevar) {
-                    case "Mitarbeiterverwaltung": include("\application/views/v_personnelAdministration_main.php");
+                    case "Mitarbeiterverwaltung": redirect("naukanu");
                         break;
                     case "Bootsverwaltung": redirect("boatconfig");
                         break;
@@ -62,10 +62,11 @@
                         break;
                     case "Buchung": redirect("bookingconfig");
                         break;
-                    case "Kalendar": redirect("calendarconfig");
+                    case "Kalender": redirect("calendarconfig");
                         break;
-
-                    case "initialPersonnelData": include("\application/views/v_formular_initial_personnelData.php");
+                    case "Kundenverwaltung": redirect("naukanu");
+                        break;
+                    case "Anwesenheit": redirect("leaderavailability");
                         break;
                 }
             }
